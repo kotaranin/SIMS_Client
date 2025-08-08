@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -125,5 +126,9 @@ public class ReportsPanel extends javax.swing.JPanel {
 
     public void updateAddActionListener(ActionListener actionListener) {
         btnUpdateReport.addActionListener(actionListener);
+    }
+
+    public void showReportAddMouseListener(MouseAdapter mouseAdapter) {
+        tblReports.addMouseListener(mouseAdapter);
     }
 }

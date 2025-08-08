@@ -57,8 +57,12 @@ public class Communication {
         return (StudentOfficer) sendRequest(new Request(Operation.LOG_IN, studentOfficer));
     }
 
-    public List<Report> getAllReports() throws ClassNotFoundException, Exception{
+    public List<Report> getAllReports() throws ClassNotFoundException, Exception {
         return (List<Report>) sendRequest(new Request(Operation.GET_ALL_REPORTS, null));
+    }
+
+    public void deleteReport(Report report) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_REPORT, report));
     }
 
 }

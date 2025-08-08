@@ -30,7 +30,7 @@ public class ClientFormController {
         this.logInPanel = new LogInPanel();
         this.reportsPanel = new ReportsPanel();
         // svi paneli ovde
-//        addActionListeners();
+        addActionListeners();
     }
 
     public LogInPanel getLogInPanel() {
