@@ -5,10 +5,14 @@
 package coordinator;
 
 import client_controller.ClientFormController;
+import client_controller.FilePickerFormController;
 import client_controller.LogInPanelController;
 import client_controller.ReportsPanelController;
+import communication.Communication;
+import domain.Report;
 import domain.StudentOfficer;
 import view.ClientForm;
+import view.FilePickerForm;
 
 /**
  *
@@ -21,6 +25,7 @@ public class Coordinator {
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
     private ReportsPanelController reportsPanelController;
+    private FilePickerFormController filePickerFormController;
     // svi kontroleri ovde
 
     private Coordinator() {
@@ -39,10 +44,15 @@ public class Coordinator {
         logInPanelController = new LogInPanelController(clientFormController.getLogInPanel());
     }
 
-    public void openReportsPanel() {
+    public void openReportsPanel() throws Exception {
         reportsPanelController = new ReportsPanelController(clientFormController.getReportsPanel());
         clientFormController.openReportsPanel();
-        reportsPanelController.fillReportsPanel();
+        reportsPanelController.fillReportsPanel(Communication.getInstance().getAllReports());
+    }
+
+    public Report openFilePickerForm() throws Exception {
+        filePickerFormController = new FilePickerFormController(new FilePickerForm());
+        return filePickerFormController.getSelectedReport();
     }
 
 }

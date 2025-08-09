@@ -19,74 +19,26 @@
             <Property name="text" type="java.lang.String" value="Administracija sifarnika"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="menuReports">
+            <MenuItem class="javax.swing.JMenuItem" name="itemReport">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Dnevnik prakse"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itemAddReport">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Kreiraj dnevnik prakse"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemShowReports">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Prikaz dnevnika prakse"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="menuCountry">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemCountry">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Drzava"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itemAddCountry">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Kreiraj drzavu"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemShowCountries">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Prikaz drzava"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="menuExamPeriods">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemExamPeriod">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ispitni rok"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itemAddExamPeriod">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Kreiraj ispitni rok"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemShowExamPeriods">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Prikaz ispitnih rokova"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="menuTeacher">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemTeacher">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nastavnik"/>
               </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="itemAddTeacher">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Dodaj nastavnika"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemShowTeachers">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Prikaz nastavnika"/>
-                  </Properties>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -116,16 +68,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="mainPanel" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="522" max="32767" attributes="0"/>
                       <Component id="lblPlaceholder" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblStudentOfficer" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="mainPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -134,12 +86,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="9" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblPlaceholder" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblStudentOfficer" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="9" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="mainPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

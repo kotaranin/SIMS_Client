@@ -65,4 +65,16 @@ public class Communication {
         sendRequest(new Request(Operation.DELETE_REPORT, report));
     }
 
+    public void insertReport(Report report) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_REPORT, report));
+    }
+
+    public void updateReport(Report report) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_REPORT, report));
+    }
+
+    public List<Report> searchReports(String condition) throws ClassNotFoundException, Exception {
+        return (List<Report>) sendRequest(new Request(Operation.SEARCH_REPORTS, condition));
+    }
+
 }

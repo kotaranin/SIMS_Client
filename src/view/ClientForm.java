@@ -39,18 +39,10 @@ public class ClientForm extends javax.swing.JFrame {
         lblStudentOfficer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menu = new javax.swing.JMenu();
-        menuReports = new javax.swing.JMenu();
-        itemAddReport = new javax.swing.JMenuItem();
-        itemShowReports = new javax.swing.JMenuItem();
-        menuCountry = new javax.swing.JMenu();
-        itemAddCountry = new javax.swing.JMenuItem();
-        itemShowCountries = new javax.swing.JMenuItem();
-        menuExamPeriods = new javax.swing.JMenu();
-        itemAddExamPeriod = new javax.swing.JMenuItem();
-        itemShowExamPeriods = new javax.swing.JMenuItem();
-        menuTeacher = new javax.swing.JMenu();
-        itemAddTeacher = new javax.swing.JMenuItem();
-        itemShowTeachers = new javax.swing.JMenuItem();
+        itemReport = new javax.swing.JMenuItem();
+        itemCountry = new javax.swing.JMenuItem();
+        itemExamPeriod = new javax.swing.JMenuItem();
+        itemTeacher = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -77,45 +69,17 @@ public class ClientForm extends javax.swing.JFrame {
 
         menu.setText("Administracija sifarnika");
 
-        menuReports.setText("Dnevnik prakse");
+        itemReport.setText("Dnevnik prakse");
+        menu.add(itemReport);
 
-        itemAddReport.setText("Kreiraj dnevnik prakse");
-        menuReports.add(itemAddReport);
+        itemCountry.setText("Drzava");
+        menu.add(itemCountry);
 
-        itemShowReports.setText("Prikaz dnevnika prakse");
-        menuReports.add(itemShowReports);
+        itemExamPeriod.setText("Ispitni rok");
+        menu.add(itemExamPeriod);
 
-        menu.add(menuReports);
-
-        menuCountry.setText("Drzava");
-
-        itemAddCountry.setText("Kreiraj drzavu");
-        menuCountry.add(itemAddCountry);
-
-        itemShowCountries.setText("Prikaz drzava");
-        menuCountry.add(itemShowCountries);
-
-        menu.add(menuCountry);
-
-        menuExamPeriods.setText("Ispitni rok");
-
-        itemAddExamPeriod.setText("Kreiraj ispitni rok");
-        menuExamPeriods.add(itemAddExamPeriod);
-
-        itemShowExamPeriods.setText("Prikaz ispitnih rokova");
-        menuExamPeriods.add(itemShowExamPeriods);
-
-        menu.add(menuExamPeriods);
-
-        menuTeacher.setText("Nastavnik");
-
-        itemAddTeacher.setText("Dodaj nastavnika");
-        menuTeacher.add(itemAddTeacher);
-
-        itemShowTeachers.setText("Prikaz nastavnika");
-        menuTeacher.add(itemShowTeachers);
-
-        menu.add(menuTeacher);
+        itemTeacher.setText("Nastavnik");
+        menu.add(itemTeacher);
 
         jMenuBar1.add(menu);
 
@@ -125,25 +89,25 @@ public class ClientForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 522, Short.MAX_VALUE)
                         .addComponent(lblPlaceholder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStudentOfficer)))
+                        .addComponent(lblStudentOfficer))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlaceholder)
                     .addComponent(lblStudentOfficer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -172,14 +136,10 @@ public class ClientForm extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem itemAddCountry;
-    private javax.swing.JMenuItem itemAddExamPeriod;
-    private javax.swing.JMenuItem itemAddReport;
-    private javax.swing.JMenuItem itemAddTeacher;
-    private javax.swing.JMenuItem itemShowCountries;
-    private javax.swing.JMenuItem itemShowExamPeriods;
-    private javax.swing.JMenuItem itemShowReports;
-    private javax.swing.JMenuItem itemShowTeachers;
+    private javax.swing.JMenuItem itemCountry;
+    private javax.swing.JMenuItem itemExamPeriod;
+    private javax.swing.JMenuItem itemReport;
+    private javax.swing.JMenuItem itemTeacher;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem3;
@@ -187,41 +147,22 @@ public class ClientForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblStudentOfficer;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenu menu;
-    private javax.swing.JMenu menuCountry;
-    private javax.swing.JMenu menuExamPeriods;
-    private javax.swing.JMenu menuReports;
-    private javax.swing.JMenu menuTeacher;
     // End of variables declaration//GEN-END:variables
 
-    public void addReportAddActionListener(ActionListener actionListener) {
-        itemAddReport.addActionListener(actionListener);
-    }
-
     public void showReportsAddActionListener(ActionListener actionListener) {
-        itemShowReports.addActionListener(actionListener);
-    }
-
-    public void addCountryAddActionListener(ActionListener actionListener) {
-        itemAddCountry.addActionListener(actionListener);
+        itemReport.addActionListener(actionListener);
     }
 
     public void showCountriesAddActionListener(ActionListener actionListener) {
-        itemShowCountries.addActionListener(actionListener);
-    }
-
-    public void addExamPeriodAddActionListener(ActionListener actionListener) {
-        itemAddExamPeriod.addActionListener(actionListener);
+        itemCountry.addActionListener(actionListener);
     }
 
     public void showExamPeriodsAddActionListener(ActionListener actionListener) {
-        itemShowExamPeriods.addActionListener(actionListener);
-    }
-
-    public void addTeacherAddActionListener(ActionListener actionListener) {
-        itemAddTeacher.addActionListener(actionListener);
+        itemExamPeriod.addActionListener(actionListener);
     }
 
     public void showTeachersAddActionListener(ActionListener actionListener) {
-        itemShowTeachers.addActionListener(actionListener);
+        itemTeacher.addActionListener(actionListener);
     }
+
 }

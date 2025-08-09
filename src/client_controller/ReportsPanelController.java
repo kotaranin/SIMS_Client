@@ -5,21 +5,24 @@
 package client_controller;
 
 import communication.Communication;
+import coordinator.Coordinator;
 import domain.Report;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import table_models.ReportTableModel;
 import view.ReportsPanel;
 
@@ -38,9 +41,8 @@ public class ReportsPanelController {
         addActionListeners();
     }
 
-    public void fillReportsPanel()  {
+    public void fillReportsPanel(List<Report> reports) {
         try {
-            List<Report> reports = communication.getAllReports();
             reportsPanel.getTblReports().setModel(new ReportTableModel(reports));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(reportsPanel, "Sistem nije uspeo da vrati dnevnike prakse.", "Greska", JOptionPane.ERROR_MESSAGE);
@@ -51,37 +53,60 @@ public class ReportsPanelController {
         reportsPanel.getTxtFileName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                search();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                search();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
-        });
-        reportsPanel.deleteAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+
+            private void search() {
                 try {
-                    int row = reportsPanel.getTblReports().getSelectedRow();
-                    Report report = (Report) ((ReportTableModel) reportsPanel.getTblReports().getModel()).getValueAt(row, 1);
-                    communication.deleteReport(report);
-                    JOptionPane.showMessageDialog(reportsPanel, "Sistem je obrisao dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                    fillReportsPanel();
+                    String fileName = reportsPanel.getTxtFileName().getText();
+                    fillReportsPanel(communication.searchReports(" WHERE LOWER(file_name) LIKE LOWER('%" + fileName + "%')"));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(reportsPanel, "Sistem ne moze da obrise dnevnik prakse.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        reportsPanel.updateAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        reportsPanel.deleteReportAddActionListener((ActionEvent e) -> {
+            try {
+                int row = reportsPanel.getTblReports().getSelectedRow();
+                Report report = (Report) ((ReportTableModel) reportsPanel.getTblReports().getModel()).getValueAt(row, 1);
+                communication.deleteReport(report);
+                JOptionPane.showMessageDialog(reportsPanel, "Sistem je obrisao dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                fillReportsPanel(communication.getAllReports());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        reportsPanel.insertReportAddActionListener((ActionEvent e) -> {
+            try {
+                Report report = Coordinator.getInstance().openFilePickerForm();
+                communication.insertReport(report);
+                JOptionPane.showMessageDialog(reportsPanel, "Sistem je zapamtio dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                fillReportsPanel(communication.getAllReports());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        reportsPanel.updateReportAddActionListener((ActionEvent e) -> {
+            try {
+                Report selectedReport = Coordinator.getInstance().openFilePickerForm();
+                int row = reportsPanel.getTblReports().getSelectedRow();
+                Report report = (Report) reportsPanel.getTblReports().getValueAt(row, 1);
+                report.setFileName(selectedReport.getFileName());
+                report.setFileContent(selectedReport.getFileContent());
+                communication.updateReport(report);
+                JOptionPane.showMessageDialog(reportsPanel, "Sistem je zapamtio dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                fillReportsPanel(communication.getAllReports());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
         });
         reportsPanel.showReportAddMouseListener(new MouseAdapter() {
@@ -101,7 +126,7 @@ public class ReportsPanelController {
                     }
                 }
             }
-            
+
         });
     }
 

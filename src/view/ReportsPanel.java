@@ -38,6 +38,7 @@ public class ReportsPanel extends javax.swing.JPanel {
         tblReports = new javax.swing.JTable();
         btnDeleteReport = new javax.swing.JButton();
         btnUpdateReport = new javax.swing.JButton();
+        btnAddReport = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Dnevnici prakse");
@@ -61,6 +62,8 @@ public class ReportsPanel extends javax.swing.JPanel {
 
         btnUpdateReport.setText("Azuriraj");
 
+        btnAddReport.setText("Dodaj");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,8 +80,10 @@ public class ReportsPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDeleteReport)
+                        .addComponent(btnAddReport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDeleteReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdateReport)))
                 .addContainerGap())
         );
@@ -96,8 +101,9 @@ public class ReportsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeleteReport)
-                    .addComponent(btnUpdateReport))
-                .addContainerGap(7, Short.MAX_VALUE))
+                    .addComponent(btnUpdateReport)
+                    .addComponent(btnAddReport))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -111,6 +117,7 @@ public class ReportsPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddReport;
     private javax.swing.JButton btnDeleteReport;
     private javax.swing.JButton btnUpdateReport;
     private javax.swing.JLabel jLabel1;
@@ -120,15 +127,19 @@ public class ReportsPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtFileName;
     // End of variables declaration//GEN-END:variables
 
-    public void deleteAddActionListener(ActionListener actionListener) {
+    public void deleteReportAddActionListener(ActionListener actionListener) {
         btnDeleteReport.addActionListener(actionListener);
     }
 
-    public void updateAddActionListener(ActionListener actionListener) {
+    public void updateReportAddActionListener(ActionListener actionListener) {
         btnUpdateReport.addActionListener(actionListener);
     }
 
     public void showReportAddMouseListener(MouseAdapter mouseAdapter) {
         tblReports.addMouseListener(mouseAdapter);
+    }
+
+    public void insertReportAddActionListener(ActionListener actionListener) {
+        btnAddReport.addActionListener(actionListener);
     }
 }

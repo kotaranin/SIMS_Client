@@ -59,56 +59,45 @@ public class ClientFormController {
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
         clientForm.getLblStudentOfficer().setText(Coordinator.studentOfficer.toString());
+        // pomeriti ovo iznad da bude za strucnu praksu
         cardLayout.show(clientForm.getMainPanel(), "reportsPanel");
     }
 
+    public void openCountriesPanel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void openExamPeriodsPanel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void openTeacherPanel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     private void addActionListeners() {
-        clientForm.addReportAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        });
         clientForm.showReportsAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openReportsPanel();
             }
         });
-        clientForm.addCountryAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        });
         clientForm.showCountriesAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        });
-        clientForm.addExamPeriodAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                openCountriesPanel();
             }
         });
         clientForm.showExamPeriodsAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        });
-        clientForm.addTeacherAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                openExamPeriodsPanel();
             }
         });
         clientForm.showTeachersAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                openTeacherPanel();
             }
         });
         // za svaku stavku menija, ovde
