@@ -4,18 +4,18 @@
  */
 package table_models;
 
-import domain.Report;
+import domain.Country;
 import java.util.List;
 
 /**
  *
  * @author kotar
  */
-public class ReportTableModel extends AbstractTM {
+public class CountryTableModel extends AbstractTM {
 
-    public ReportTableModel(List<Report> list) {
+    public CountryTableModel(List<Country> list) {
         super(list);
-        super.columns = new String[]{"ID", "Naziv datoteke"};
+        super.columns = new String[]{"ID", "Drzava"};
     }
 
     @Override
@@ -23,15 +23,13 @@ public class ReportTableModel extends AbstractTM {
         if (list == null) {
             return null;
         }
-        Report report = (Report) list.get(rowIndex);
+        Country country = (Country) list.get(rowIndex);
         switch (columnIndex) {
-            case 0 -> {
-                return report.getIdReport();
-            }
-            case 1 -> {
-                return report;
-            }
-            default ->
+            case 0:
+                return country.getIdCountry();
+            case 1:
+                return country;
+            default:
                 throw new AssertionError();
         }
     }

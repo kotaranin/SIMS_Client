@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package client_controller;
+package controllers;
 
 import coordinator.Coordinator;
 import view.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import view.CountriesPanel;
 import view.LogInPanel;
 import view.ReportsPanel;
 
@@ -18,19 +19,27 @@ import view.ReportsPanel;
  */
 public class ClientFormController {
 
+    private final Coordinator coordinator;
     private final ClientForm clientForm;
     private final CardLayout cardLayout;
     private final LogInPanel logInPanel;
     private final ReportsPanel reportsPanel;
+    private final CountriesPanel countriesPanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
+        this.coordinator = Coordinator.getInstance();
         this.clientForm = clientForm;
         this.cardLayout = new CardLayout();
         this.logInPanel = new LogInPanel();
         this.reportsPanel = new ReportsPanel();
+        this.countriesPanel = new CountriesPanel();
         // svi paneli ovde
         addActionListeners();
+    }
+
+    public ClientForm getClientForm() {
+        return clientForm;
     }
 
     public LogInPanel getLogInPanel() {
@@ -39,6 +48,10 @@ public class ClientFormController {
 
     public ReportsPanel getReportsPanel() {
         return reportsPanel;
+    }
+
+    public CountriesPanel getCountriesPanel() {
+        return countriesPanel;
     }
 
     // svi getteri panela ovde
@@ -51,6 +64,7 @@ public class ClientFormController {
         clientForm.getMainPanel().setLayout(cardLayout);
         clientForm.getMainPanel().add(logInPanel.getLogInPanel(), "logInPanel");
         clientForm.getMainPanel().add(reportsPanel, "reportsPanel");
+        clientForm.getMainPanel().add(countriesPanel, "countriesPanel");
         // svi paneli ovde
     }
 
@@ -64,7 +78,12 @@ public class ClientFormController {
     }
 
     public void openCountriesPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "countriesPanel");
+            coordinator.openCountriesPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void openExamPeriodsPanel() {
@@ -76,29 +95,17 @@ public class ClientFormController {
     }
 
     private void addActionListeners() {
-        clientForm.showReportsAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openReportsPanel();
-            }
+        clientForm.showReportsAddActionListener((ActionEvent e) -> {
+            openReportsPanel();
         });
-        clientForm.showCountriesAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openCountriesPanel();
-            }
+        clientForm.showCountriesAddActionListener((ActionEvent e) -> {
+            openCountriesPanel();
         });
-        clientForm.showExamPeriodsAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openExamPeriodsPanel();
-            }
+        clientForm.showExamPeriodsAddActionListener((ActionEvent e) -> {
+            openExamPeriodsPanel();
         });
-        clientForm.showTeachersAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openTeacherPanel();
-            }
+        clientForm.showTeachersAddActionListener((ActionEvent e) -> {
+            openTeacherPanel();
         });
         // za svaku stavku menija, ovde
     }

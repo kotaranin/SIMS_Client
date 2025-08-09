@@ -4,15 +4,20 @@
  */
 package coordinator;
 
-import client_controller.ClientFormController;
-import client_controller.FilePickerFormController;
-import client_controller.LogInPanelController;
-import client_controller.ReportsPanelController;
+import controllers.ClientFormController;
+import controllers.FilePickerFormController;
+import controllers.LogInPanelController;
+import controllers.ReportsPanelController;
 import communication.Communication;
+import controllers.CountriesPanelController;
+import controllers.InsertCountryController;
+import domain.Country;
 import domain.Report;
 import domain.StudentOfficer;
+import enums.Mode;
 import view.ClientForm;
 import view.FilePickerForm;
+import view.InsertCountryForm;
 
 /**
  *
@@ -21,14 +26,18 @@ import view.FilePickerForm;
 public class Coordinator {
 
     private static Coordinator instance;
+    private final Communication communication;
     public static StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
     private ReportsPanelController reportsPanelController;
     private FilePickerFormController filePickerFormController;
+    private CountriesPanelController countriesPanelController;
+    private InsertCountryController insertCountryController;
     // svi kontroleri ovde
 
     private Coordinator() {
+        this.communication = Communication.getInstance();
     }
 
     public static Coordinator getInstance() {
@@ -47,12 +56,22 @@ public class Coordinator {
     public void openReportsPanel() throws Exception {
         reportsPanelController = new ReportsPanelController(clientFormController.getReportsPanel());
         clientFormController.openReportsPanel();
-        reportsPanelController.fillReportsPanel(Communication.getInstance().getAllReports());
+        reportsPanelController.fillReports(communication.getAllReports());
     }
 
     public Report openFilePickerForm() throws Exception {
         filePickerFormController = new FilePickerFormController(new FilePickerForm());
         return filePickerFormController.getSelectedReport();
+    }
+
+    public void openCountriesPanel() throws Exception {
+        countriesPanelController = new CountriesPanelController(clientFormController.getCountriesPanel());
+        countriesPanelController.fillCountries(communication.getAllCountries());
+    }
+
+    public void openInsertCountriesForm(Country country, Mode mode) {
+        insertCountryController = new InsertCountryController(new InsertCountryForm(clientFormController.getClientForm(), true), country, mode);
+        insertCountryController.openInsertCountryForm();
     }
 
 }

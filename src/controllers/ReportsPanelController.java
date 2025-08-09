@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package client_controller;
+package controllers;
 
 import communication.Communication;
 import coordinator.Coordinator;
@@ -14,15 +14,12 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import table_models.ReportTableModel;
 import view.ReportsPanel;
 
@@ -41,15 +38,18 @@ public class ReportsPanelController {
         addActionListeners();
     }
 
-    public void fillReportsPanel(List<Report> reports) {
-        try {
-            reportsPanel.getTblReports().setModel(new ReportTableModel(reports));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(reportsPanel, "Sistem nije uspeo da vrati dnevnike prakse.", "Greska", JOptionPane.ERROR_MESSAGE);
-        }
+    public void fillReports(List<Report> reports) {
+        reportsPanel.getTblReports().setModel(new ReportTableModel(reports));
     }
 
     private void addActionListeners() {
+        reportsPanel.getTblReports().getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                boolean selected = reportsPanel.getTblReports().getSelectedRow() != -1;
+                reportsPanel.getBtnDeleteReport().setEnabled(selected);
+                reportsPanel.getBtnUpdateReport().setEnabled(selected);
+            }
+        });
         reportsPanel.getTxtFileName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -68,7 +68,7 @@ public class ReportsPanelController {
             private void search() {
                 try {
                     String fileName = reportsPanel.getTxtFileName().getText();
-                    fillReportsPanel(communication.searchReports(" WHERE LOWER(file_name) LIKE LOWER('%" + fileName + "%')"));
+                    fillReports(communication.searchReports(" WHERE LOWER(file_name) LIKE LOWER('%" + fileName + "%')"));
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -80,7 +80,7 @@ public class ReportsPanelController {
                 Report report = (Report) ((ReportTableModel) reportsPanel.getTblReports().getModel()).getValueAt(row, 1);
                 communication.deleteReport(report);
                 JOptionPane.showMessageDialog(reportsPanel, "Sistem je obrisao dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                fillReportsPanel(communication.getAllReports());
+                fillReports(communication.getAllReports());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
@@ -90,7 +90,7 @@ public class ReportsPanelController {
                 Report report = Coordinator.getInstance().openFilePickerForm();
                 communication.insertReport(report);
                 JOptionPane.showMessageDialog(reportsPanel, "Sistem je zapamtio dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                fillReportsPanel(communication.getAllReports());
+                fillReports(communication.getAllReports());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
@@ -104,7 +104,7 @@ public class ReportsPanelController {
                 report.setFileContent(selectedReport.getFileContent());
                 communication.updateReport(report);
                 JOptionPane.showMessageDialog(reportsPanel, "Sistem je zapamtio dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                fillReportsPanel(communication.getAllReports());
+                fillReports(communication.getAllReports());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }

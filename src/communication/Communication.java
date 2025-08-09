@@ -4,6 +4,7 @@
  */
 package communication;
 
+import domain.Country;
 import domain.Report;
 import domain.StudentOfficer;
 import enums.Operation;
@@ -75,6 +76,26 @@ public class Communication {
 
     public List<Report> searchReports(String condition) throws ClassNotFoundException, Exception {
         return (List<Report>) sendRequest(new Request(Operation.SEARCH_REPORTS, condition));
+    }
+
+    public List<Country> getAllCountries() throws ClassNotFoundException, Exception {
+        return (List<Country>) sendRequest(new Request(Operation.GET_ALL_COUNTRIES, null));
+    }
+
+    public void deleteCountry(Country country) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_COUNTRY, country));
+    }
+
+    public void insertCountry(Country country) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_COUNTRY, country));
+    }
+
+    public void updateCountry(Country country) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_COUNTRY, country));
+    }
+
+    public List<Country> searchCountries(String condition) throws ClassNotFoundException, Exception {
+        return (List<Country>) sendRequest(new Request(Operation.SEARCH_COUNTRIES, condition));
     }
 
 }

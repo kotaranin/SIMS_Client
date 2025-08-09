@@ -5,7 +5,6 @@
 package view;
 
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -14,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author kotar
  */
-public class ReportsPanel extends javax.swing.JPanel {
+public class CountriesPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ReportsPanel
+     * Creates new form CoutriesPanel
      */
-    public ReportsPanel() {
+    public CountriesPanel() {
         initComponents();
     }
 
@@ -34,19 +33,19 @@ public class ReportsPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtFileName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblReports = new javax.swing.JTable();
-        btnDeleteReport = new javax.swing.JButton();
-        btnUpdateReport = new javax.swing.JButton();
-        btnInsertReport = new javax.swing.JButton();
+        tblCountry = new javax.swing.JTable();
+        btnInsertCountry = new javax.swing.JButton();
+        btnUpdateCountry = new javax.swing.JButton();
+        btnDeleteCountry = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Dnevnici prakse");
+        jLabel1.setText("Drzave");
 
-        jLabel2.setText("Naziv datoteke:");
+        jLabel2.setText("Naziv drzave:");
 
-        tblReports.setModel(new javax.swing.table.DefaultTableModel(
+        tblCountry.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,15 +56,15 @@ public class ReportsPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblReports);
+        jScrollPane1.setViewportView(tblCountry);
 
-        btnDeleteReport.setText("Obrisi");
-        btnDeleteReport.setEnabled(false);
+        btnInsertCountry.setText("Dodaj");
 
-        btnUpdateReport.setText("Azuriraj");
-        btnUpdateReport.setEnabled(false);
+        btnUpdateCountry.setText("Azuriraj");
+        btnUpdateCountry.setEnabled(false);
 
-        btnInsertReport.setText("Dodaj");
+        btnDeleteCountry.setText("Obrisi");
+        btnDeleteCountry.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,21 +73,20 @@ public class ReportsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtName))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnInsertReport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteReport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdateReport))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnInsertCountry)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addComponent(btnDeleteCountry)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateCountry)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -99,61 +97,55 @@ public class ReportsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteReport)
-                    .addComponent(btnUpdateReport)
-                    .addComponent(btnInsertReport))
+                    .addComponent(btnInsertCountry)
+                    .addComponent(btnUpdateCountry)
+                    .addComponent(btnDeleteCountry))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTable getTblReports() {
-        return tblReports;
+    public JTextField getTxtName() {
+        return txtName;
     }
 
-    public JTextField getTxtFileName() {
-        return txtFileName;
+    public JTable getTblCountry() {
+        return tblCountry;
     }
 
-    public JButton getBtnDeleteReport() {
-        return btnDeleteReport;
+    public JButton getBtnDeleteCountry() {
+        return btnDeleteCountry;
     }
 
-    public JButton getBtnUpdateReport() {
-        return btnUpdateReport;
+    public JButton getBtnUpdateCountry() {
+        return btnUpdateCountry;
     }
-    
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteReport;
-    private javax.swing.JButton btnInsertReport;
-    private javax.swing.JButton btnUpdateReport;
+    private javax.swing.JButton btnDeleteCountry;
+    private javax.swing.JButton btnInsertCountry;
+    private javax.swing.JButton btnUpdateCountry;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblReports;
-    private javax.swing.JTextField txtFileName;
+    private javax.swing.JTable tblCountry;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
-    public void deleteReportAddActionListener(ActionListener actionListener) {
-        btnDeleteReport.addActionListener(actionListener);
+    public void deleteCountryAddActionListener(ActionListener actionListener) {
+        btnDeleteCountry.addActionListener(actionListener);
     }
 
-    public void updateReportAddActionListener(ActionListener actionListener) {
-        btnUpdateReport.addActionListener(actionListener);
+    public void insertCountryAddActionListener(ActionListener actionListener) {
+        btnInsertCountry.addActionListener(actionListener);
     }
 
-    public void showReportAddMouseListener(MouseAdapter mouseAdapter) {
-        tblReports.addMouseListener(mouseAdapter);
-    }
-
-    public void insertReportAddActionListener(ActionListener actionListener) {
-        btnInsertReport.addActionListener(actionListener);
+    public void updateCountryAddActionListener(ActionListener actionListener) {
+        btnUpdateCountry.addActionListener(actionListener);
     }
 }
