@@ -8,6 +8,7 @@ import domain.Country;
 import domain.ExamPeriod;
 import domain.Report;
 import domain.StudentOfficer;
+import domain.Teacher;
 import enums.Operation;
 import enums.ResultType;
 import java.io.IOException;
@@ -117,6 +118,26 @@ public class Communication {
 
     public List<ExamPeriod> searchExamPeriods(String condition) throws ClassNotFoundException, Exception {
         return (List<ExamPeriod>) sendRequest(new Request(Operation.SEARCH_EXAM_PERIODS, condition));
+    }
+
+    public List<Teacher> getAllTeachers() throws ClassNotFoundException, Exception {
+        return (List<Teacher>) sendRequest(new Request(Operation.GET_ALL_TEACHERS, null));
+    }
+
+    public void deleteTeacher(Teacher teacher) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_TEACHER, teacher));
+    }
+
+    public void insertTeacher(Teacher teacher) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_TEACHER, teacher));
+    }
+
+    public void updateTeacher(Teacher teacher) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_TEACHER, teacher));
+    }
+
+    public List<Teacher> searchTeachers(String condition)throws ClassNotFoundException, Exception {
+        return (List<Teacher>) sendRequest(new Request(Operation.SEARCH_TEACHERS, condition));
     }
 
 }

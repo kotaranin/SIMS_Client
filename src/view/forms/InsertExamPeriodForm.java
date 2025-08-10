@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package view;
+package view.forms;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
  */
 public class InsertExamPeriodForm extends javax.swing.JDialog {
 
-    private final Component parent;
+    private final Frame parent;
 
     /**
      * Creates new form InsertExamPeriodForm
@@ -112,6 +113,11 @@ public class InsertExamPeriodForm extends javax.swing.JDialog {
     public JTextField getTxtEndDate() {
         return txtEndDate;
     }
+
+    public Frame getParent() {
+        return parent;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;

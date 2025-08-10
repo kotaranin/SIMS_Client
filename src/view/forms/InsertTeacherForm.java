@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package view;
+package view.forms;
 
 import java.awt.Frame;
 import java.awt.event.ActionListener;
@@ -12,14 +12,14 @@ import javax.swing.JTextField;
  *
  * @author kotar
  */
-public class InsertCountryForm extends javax.swing.JDialog {
+public class InsertTeacherForm extends javax.swing.JDialog {
 
     private final Frame parent;
 
     /**
-     * Creates new form InsertCountryForm
+     * Creates new form InsertTeacherForm
      */
-    public InsertCountryForm(java.awt.Frame parent, boolean modal) {
+    public InsertTeacherForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.parent = parent;
@@ -35,13 +35,17 @@ public class InsertCountryForm extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtCountryName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtFirstName = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setText("Unesite naziv drzave:");
+        jLabel1.setText("Ime:");
+
+        jLabel2.setText("Prezime:");
 
         btnOK.setText("OK");
 
@@ -53,9 +57,13 @@ public class InsertCountryForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCountryName, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFirstName)
+                            .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnOK)))
@@ -65,9 +73,13 @@ public class InsertCountryForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtCountryName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOK)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -79,8 +91,12 @@ public class InsertCountryForm extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public JTextField getTxtCountryName() {
-        return txtCountryName;
+    public JTextField getTxtFirstName() {
+        return txtFirstName;
+    }
+
+    public JTextField getTxtLastName() {
+        return txtLastName;
     }
 
     public Frame getParent() {
@@ -91,7 +107,9 @@ public class InsertCountryForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtCountryName;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
     // End of variables declaration//GEN-END:variables
 
     public void saveAddActionListener(ActionListener actionListener) {

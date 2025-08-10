@@ -2,19 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers;
+package controllers.form;
 
 import coordinator.Coordinator;
-import view.ClientForm;
+import view.forms.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import view.CountriesPanel;
-import view.ExamPeriodsPanel;
-import view.LogInPanel;
-import view.ReportsPanel;
+import view.panels.CountriesPanel;
+import view.panels.ExamPeriodsPanel;
+import view.panels.LogInPanel;
+import view.panels.ReportsPanel;
+import view.panels.TeacherPanel;
 
 /**
  *
@@ -29,6 +30,7 @@ public class ClientFormController {
     private final ReportsPanel reportsPanel;
     private final CountriesPanel countriesPanel;
     private final ExamPeriodsPanel examPeriodsPanel;
+    private final TeacherPanel teacherPanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
@@ -39,6 +41,7 @@ public class ClientFormController {
         this.reportsPanel = new ReportsPanel();
         this.countriesPanel = new CountriesPanel();
         this.examPeriodsPanel = new ExamPeriodsPanel();
+        this.teacherPanel = new TeacherPanel();
         // svi paneli ovde
         addActionListeners();
     }
@@ -63,6 +66,10 @@ public class ClientFormController {
         return examPeriodsPanel;
     }
 
+    public TeacherPanel getTeacherPanel() {
+        return teacherPanel;
+    }
+
     // svi getteri panela ovde
     public void openClientForm() {
         clientForm.setVisible(true);
@@ -75,6 +82,7 @@ public class ClientFormController {
         clientForm.getMainPanel().add(reportsPanel, "reportsPanel");
         clientForm.getMainPanel().add(countriesPanel, "countriesPanel");
         clientForm.getMainPanel().add(examPeriodsPanel, "examPeriodsPanel");
+        clientForm.getMainPanel().add(teacherPanel, "teacherPanel");
         // svi paneli ovde
     }
 
@@ -106,7 +114,12 @@ public class ClientFormController {
     }
 
     public void openTeacherPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "teacherPanel");
+            coordinator.openTeacherPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void addActionListeners() {

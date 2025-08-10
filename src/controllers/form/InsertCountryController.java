@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers;
+package controllers.form;
 
 import communication.Communication;
 import domain.Country;
 import enums.Mode;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-import view.InsertCountryForm;
+import view.forms.InsertCountryForm;
 
 /**
  *

@@ -4,24 +4,28 @@
  */
 package coordinator;
 
-import controllers.ClientFormController;
-import controllers.FilePickerFormController;
-import controllers.LogInPanelController;
-import controllers.ReportsPanelController;
+import controllers.form.ClientFormController;
+import controllers.form.FilePickerFormController;
+import controllers.panel.LogInPanelController;
+import controllers.panel.ReportsPanelController;
 import communication.Communication;
-import controllers.CountriesPanelController;
-import controllers.ExamPeriodsPanelController;
-import controllers.InsertCountryController;
-import controllers.InsertExamPeriodController;
+import controllers.panel.CountriesPanelController;
+import controllers.panel.ExamPeriodsPanelController;
+import controllers.form.InsertCountryController;
+import controllers.form.InsertExamPeriodController;
+import controllers.form.InsertTeacherController;
+import controllers.panel.TeacherPanelController;
 import domain.Country;
 import domain.ExamPeriod;
 import domain.Report;
 import domain.StudentOfficer;
+import domain.Teacher;
 import enums.Mode;
-import view.ClientForm;
-import view.FilePickerForm;
-import view.InsertCountryForm;
-import view.InsertExamPeriodForm;
+import view.forms.ClientForm;
+import view.forms.FilePickerForm;
+import view.forms.InsertCountryForm;
+import view.forms.InsertExamPeriodForm;
+import view.forms.InsertTeacherForm;
 
 /**
  *
@@ -40,6 +44,8 @@ public class Coordinator {
     private InsertCountryController insertCountryController;
     private ExamPeriodsPanelController examPeriodsController;
     private InsertExamPeriodController insertExamPeriodController;
+    private TeacherPanelController teacherPanelController;
+    private InsertTeacherController insertTeacherController;
     // svi kontroleri ovde
 
     private Coordinator() {
@@ -84,10 +90,20 @@ public class Coordinator {
         examPeriodsController = new ExamPeriodsPanelController(clientFormController.getExamPeriodsPanel());
         examPeriodsController.fillExamPeriods(communication.getAllExamPeriods());
     }
-    
+
     public void openInsertExamPeriodForm(ExamPeriod examPeriod, Mode mode) throws Exception {
         insertExamPeriodController = new InsertExamPeriodController(new InsertExamPeriodForm(clientFormController.getClientForm(), true), examPeriod, mode);
         insertExamPeriodController.openInsertExamPeriodForm();
+    }
+
+    public void openTeacherPanel() throws Exception {
+        teacherPanelController = new TeacherPanelController(clientFormController.getTeacherPanel());
+        teacherPanelController.fillTeachers(communication.getAllTeachers());
+    }
+
+    public void openInsertTeacherForm(Teacher teacher, Mode mode) {
+        insertTeacherController = new InsertTeacherController(new InsertTeacherForm(clientFormController.getClientForm(), true), teacher, mode);
+        insertTeacherController.openInsertTeacherForm();
     }
 
 }

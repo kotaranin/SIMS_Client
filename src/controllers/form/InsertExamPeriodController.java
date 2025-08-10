@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers;
+package controllers.form;
 
 import communication.Communication;
 import domain.ExamPeriod;
@@ -10,12 +10,9 @@ import enums.Mode;
 import static enums.Mode.INSERT;
 import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import view.InsertExamPeriodForm;
+import view.forms.InsertExamPeriodForm;
 
 /**
  *
@@ -45,7 +42,7 @@ public class InsertExamPeriodController {
         } else {
             insertExamPeriodForm.setTitle("Unesi ispitni rok");
         }
-        insertExamPeriodForm.setLocationRelativeTo(null);
+        insertExamPeriodForm.setLocationRelativeTo(insertExamPeriodForm.getParent());
         insertExamPeriodForm.setVisible(true);
     }
 
