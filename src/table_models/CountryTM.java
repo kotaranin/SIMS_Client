@@ -11,9 +11,9 @@ import java.util.List;
  *
  * @author kotar
  */
-public class CountryTableModel extends AbstractTM {
+public class CountryTM extends AbstractTM {
 
-    public CountryTableModel(List<Country> list) {
+    public CountryTM(List<Country> list) {
         super(list);
         super.columns = new String[]{"ID", "Drzava"};
     }

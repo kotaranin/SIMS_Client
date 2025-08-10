@@ -10,14 +10,18 @@ import controllers.LogInPanelController;
 import controllers.ReportsPanelController;
 import communication.Communication;
 import controllers.CountriesPanelController;
+import controllers.ExamPeriodsPanelController;
 import controllers.InsertCountryController;
+import controllers.InsertExamPeriodController;
 import domain.Country;
+import domain.ExamPeriod;
 import domain.Report;
 import domain.StudentOfficer;
 import enums.Mode;
 import view.ClientForm;
 import view.FilePickerForm;
 import view.InsertCountryForm;
+import view.InsertExamPeriodForm;
 
 /**
  *
@@ -34,6 +38,8 @@ public class Coordinator {
     private FilePickerFormController filePickerFormController;
     private CountriesPanelController countriesPanelController;
     private InsertCountryController insertCountryController;
+    private ExamPeriodsPanelController examPeriodsController;
+    private InsertExamPeriodController insertExamPeriodController;
     // svi kontroleri ovde
 
     private Coordinator() {
@@ -69,9 +75,19 @@ public class Coordinator {
         countriesPanelController.fillCountries(communication.getAllCountries());
     }
 
-    public void openInsertCountriesForm(Country country, Mode mode) {
+    public void openInsertCountryForm(Country country, Mode mode) {
         insertCountryController = new InsertCountryController(new InsertCountryForm(clientFormController.getClientForm(), true), country, mode);
         insertCountryController.openInsertCountryForm();
+    }
+
+    public void openExamPeriodsPanel() throws Exception {
+        examPeriodsController = new ExamPeriodsPanelController(clientFormController.getExamPeriodsPanel());
+        examPeriodsController.fillExamPeriods(communication.getAllExamPeriods());
+    }
+    
+    public void openInsertExamPeriodForm(ExamPeriod examPeriod, Mode mode) throws Exception {
+        insertExamPeriodController = new InsertExamPeriodController(new InsertExamPeriodForm(clientFormController.getClientForm(), true), examPeriod, mode);
+        insertExamPeriodController.openInsertExamPeriodForm();
     }
 
 }

@@ -9,15 +9,11 @@ import coordinator.Coordinator;
 import domain.Country;
 import enums.Mode;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import table_models.CountryTableModel;
+import table_models.CountryTM;
 import view.CountriesPanel;
 
 /**
@@ -38,7 +34,7 @@ public class CountriesPanelController {
     }
 
     public void fillCountries(List<Country> countries) {
-        countriesPanel.getTblCountry().setModel(new CountryTableModel(countries));
+        countriesPanel.getTblCountry().setModel(new CountryTM(countries));
     }
 
     private void addActionListeners() {
@@ -76,7 +72,7 @@ public class CountriesPanelController {
         countriesPanel.deleteCountryAddActionListener((ActionEvent e) -> {
             try {
                 int row = countriesPanel.getTblCountry().getSelectedRow();
-                Country country = (Country) ((CountryTableModel) countriesPanel.getTblCountry().getModel()).getValueAt(row, 1);
+                Country country = (Country) ((CountryTM) countriesPanel.getTblCountry().getModel()).getValueAt(row, 1);
                 communication.deleteCountry(country);
                 JOptionPane.showMessageDialog(countriesPanel, "Sistem je obrisao drzavu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 fillCountries(communication.getAllCountries());
@@ -86,7 +82,7 @@ public class CountriesPanelController {
         });
         countriesPanel.insertCountryAddActionListener((ActionEvent e) -> {
             try {
-                coordinator.openInsertCountriesForm(null, Mode.INSERT);
+                coordinator.openInsertCountryForm(null, Mode.INSERT);
                 fillCountries(communication.getAllCountries());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(countriesPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
@@ -95,8 +91,8 @@ public class CountriesPanelController {
         countriesPanel.updateCountryAddActionListener((ActionEvent e) -> {
             try {
                 int row = countriesPanel.getTblCountry().getSelectedRow();
-                Country country = (Country) ((CountryTableModel) countriesPanel.getTblCountry().getModel()).getValueAt(row, 1);
-                coordinator.openInsertCountriesForm(country, Mode.UPDATE);
+                Country country = (Country) ((CountryTM) countriesPanel.getTblCountry().getModel()).getValueAt(row, 1);
+                coordinator.openInsertCountryForm(country, Mode.UPDATE);
                 fillCountries(communication.getAllCountries());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(countriesPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);

@@ -8,8 +8,11 @@ import coordinator.Coordinator;
 import view.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import view.CountriesPanel;
+import view.ExamPeriodsPanel;
 import view.LogInPanel;
 import view.ReportsPanel;
 
@@ -25,6 +28,7 @@ public class ClientFormController {
     private final LogInPanel logInPanel;
     private final ReportsPanel reportsPanel;
     private final CountriesPanel countriesPanel;
+    private final ExamPeriodsPanel examPeriodsPanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
@@ -34,6 +38,7 @@ public class ClientFormController {
         this.logInPanel = new LogInPanel();
         this.reportsPanel = new ReportsPanel();
         this.countriesPanel = new CountriesPanel();
+        this.examPeriodsPanel = new ExamPeriodsPanel();
         // svi paneli ovde
         addActionListeners();
     }
@@ -54,6 +59,10 @@ public class ClientFormController {
         return countriesPanel;
     }
 
+    public ExamPeriodsPanel getExamPeriodsPanel() {
+        return examPeriodsPanel;
+    }
+
     // svi getteri panela ovde
     public void openClientForm() {
         clientForm.setVisible(true);
@@ -65,6 +74,7 @@ public class ClientFormController {
         clientForm.getMainPanel().add(logInPanel.getLogInPanel(), "logInPanel");
         clientForm.getMainPanel().add(reportsPanel, "reportsPanel");
         clientForm.getMainPanel().add(countriesPanel, "countriesPanel");
+        clientForm.getMainPanel().add(examPeriodsPanel, "examPeriodsPanel");
         // svi paneli ovde
     }
 
@@ -73,7 +83,7 @@ public class ClientFormController {
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
         clientForm.getLblStudentOfficer().setText(Coordinator.studentOfficer.toString());
-        // pomeriti ovo iznad da bude za strucnu praksu
+        // pomeriti ovo u strucnu praksu
         cardLayout.show(clientForm.getMainPanel(), "reportsPanel");
     }
 
@@ -87,7 +97,12 @@ public class ClientFormController {
     }
 
     public void openExamPeriodsPanel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "examPeriodsPanel");
+            coordinator.openExamPeriodsPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void openTeacherPanel() {

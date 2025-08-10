@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import table_models.ReportTableModel;
+import table_models.ReportTM;
 import view.ReportsPanel;
 
 /**
@@ -39,7 +39,7 @@ public class ReportsPanelController {
     }
 
     public void fillReports(List<Report> reports) {
-        reportsPanel.getTblReports().setModel(new ReportTableModel(reports));
+        reportsPanel.getTblReports().setModel(new ReportTM(reports));
     }
 
     private void addActionListeners() {
@@ -77,7 +77,7 @@ public class ReportsPanelController {
         reportsPanel.deleteReportAddActionListener((ActionEvent e) -> {
             try {
                 int row = reportsPanel.getTblReports().getSelectedRow();
-                Report report = (Report) ((ReportTableModel) reportsPanel.getTblReports().getModel()).getValueAt(row, 1);
+                Report report = (Report) ((ReportTM) reportsPanel.getTblReports().getModel()).getValueAt(row, 1);
                 communication.deleteReport(report);
                 JOptionPane.showMessageDialog(reportsPanel, "Sistem je obrisao dnevnik prakse.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 fillReports(communication.getAllReports());

@@ -11,9 +11,9 @@ import java.util.List;
  *
  * @author kotar
  */
-public class ReportTableModel extends AbstractTM {
+public class ReportTM extends AbstractTM {
 
-    public ReportTableModel(List<Report> list) {
+    public ReportTM(List<Report> list) {
         super(list);
         super.columns = new String[]{"ID", "Naziv datoteke"};
     }

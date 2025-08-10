@@ -5,6 +5,7 @@
 package communication;
 
 import domain.Country;
+import domain.ExamPeriod;
 import domain.Report;
 import domain.StudentOfficer;
 import enums.Operation;
@@ -96,6 +97,26 @@ public class Communication {
 
     public List<Country> searchCountries(String condition) throws ClassNotFoundException, Exception {
         return (List<Country>) sendRequest(new Request(Operation.SEARCH_COUNTRIES, condition));
+    }
+
+    public List<ExamPeriod> getAllExamPeriods() throws ClassNotFoundException, Exception {
+        return (List<ExamPeriod>) sendRequest(new Request(Operation.GET_ALL_EXAM_PERIODS, null));
+    }
+
+    public void deleteExamPeriod(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_EXAM_PERIOD, examPeriod));
+    }
+
+    public void insertExamPeriod(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_EXAM_PERIOD, examPeriod));
+    }
+
+    public void updateExamPeriod(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_EXAM_PERIOD, examPeriod));
+    }
+
+    public List<ExamPeriod> searchExamPeriods(String condition) throws ClassNotFoundException, Exception {
+        return (List<ExamPeriod>) sendRequest(new Request(Operation.SEARCH_EXAM_PERIODS, condition));
     }
 
 }
