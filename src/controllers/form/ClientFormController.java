@@ -8,13 +8,12 @@ import coordinator.Coordinator;
 import view.forms.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import view.panels.CountriesPanel;
 import view.panels.ExamPeriodsPanel;
 import view.panels.LogInPanel;
 import view.panels.ReportsPanel;
+import view.panels.StudyLevelPanel;
 import view.panels.TeacherPanel;
 
 /**
@@ -31,6 +30,7 @@ public class ClientFormController {
     private final CountriesPanel countriesPanel;
     private final ExamPeriodsPanel examPeriodsPanel;
     private final TeacherPanel teacherPanel;
+    private final StudyLevelPanel studyLevelPanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
@@ -42,6 +42,7 @@ public class ClientFormController {
         this.countriesPanel = new CountriesPanel();
         this.examPeriodsPanel = new ExamPeriodsPanel();
         this.teacherPanel = new TeacherPanel();
+        this.studyLevelPanel = new StudyLevelPanel();
         // svi paneli ovde
         addActionListeners();
     }
@@ -70,6 +71,10 @@ public class ClientFormController {
         return teacherPanel;
     }
 
+    public StudyLevelPanel getStudyLevelPanel() {
+        return studyLevelPanel;
+    }
+
     // svi getteri panela ovde
     public void openClientForm() {
         clientForm.setVisible(true);
@@ -83,6 +88,7 @@ public class ClientFormController {
         clientForm.getMainPanel().add(countriesPanel, "countriesPanel");
         clientForm.getMainPanel().add(examPeriodsPanel, "examPeriodsPanel");
         clientForm.getMainPanel().add(teacherPanel, "teacherPanel");
+        clientForm.getMainPanel().add(studyLevelPanel, "studyLevelPanel");
         // svi paneli ovde
     }
 
@@ -122,6 +128,15 @@ public class ClientFormController {
         }
     }
 
+    private void openStudyLevelPanel() {
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "studyLevelPanel");
+            coordinator.openStudyLevelPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void addActionListeners() {
         clientForm.showReportsAddActionListener((ActionEvent e) -> {
             openReportsPanel();
@@ -134,6 +149,9 @@ public class ClientFormController {
         });
         clientForm.showTeachersAddActionListener((ActionEvent e) -> {
             openTeacherPanel();
+        });
+        clientForm.showStudyLevelsAddActionListener((ActionEvent e) -> {
+            openStudyLevelPanel();
         });
         // za svaku stavku menija, ovde
     }

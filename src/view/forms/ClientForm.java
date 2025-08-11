@@ -42,6 +42,7 @@ public class ClientForm extends javax.swing.JFrame {
         itemCountry = new javax.swing.JMenuItem();
         itemExamPeriod = new javax.swing.JMenuItem();
         itemTeacher = new javax.swing.JMenuItem();
+        itemStudyLevel = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -80,6 +81,9 @@ public class ClientForm extends javax.swing.JFrame {
 
         itemTeacher.setText("Nastavnik");
         menu.add(itemTeacher);
+
+        itemStudyLevel.setText("Nivo studija");
+        menu.add(itemStudyLevel);
 
         jMenuBar1.add(menu);
 
@@ -139,6 +143,7 @@ public class ClientForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
     private javax.swing.JMenuItem itemReport;
+    private javax.swing.JMenuItem itemStudyLevel;
     private javax.swing.JMenuItem itemTeacher;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem11;
@@ -163,6 +168,10 @@ public class ClientForm extends javax.swing.JFrame {
 
     public void showTeachersAddActionListener(ActionListener actionListener) {
         itemTeacher.addActionListener(actionListener);
+    }
+
+    public void showStudyLevelsAddActionListener(ActionListener actionListener) {
+        itemStudyLevel.addActionListener(actionListener);
     }
 
 }

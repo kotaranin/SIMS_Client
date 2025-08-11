@@ -13,18 +13,22 @@ import controllers.panel.CountriesPanelController;
 import controllers.panel.ExamPeriodsPanelController;
 import controllers.form.InsertCountryController;
 import controllers.form.InsertExamPeriodController;
+import controllers.form.InsertStudyLevelController;
 import controllers.form.InsertTeacherController;
+import controllers.panel.StudyLevelPanelController;
 import controllers.panel.TeacherPanelController;
 import domain.Country;
 import domain.ExamPeriod;
 import domain.Report;
 import domain.StudentOfficer;
+import domain.StudyLevel;
 import domain.Teacher;
 import enums.Mode;
 import view.forms.ClientForm;
 import view.forms.FilePickerForm;
 import view.forms.InsertCountryForm;
 import view.forms.InsertExamPeriodForm;
+import view.forms.InsertStudyLevelForm;
 import view.forms.InsertTeacherForm;
 
 /**
@@ -46,6 +50,8 @@ public class Coordinator {
     private InsertExamPeriodController insertExamPeriodController;
     private TeacherPanelController teacherPanelController;
     private InsertTeacherController insertTeacherController;
+    private StudyLevelPanelController studyLevelPanelController;
+    private InsertStudyLevelController  insertStudyLevelController;
     // svi kontroleri ovde
 
     private Coordinator() {
@@ -104,6 +110,16 @@ public class Coordinator {
     public void openInsertTeacherForm(Teacher teacher, Mode mode) {
         insertTeacherController = new InsertTeacherController(new InsertTeacherForm(clientFormController.getClientForm(), true), teacher, mode);
         insertTeacherController.openInsertTeacherForm();
+    }
+
+    public void openStudyLevelPanel() throws Exception {
+        studyLevelPanelController = new StudyLevelPanelController(clientFormController.getStudyLevelPanel());
+        studyLevelPanelController.fillStudyLevels(communication.getAllStudyLevels());
+    }
+
+    public void openInsertStudyLevelForm(StudyLevel studyLevel, Mode mode) {
+        insertStudyLevelController = new InsertStudyLevelController(new InsertStudyLevelForm(clientFormController.getClientForm(), true), studyLevel, mode);
+        insertStudyLevelController.openInsertStudyLevelForm();
     }
 
 }

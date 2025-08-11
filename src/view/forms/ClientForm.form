@@ -39,6 +39,11 @@
                 <Property name="text" type="java.lang.String" value="Nastavnik"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemStudyLevel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nivo studija"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

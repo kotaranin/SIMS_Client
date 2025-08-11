@@ -4,11 +4,7 @@
  */
 package communication;
 
-import domain.Country;
-import domain.ExamPeriod;
-import domain.Report;
-import domain.StudentOfficer;
-import domain.Teacher;
+import domain.*;
 import enums.Operation;
 import enums.ResultType;
 import java.io.IOException;
@@ -136,8 +132,28 @@ public class Communication {
         sendRequest(new Request(Operation.UPDATE_TEACHER, teacher));
     }
 
-    public List<Teacher> searchTeachers(String condition)throws ClassNotFoundException, Exception {
+    public List<Teacher> searchTeachers(String condition) throws ClassNotFoundException, Exception {
         return (List<Teacher>) sendRequest(new Request(Operation.SEARCH_TEACHERS, condition));
+    }
+
+    public List<StudyLevel> getAllStudyLevels() throws ClassNotFoundException, Exception {
+        return (List<StudyLevel>) sendRequest(new Request(Operation.GET_ALL_STUDY_LEVELS, null));
+    }
+
+    public void deleteStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_STUDY_LEVEL, studyLevel));
+    }
+
+    public void insertStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_STUDY_LEVEL, studyLevel));
+    }
+
+    public void updateStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_STUDY_LEVEL, studyLevel));
+    }
+
+    public List<StudyLevel> searchStudyLevels(String condition) throws ClassNotFoundException, Exception {
+        return (List<StudyLevel>) sendRequest(new Request(Operation.SEARCH_STUDY_LEVEL, condition));
     }
 
 }
