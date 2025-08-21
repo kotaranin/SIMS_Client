@@ -61,8 +61,10 @@ public class TeacherPanel extends javax.swing.JPanel {
         btnInsert.setText("Dodaj");
 
         btnUpdate.setText("Azuriraj");
+        btnUpdate.setEnabled(false);
 
         btnDelete.setText("Obrisi");
+        btnDelete.setEnabled(false);
 
         jLabel2.setText("Ime:");
 
