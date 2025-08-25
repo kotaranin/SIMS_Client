@@ -7,16 +7,21 @@ package coordinator;
 import controllers.form.ClientFormController;
 import controllers.form.FilePickerFormController;
 import controllers.panel.LogInPanelController;
-import controllers.panel.ReportsPanelController;
 import communication.Communication;
-import controllers.panel.CountriesPanelController;
-import controllers.panel.ExamPeriodsPanelController;
+import controllers.form.InsertCityController;
+import controllers.panel.CountryPanelController;
+import controllers.panel.ExamPeriodPanelController;
 import controllers.form.InsertCountryController;
 import controllers.form.InsertExamPeriodController;
 import controllers.form.InsertStudyLevelController;
 import controllers.form.InsertTeacherController;
+import controllers.panel.HelpPanelController;
+import controllers.panel.InternshipPanelController;
+import controllers.panel.StudentOfficerPanelController;
+import controllers.panel.StudentPanelController;
 import controllers.panel.StudyLevelPanelController;
 import controllers.panel.TeacherPanelController;
+import domain.City;
 import domain.Country;
 import domain.ExamPeriod;
 import domain.Report;
@@ -26,6 +31,7 @@ import domain.Teacher;
 import enums.Mode;
 import view.forms.ClientForm;
 import view.forms.FilePickerForm;
+import view.forms.InsertCityForm;
 import view.forms.InsertCountryForm;
 import view.forms.InsertExamPeriodForm;
 import view.forms.InsertStudyLevelForm;
@@ -42,17 +48,23 @@ public class Coordinator {
     public static StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
-    private ReportsPanelController reportsPanelController;
+    private InternshipPanelController internshipPanelController;
     private FilePickerFormController filePickerFormController;
-    private CountriesPanelController countriesPanelController;
+    private CountryPanelController countryPanelController;
     private InsertCountryController insertCountryController;
-    private ExamPeriodsPanelController examPeriodsController;
+    private ExamPeriodPanelController examPeriodController;
     private InsertExamPeriodController insertExamPeriodController;
     private TeacherPanelController teacherPanelController;
     private InsertTeacherController insertTeacherController;
     private StudyLevelPanelController studyLevelPanelController;
-    private InsertStudyLevelController  insertStudyLevelController;
-    // svi kontroleri ovde
+    private InsertStudyLevelController insertStudyLevelController;
+    private HelpPanelController helpPanelController;
+    private InternshipPanelController internshipPanelController1;
+    private StudentOfficerPanelController studentOfficerPanelController;
+    private StudentPanelController studentPanelController;
+    private InsertCountryForm insertCountryForm;
+    private InsertCityController insertCityController;
+    // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
         this.communication = Communication.getInstance();
@@ -71,10 +83,10 @@ public class Coordinator {
         logInPanelController = new LogInPanelController(clientFormController.getLogInPanel());
     }
 
-    public void openReportsPanel() throws Exception {
-        reportsPanelController = new ReportsPanelController(clientFormController.getReportsPanel());
-        clientFormController.openReportsPanel();
-        reportsPanelController.fillReports(communication.getAllReports());
+    public void openInternshipPanel() {
+        internshipPanelController = new InternshipPanelController(clientFormController.getInternshipPanel());
+        clientFormController.openInternshipPanel();
+        internshipPanelController.fillInternships(communication.getAllInternships());
     }
 
     public Report openFilePickerForm() throws Exception {
@@ -82,19 +94,21 @@ public class Coordinator {
         return filePickerFormController.getSelectedReport();
     }
 
-    public void openCountriesPanel() throws Exception {
-        countriesPanelController = new CountriesPanelController(clientFormController.getCountriesPanel());
-        countriesPanelController.fillCountries(communication.getAllCountries());
+    public void openCountryPanel() throws Exception {
+        countryPanelController = new CountryPanelController(clientFormController.getCountryPanel());
+        countryPanelController.fillCountries(communication.getAllCountries());
+        countryPanelController.fillCities(null);
     }
 
-    public void openInsertCountryForm(Country country, Mode mode) {
-        insertCountryController = new InsertCountryController(new InsertCountryForm(clientFormController.getClientForm(), true), country, mode);
+    public void openInsertCountryForm(Country country, Mode mode) throws Exception {
+        this.insertCountryForm = new InsertCountryForm(clientFormController.getClientForm(), true);
+        insertCountryController = new InsertCountryController(insertCountryForm, country, mode);
         insertCountryController.openInsertCountryForm();
     }
 
-    public void openExamPeriodsPanel() throws Exception {
-        examPeriodsController = new ExamPeriodsPanelController(clientFormController.getExamPeriodsPanel());
-        examPeriodsController.fillExamPeriods(communication.getAllExamPeriods());
+    public void openExamPeriodPanel() throws Exception {
+        examPeriodController = new ExamPeriodPanelController(clientFormController.getExamPeriodPanel());
+        examPeriodController.fillExamPeriods(communication.getAllExamPeriods());
     }
 
     public void openInsertExamPeriodForm(ExamPeriod examPeriod, Mode mode) throws Exception {
@@ -120,6 +134,25 @@ public class Coordinator {
     public void openInsertStudyLevelForm(StudyLevel studyLevel, Mode mode) {
         insertStudyLevelController = new InsertStudyLevelController(new InsertStudyLevelForm(clientFormController.getClientForm(), true), studyLevel, mode);
         insertStudyLevelController.openInsertStudyLevelForm();
+    }
+
+    public void openStudentOfficerPanel() throws Exception {
+        studentOfficerPanelController = new StudentOfficerPanelController(clientFormController.getStudentOfficerPanel());
+        studentOfficerPanelController.fillStudentOfficers(communication.getAllStudentOfficers());
+    }
+
+    public void openStudentPanel() throws Exception {
+        studentPanelController = new StudentPanelController(clientFormController.getStudentPanel());
+        studentPanelController.fillStudents(communication.getAllStudents());
+    }
+
+    public void openHelpPanel() {
+        helpPanelController = new HelpPanelController(clientFormController.getHelpPanel());
+    }
+
+    public void openInsertCityForm(City city, Mode mode) {
+        insertCityController = new InsertCityController(new InsertCityForm(insertCountryForm, true), city, mode);
+        insertCityController.openInsertCityForm();
     }
 
 }

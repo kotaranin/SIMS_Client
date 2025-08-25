@@ -43,9 +43,7 @@ public class LogInPanelController {
                     studentOfficer.setPassword(password);
                     studentOfficer = communication.logIn(studentOfficer);
                     Coordinator.studentOfficer = studentOfficer;
-                    Coordinator.getInstance().openReportsPanel();
-                    // todo
-                    // promeniti na kraju da bude za praksu
+                    Coordinator.getInstance().openInternshipPanel();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                 }

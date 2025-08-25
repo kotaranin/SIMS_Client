@@ -37,12 +37,18 @@ public class ClientForm extends javax.swing.JFrame {
         lblPlaceholder = new javax.swing.JLabel();
         lblStudentOfficer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        menu = new javax.swing.JMenu();
-        itemReport = new javax.swing.JMenuItem();
-        itemCountry = new javax.swing.JMenuItem();
+        menuInternship = new javax.swing.JMenu();
+        itemInternships = new javax.swing.JMenuItem();
+        menuAdministration = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         itemExamPeriod = new javax.swing.JMenuItem();
         itemTeacher = new javax.swing.JMenuItem();
         itemStudyLevel = new javax.swing.JMenuItem();
+        itemStudentOfficer = new javax.swing.JMenuItem();
+        itemStudent = new javax.swing.JMenuItem();
+        itemCountry = new javax.swing.JMenuItem();
+        menuAbout = new javax.swing.JMenu();
+        itemHelp = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -68,24 +74,45 @@ public class ClientForm extends javax.swing.JFrame {
         lblStudentOfficer.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblStudentOfficer.setText("ime i prezime");
 
-        menu.setText("Administracija sifarnika");
+        menuInternship.setText(" Strucna praksa");
 
-        itemReport.setText("Dnevnik prakse");
-        menu.add(itemReport);
+        itemInternships.setText("Pregled strucnih praksi");
+        menuInternship.add(itemInternships);
 
-        itemCountry.setText("Drzava");
-        menu.add(itemCountry);
+        jMenuBar1.add(menuInternship);
 
-        itemExamPeriod.setText("Ispitni rok");
-        menu.add(itemExamPeriod);
+        menuAdministration.setText(" Administracija");
 
-        itemTeacher.setText("Nastavnik");
-        menu.add(itemTeacher);
+        jMenu1.setText("Fakultet");
 
-        itemStudyLevel.setText("Nivo studija");
-        menu.add(itemStudyLevel);
+        itemExamPeriod.setText("Ispitni rokovi");
+        jMenu1.add(itemExamPeriod);
 
-        jMenuBar1.add(menu);
+        itemTeacher.setText("Nastavnici ");
+        jMenu1.add(itemTeacher);
+
+        itemStudyLevel.setText("Nivoi studija, studijski programi, moduli");
+        jMenu1.add(itemStudyLevel);
+
+        itemStudentOfficer.setText("Sluzbenici");
+        jMenu1.add(itemStudentOfficer);
+
+        itemStudent.setText("Studenti");
+        jMenu1.add(itemStudent);
+
+        menuAdministration.add(jMenu1);
+
+        itemCountry.setText("Drzave, gradovi");
+        menuAdministration.add(itemCountry);
+
+        jMenuBar1.add(menuAdministration);
+
+        menuAbout.setText(" O programu");
+
+        itemHelp.setText("Pomoc");
+        menuAbout.add(itemHelp);
+
+        jMenuBar1.add(menuAbout);
 
         setJMenuBar(jMenuBar1);
 
@@ -126,8 +153,16 @@ public class ClientForm extends javax.swing.JFrame {
         return mainPanel;
     }
 
-    public JMenu getMenu() {
-        return menu;
+    public JMenu getMenuAdministration() {
+        return menuAdministration;
+    }
+
+    public JMenu getMenuInternship() {
+        return menuInternship;
+    }
+
+    public JMenu getMenuAbout() {
+        return menuAbout;
     }
 
     public JLabel getLblStudentOfficer() {
@@ -142,21 +177,23 @@ public class ClientForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
-    private javax.swing.JMenuItem itemReport;
+    private javax.swing.JMenuItem itemHelp;
+    private javax.swing.JMenuItem itemInternships;
+    private javax.swing.JMenuItem itemStudent;
+    private javax.swing.JMenuItem itemStudentOfficer;
     private javax.swing.JMenuItem itemStudyLevel;
     private javax.swing.JMenuItem itemTeacher;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblPlaceholder;
     private javax.swing.JLabel lblStudentOfficer;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JMenu menu;
+    private javax.swing.JMenu menuAbout;
+    private javax.swing.JMenu menuAdministration;
+    private javax.swing.JMenu menuInternship;
     // End of variables declaration//GEN-END:variables
-
-    public void showReportsAddActionListener(ActionListener actionListener) {
-        itemReport.addActionListener(actionListener);
-    }
 
     public void showCountriesAddActionListener(ActionListener actionListener) {
         itemCountry.addActionListener(actionListener);
@@ -172,6 +209,22 @@ public class ClientForm extends javax.swing.JFrame {
 
     public void showStudyLevelsAddActionListener(ActionListener actionListener) {
         itemStudyLevel.addActionListener(actionListener);
+    }
+
+    public void showInternshipsAddActionListener(ActionListener actionListener) {
+        itemInternships.addActionListener(actionListener);
+    }
+
+    public void showStudentOfficersAddActionListener(ActionListener actionListener) {
+        itemStudentOfficer.addActionListener(actionListener);
+    }
+
+    public void showStudentsAddActionListener(ActionListener actionListener) {
+        itemStudent.addActionListener(actionListener);
+    }
+
+    public void showHelpAddActionListener(ActionListener actionListener) {
+        itemHelp.addActionListener(actionListener);
     }
 
 }

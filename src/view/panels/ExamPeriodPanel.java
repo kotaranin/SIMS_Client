@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author kotar
  */
-public class ExamPeriodsPanel extends javax.swing.JPanel {
+public class ExamPeriodPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ExamPeriodsPanel
      */
-    public ExamPeriodsPanel() {
+    public ExamPeriodPanel() {
         initComponents();
     }
 

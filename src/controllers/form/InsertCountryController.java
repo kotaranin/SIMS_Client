@@ -5,10 +5,17 @@
 package controllers.form;
 
 import communication.Communication;
+import coordinator.Coordinator;
+import domain.City;
 import domain.Country;
 import enums.Mode;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import table_models.CityTM;
 import view.forms.InsertCountryForm;
 
 /**
@@ -19,23 +26,33 @@ public class InsertCountryController {
 
     private final InsertCountryForm insertCountryForm;
     private final Communication communication;
+    private final Coordinator coordinator;
     private final Mode mode;
     private final Country country;
+    private List<City> allCities;
 
     public InsertCountryController(InsertCountryForm insertCountryForm, Country country, Mode mode) {
         this.insertCountryForm = insertCountryForm;
         this.communication = Communication.getInstance();
+        this.coordinator = Coordinator.getInstance();
         this.country = country;
         this.mode = mode;
         addActionListeners();
     }
 
-    public void openInsertCountryForm() {
+    private void fillCities(List<City> cities) {
+        insertCountryForm.getTblCity().setModel(new CityTM(cities));
+    }
+
+    public void openInsertCountryForm() throws Exception {
         if (mode == Mode.UPDATE) {
             insertCountryForm.setTitle("Azuriraj drzavu");
             insertCountryForm.getTxtCountryName().setText(country.getName());
+            allCities = communication.getAllCities(country);
+            fillCities(allCities);
         } else {
             insertCountryForm.setTitle("Unesi drzavu");
+            fillCities(new LinkedList<>());
         }
         insertCountryForm.setLocationRelativeTo(insertCountryForm.getParent());
         insertCountryForm.setVisible(true);
@@ -46,11 +63,57 @@ public class InsertCountryController {
     }
 
     private void addActionListeners() {
+        insertCountryForm.getTblCity().getSelectionModel().addListSelectionListener((e) -> {
+            if (!e.getValueIsAdjusting()) {
+                boolean selected = insertCountryForm.getTblCity().getSelectedRow() != -1;
+                insertCountryForm.getBtnDeleteCity().setEnabled(selected);
+                insertCountryForm.getBtnUpdateCity().setEnabled(selected);
+            }
+        });
+        insertCountryForm.insertCityAddActionListener((ActionEvent e) -> {
+            coordinator.openInsertCityForm(null, Mode.INSERT);
+            ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
+        });
+        insertCountryForm.updateCityAddActionListener((ActionEvent e) -> {
+            int row = insertCountryForm.getTblCity().getSelectedRow();
+            City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
+            coordinator.openInsertCityForm(city, Mode.UPDATE);
+            ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
+        });
+        insertCountryForm.deleteCityAddActionListener((ActionEvent e) -> {
+            int row = insertCountryForm.getTblCity().getSelectedRow();
+            City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
+            ((CityTM) insertCountryForm.getTblCity().getModel()).deleteCity(city);
+            ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
+        });
+        insertCountryForm.getTxtCityName().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+
+            private void search() {
+                String name = insertCountryForm.getTxtCityName().getText().toLowerCase();
+                List<City> filteredCities = (List<City>) allCities.stream().filter(city -> city.getName().toLowerCase().contains(name)).toList();
+                fillCities(filteredCities);
+            }
+        });
         insertCountryForm.saveAddActionListener((ActionEvent e) -> {
+            String name = insertCountryForm.getTxtCountryName().getText();
+            List<City> cities = ((CityTM) insertCountryForm.getTblCity().getModel()).getList();
             switch (mode) {
                 case INSERT -> {
                     try {
-                        Country c = new Country(null, insertCountryForm.getTxtCountryName().getText());
+                        Country c = new Country(null, name, cities);
                         communication.insertCountry(c);
                         JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio drzavu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCountryForm();
@@ -60,8 +123,8 @@ public class InsertCountryController {
                 }
                 case UPDATE -> {
                     try {
-                        country.setName(insertCountryForm.getTxtCountryName().getText());
-                        System.out.println(country);
+                        country.setName(name);
+                        country.setCities(cities);
                         communication.updateCountry(country);
                         JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio drzavu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCountryForm();
@@ -69,7 +132,6 @@ public class InsertCountryController {
                         JOptionPane.showMessageDialog(insertCountryForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-
                 default ->
                     throw new AssertionError();
             }

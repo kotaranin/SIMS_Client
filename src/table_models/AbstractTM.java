@@ -40,6 +40,10 @@ public abstract class AbstractTM<T> extends AbstractTableModel {
         return columns[column];
     }
 
+    public List<T> getList() {
+        return list;
+    }
+
     public abstract Object getAbstractValueAt(int rowIndex, int columnIndex);
 
 }

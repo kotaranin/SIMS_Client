@@ -21,18 +21,18 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import table_models.ReportTM;
-import view.panels.ReportsPanel;
+import view.panels.ReportPanel;
 
 /**
  *
  * @author kotar
  */
-public class ReportsPanelController {
+public class ReportPanelController {
 
-    private final ReportsPanel reportsPanel;
+    private final ReportPanel reportsPanel;
     private final Communication communication;
 
-    public ReportsPanelController(ReportsPanel reportsPanel) {
+    public ReportPanelController(ReportPanel reportsPanel) {
         this.reportsPanel = reportsPanel;
         this.communication = Communication.getInstance();
         addActionListeners();
@@ -122,7 +122,7 @@ public class ReportsPanelController {
                         out.write(report.getFileContent());
                         Desktop.getDesktop().open(file);
                     } catch (IOException ex) {
-                        Logger.getLogger(ReportsPanelController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ReportPanelController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

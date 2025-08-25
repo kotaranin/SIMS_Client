@@ -16,19 +16,19 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import table_models.ExamPeriodTM;
-import view.panels.ExamPeriodsPanel;
+import view.panels.ExamPeriodPanel;
 
 /**
  *
  * @author kotar
  */
-public class ExamPeriodsPanelController {
+public class ExamPeriodPanelController {
 
-    private final ExamPeriodsPanel examPeriodsPanel;
+    private final ExamPeriodPanel examPeriodsPanel;
     private final Communication communication;
     private final Coordinator coordinator;
 
-    public ExamPeriodsPanelController(ExamPeriodsPanel examPeriodsPanel) {
+    public ExamPeriodPanelController(ExamPeriodPanel examPeriodsPanel) {
         this.examPeriodsPanel = examPeriodsPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();

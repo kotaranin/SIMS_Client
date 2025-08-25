@@ -156,4 +156,21 @@ public class Communication {
         return (List<StudyLevel>) sendRequest(new Request(Operation.SEARCH_STUDY_LEVEL, condition));
     }
 
+    public List<Internship> getAllInternships() {
+        return null;
+    }
+
+    public List<StudentOfficer> getAllStudentOfficers() {
+        return null;
+    }
+
+    public List<Student> getAllStudents() {
+        return null;
+    }
+
+    public List<City> getAllCities(Country country) throws ClassNotFoundException, Exception {
+        return (List<City>) sendRequest(new Request(Operation.GET_ALL_CITIES, country));
+    }
+
+
 }

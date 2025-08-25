@@ -9,10 +9,13 @@ import view.forms.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
-import view.panels.CountriesPanel;
-import view.panels.ExamPeriodsPanel;
+import view.panels.CountryPanel;
+import view.panels.ExamPeriodPanel;
+import view.panels.HelpPanel;
+import view.panels.InternshipPanel;
 import view.panels.LogInPanel;
-import view.panels.ReportsPanel;
+import view.panels.StudentOfficerPanel;
+import view.panels.StudentPanel;
 import view.panels.StudyLevelPanel;
 import view.panels.TeacherPanel;
 
@@ -26,11 +29,14 @@ public class ClientFormController {
     private final ClientForm clientForm;
     private final CardLayout cardLayout;
     private final LogInPanel logInPanel;
-    private final ReportsPanel reportsPanel;
-    private final CountriesPanel countriesPanel;
-    private final ExamPeriodsPanel examPeriodsPanel;
+    private final InternshipPanel internshipPanel;
+    private final CountryPanel countryPanel;
+    private final ExamPeriodPanel examPeriodPanel;
     private final TeacherPanel teacherPanel;
     private final StudyLevelPanel studyLevelPanel;
+    private final HelpPanel helpPanel;
+    private final StudentOfficerPanel studentOfficerPanel;
+    private final StudentPanel studentPanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
@@ -38,11 +44,14 @@ public class ClientFormController {
         this.clientForm = clientForm;
         this.cardLayout = new CardLayout();
         this.logInPanel = new LogInPanel();
-        this.reportsPanel = new ReportsPanel();
-        this.countriesPanel = new CountriesPanel();
-        this.examPeriodsPanel = new ExamPeriodsPanel();
+        this.internshipPanel = new InternshipPanel();
+        this.countryPanel = new CountryPanel();
+        this.examPeriodPanel = new ExamPeriodPanel();
         this.teacherPanel = new TeacherPanel();
         this.studyLevelPanel = new StudyLevelPanel();
+        this.helpPanel = new HelpPanel();
+        this.studentOfficerPanel = new StudentOfficerPanel();
+        this.studentPanel = new StudentPanel();
         // svi paneli ovde
         addActionListeners();
     }
@@ -55,16 +64,16 @@ public class ClientFormController {
         return logInPanel;
     }
 
-    public ReportsPanel getReportsPanel() {
-        return reportsPanel;
+    public InternshipPanel getInternshipPanel() {
+        return internshipPanel;
     }
 
-    public CountriesPanel getCountriesPanel() {
-        return countriesPanel;
+    public CountryPanel getCountryPanel() {
+        return countryPanel;
     }
 
-    public ExamPeriodsPanel getExamPeriodsPanel() {
-        return examPeriodsPanel;
+    public ExamPeriodPanel getExamPeriodPanel() {
+        return examPeriodPanel;
     }
 
     public TeacherPanel getTeacherPanel() {
@@ -75,56 +84,74 @@ public class ClientFormController {
         return studyLevelPanel;
     }
 
+    public HelpPanel getHelpPanel() {
+        return helpPanel;
+    }
+
+    public StudentPanel getStudentPanel() {
+        return studentPanel;
+    }
+
+    public StudentOfficerPanel getStudentOfficerPanel() {
+        return studentOfficerPanel;
+    }
+
     // svi getteri panela ovde
     public void openClientForm() {
         clientForm.setVisible(true);
         clientForm.setLocationRelativeTo(null);
-        clientForm.getMenu().setVisible(false);
+        clientForm.getMenuAdministration().setVisible(false);
+        clientForm.getMenuInternship().setVisible(false);
+        clientForm.getMenuAbout().setVisible(false);
         clientForm.getLblPlaceholder().setVisible(false);
         clientForm.getLblStudentOfficer().setVisible(false);
         clientForm.getMainPanel().setLayout(cardLayout);
         clientForm.getMainPanel().add(logInPanel.getLogInPanel(), "logInPanel");
-        clientForm.getMainPanel().add(reportsPanel, "reportsPanel");
-        clientForm.getMainPanel().add(countriesPanel, "countriesPanel");
-        clientForm.getMainPanel().add(examPeriodsPanel, "examPeriodsPanel");
+        clientForm.getMainPanel().add(internshipPanel, "internshipPanel");
+        clientForm.getMainPanel().add(countryPanel, "countriesPanel");
+        clientForm.getMainPanel().add(examPeriodPanel, "examPeriodsPanel");
         clientForm.getMainPanel().add(teacherPanel, "teacherPanel");
         clientForm.getMainPanel().add(studyLevelPanel, "studyLevelPanel");
+        clientForm.getMainPanel().add(helpPanel, "helpPanel");
+        clientForm.getMainPanel().add(studentPanel, "studentPanel");
+        clientForm.getMainPanel().add(studentOfficerPanel, "studentOfficerPanel");
         // svi paneli ovde
     }
 
-    public void openReportsPanel() {
-        clientForm.getMenu().setVisible(true);
+    public void openInternshipPanel() {
+        clientForm.getMenuAdministration().setVisible(true);
+        clientForm.getMenuInternship().setVisible(true);
+        clientForm.getMenuAbout().setVisible(true);
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
         clientForm.getLblStudentOfficer().setText(Coordinator.studentOfficer.toString());
-        // pomeriti ovo u strucnu praksu
-        cardLayout.show(clientForm.getMainPanel(), "reportsPanel");
+        cardLayout.show(clientForm.getMainPanel(), "internshipPanel");
     }
 
-    public void openCountriesPanel() {
+    private void openCountryPanel() {
         try {
             cardLayout.show(clientForm.getMainPanel(), "countriesPanel");
-            coordinator.openCountriesPanel();
+            coordinator.openCountryPanel();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void openExamPeriodsPanel() {
+    private void openExamPeriodPanel() {
         try {
             cardLayout.show(clientForm.getMainPanel(), "examPeriodsPanel");
-            coordinator.openExamPeriodsPanel();
+            coordinator.openExamPeriodPanel();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void openTeacherPanel() {
+    private void openTeacherPanel() {
         try {
             cardLayout.show(clientForm.getMainPanel(), "teacherPanel");
             coordinator.openTeacherPanel();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -133,25 +160,57 @@ public class ClientFormController {
             cardLayout.show(clientForm.getMainPanel(), "studyLevelPanel");
             coordinator.openStudyLevelPanel();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(reportsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    private void openStudentOfficerPanel() {
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "studentOfficerPanel");
+            coordinator.openStudentOfficerPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void openStudentPanel() {
+        try {
+            cardLayout.show(clientForm.getMainPanel(), "studentPanel");
+            coordinator.openStudentPanel();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void openHelpPanel() {
+        cardLayout.show(clientForm.getMainPanel(), "helpPanel");
+        coordinator.openHelpPanel();
+    }
+
     private void addActionListeners() {
-        clientForm.showReportsAddActionListener((ActionEvent e) -> {
-            openReportsPanel();
+        clientForm.showInternshipsAddActionListener((ActionEvent e) -> {
+            openInternshipPanel();
         });
         clientForm.showCountriesAddActionListener((ActionEvent e) -> {
-            openCountriesPanel();
+            openCountryPanel();
         });
         clientForm.showExamPeriodsAddActionListener((ActionEvent e) -> {
-            openExamPeriodsPanel();
+            openExamPeriodPanel();
         });
         clientForm.showTeachersAddActionListener((ActionEvent e) -> {
             openTeacherPanel();
         });
         clientForm.showStudyLevelsAddActionListener((ActionEvent e) -> {
             openStudyLevelPanel();
+        });
+        clientForm.showStudentOfficersAddActionListener((ActionEvent e) -> {
+            openStudentOfficerPanel();
+        });
+        clientForm.showStudentsAddActionListener((ActionEvent e) -> {
+            openStudentPanel();
+        });
+        clientForm.showHelpAddActionListener((ActionEvent e) -> {
+            openHelpPanel();
         });
         // za svaku stavku menija, ovde
     }

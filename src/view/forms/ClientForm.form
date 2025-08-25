@@ -14,34 +14,70 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menu">
+        <Menu class="javax.swing.JMenu" name="menuInternship">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Administracija sifarnika"/>
+            <Property name="text" type="java.lang.String" value=" Strucna praksa"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemReport">
+            <MenuItem class="javax.swing.JMenuItem" name="itemInternships">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dnevnik prakse"/>
+                <Property name="text" type="java.lang.String" value="Pregled strucnih praksi"/>
               </Properties>
             </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuAdministration">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" Administracija"/>
+          </Properties>
+          <SubComponents>
+            <Menu class="javax.swing.JMenu" name="jMenu1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fakultet"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="itemExamPeriod">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ispitni rokovi"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itemTeacher">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nastavnici "/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itemStudyLevel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nivoi studija, studijski programi, moduli"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itemStudentOfficer">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Sluzbenici"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itemStudent">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Studenti"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="itemCountry">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Drzava"/>
+                <Property name="text" type="java.lang.String" value="Drzave, gradovi"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemExamPeriod">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuAbout">
+          <Properties>
+            <Property name="text" type="java.lang.String" value=" O programu"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemHelp">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ispitni rok"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemTeacher">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nastavnik"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemStudyLevel">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nivo studija"/>
+                <Property name="text" type="java.lang.String" value="Pomoc"/>
               </Properties>
             </MenuItem>
           </SubComponents>
