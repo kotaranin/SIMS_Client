@@ -80,10 +80,6 @@ public class Communication {
         return (List<Country>) sendRequest(new Request(Operation.GET_ALL_COUNTRIES, null));
     }
 
-    public void deleteCountry(Country country) throws ClassNotFoundException, Exception {
-        sendRequest(new Request(Operation.DELETE_COUNTRY, country));
-    }
-
     public void insertCountry(Country country) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.INSERT_COUNTRY, country));
     }
@@ -140,10 +136,6 @@ public class Communication {
         return (List<StudyLevel>) sendRequest(new Request(Operation.GET_ALL_STUDY_LEVELS, null));
     }
 
-    public void deleteStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
-        sendRequest(new Request(Operation.DELETE_STUDY_LEVEL, studyLevel));
-    }
-
     public void insertStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.INSERT_STUDY_LEVEL, studyLevel));
     }
@@ -170,6 +162,14 @@ public class Communication {
 
     public List<City> getAllCities(Country country) throws ClassNotFoundException, Exception {
         return (List<City>) sendRequest(new Request(Operation.GET_ALL_CITIES, country));
+    }
+
+    public List<StudyProgram> getAllStudyPrograms(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
+        return (List<StudyProgram>) sendRequest(new Request(Operation.GET_ALL_STUDY_PROGRAMS, studyLevel));
+    }
+
+    public List<domain.Module> getAllModules(StudyProgram studyProgram) throws ClassNotFoundException, Exception {
+        return (List<domain.Module>) sendRequest(new Request(Operation.GET_ALL_MODULES, studyProgram));
     }
 
 

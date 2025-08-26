@@ -4,16 +4,16 @@
  */
 package table_models;
 
-import domain.City;
+import domain.StudyProgram;
 import java.util.List;
 
 /**
  *
  * @author kotar
  */
-public class CityTM extends AbstractTM<City> {
+public class StudyProgramTM extends AbstractTM {
 
-    public CityTM(List<City> list) {
+    public StudyProgramTM(List<StudyProgram> list) {
         super(list);
         this.columns = new String[]{"ID", "Naziv"};
     }
@@ -23,13 +23,13 @@ public class CityTM extends AbstractTM<City> {
         if (list == null) {
             return null;
         }
-        City city = list.get(rowIndex);
+        StudyProgram studyProgram = (StudyProgram) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return city.getIdCity();
+                return studyProgram.getIdStudyProgram();
             }
             case 1 -> {
-                return city;
+                return studyProgram;
             }
             default ->
                 throw new AssertionError();

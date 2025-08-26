@@ -49,7 +49,6 @@ public class CountryPanelController {
         countryPanel.getTblCountry().getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = countryPanel.getTblCountry().getSelectedRow() != -1;
-                countryPanel.getBtnDeleteCountry().setEnabled(selected);
                 countryPanel.getBtnUpdateCountry().setEnabled(selected);
             }
         });
@@ -108,21 +107,6 @@ public class CountryPanelController {
                 fillCountries(communication.getAllCountries());
                 fillCities(communication.getAllCities(country));
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-        countryPanel.deleteCountryAddActionListener((ActionEvent e) -> {
-            try {
-                int row = countryPanel.getTblCountry().getSelectedRow();
-                Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 1);
-                List<City> cities = ((CityTM) countryPanel.getTblCity().getModel()).getList();
-                country.setCities(cities);
-                communication.deleteCountry(country);
-                fillCountries(communication.getAllCountries());
-                fillCities(null);
-                JOptionPane.showMessageDialog(countryPanel, "Sistem je obrisao drzavu.", "Greska", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception ex) {
-                ex.printStackTrace();
                 JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
         });

@@ -29,7 +29,6 @@ public class InsertCountryController {
     private final Coordinator coordinator;
     private final Mode mode;
     private final Country country;
-    private List<City> allCities;
 
     public InsertCountryController(InsertCountryForm insertCountryForm, Country country, Mode mode) {
         this.insertCountryForm = insertCountryForm;
@@ -48,8 +47,7 @@ public class InsertCountryController {
         if (mode == Mode.UPDATE) {
             insertCountryForm.setTitle("Azuriraj drzavu");
             insertCountryForm.getTxtCountryName().setText(country.getName());
-            allCities = communication.getAllCities(country);
-            fillCities(allCities);
+            fillCities(communication.getAllCities(country));
         } else {
             insertCountryForm.setTitle("Unesi drzavu");
             fillCities(new LinkedList<>());
@@ -66,7 +64,6 @@ public class InsertCountryController {
         insertCountryForm.getTblCity().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = insertCountryForm.getTblCity().getSelectedRow() != -1;
-                insertCountryForm.getBtnDeleteCity().setEnabled(selected);
                 insertCountryForm.getBtnUpdateCity().setEnabled(selected);
             }
         });
@@ -78,12 +75,6 @@ public class InsertCountryController {
             int row = insertCountryForm.getTblCity().getSelectedRow();
             City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
             coordinator.openInsertCityForm(city, Mode.UPDATE);
-            ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
-        });
-        insertCountryForm.deleteCityAddActionListener((ActionEvent e) -> {
-            int row = insertCountryForm.getTblCity().getSelectedRow();
-            City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
-            ((CityTM) insertCountryForm.getTblCity().getModel()).deleteCity(city);
             ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
         });
         insertCountryForm.getTxtCityName().getDocument().addDocumentListener(new DocumentListener() {
@@ -102,9 +93,7 @@ public class InsertCountryController {
             }
 
             private void search() {
-                String name = insertCountryForm.getTxtCityName().getText().toLowerCase();
-                List<City> filteredCities = (List<City>) allCities.stream().filter(city -> city.getName().toLowerCase().contains(name)).toList();
-                fillCities(filteredCities);
+
             }
         });
         insertCountryForm.saveAddActionListener((ActionEvent e) -> {

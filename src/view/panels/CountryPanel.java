@@ -38,7 +38,6 @@ public class CountryPanel extends javax.swing.JPanel {
         tblCountry = new javax.swing.JTable();
         btnInsertCountry = new javax.swing.JButton();
         btnUpdateCountry = new javax.swing.JButton();
-        btnDeleteCountry = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCity = new javax.swing.JTable();
@@ -65,9 +64,6 @@ public class CountryPanel extends javax.swing.JPanel {
 
         btnUpdateCountry.setText("Azuriraj drzavu");
         btnUpdateCountry.setEnabled(false);
-
-        btnDeleteCountry.setText("Obrisi drzavu");
-        btnDeleteCountry.setEnabled(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gradovi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
@@ -117,7 +113,6 @@ public class CountryPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDeleteCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnUpdateCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnInsertCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,8 +132,6 @@ public class CountryPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnInsertCountry)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteCountry)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdateCountry))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,10 +148,6 @@ public class CountryPanel extends javax.swing.JPanel {
         return tblCountry;
     }
 
-    public JButton getBtnDeleteCountry() {
-        return btnDeleteCountry;
-    }
-
     public JButton getBtnUpdateCountry() {
         return btnUpdateCountry;
     }
@@ -169,7 +158,6 @@ public class CountryPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteCountry;
     private javax.swing.JButton btnInsertCountry;
     private javax.swing.JButton btnUpdateCountry;
     private javax.swing.JLabel jLabel1;
@@ -181,10 +169,6 @@ public class CountryPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblCountry;
     private javax.swing.JTextField txtCountryName;
     // End of variables declaration//GEN-END:variables
-
-    public void deleteCountryAddActionListener(ActionListener actionListener) {
-        btnDeleteCountry.addActionListener(actionListener);
-    }
 
     public void insertCountryAddActionListener(ActionListener actionListener) {
         btnInsertCountry.addActionListener(actionListener);

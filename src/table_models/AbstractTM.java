@@ -44,6 +44,26 @@ public abstract class AbstractTM<T> extends AbstractTableModel {
         return list;
     }
 
+    public void insert(T parameter) {
+        list.add(parameter);
+        fireTableDataChanged();
+    }
+
+    public void update(T parameter) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(parameter)) {
+                list.set(i, parameter);
+                fireTableDataChanged();
+                return;
+            }
+        }
+    }
+
+    public void delete(T parameter) {
+        list.remove(parameter);
+        fireTableDataChanged();
+    }
+
     public abstract Object getAbstractValueAt(int rowIndex, int columnIndex);
 
 }

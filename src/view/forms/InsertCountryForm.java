@@ -43,7 +43,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCity = new javax.swing.JTable();
         btnInsertCity = new javax.swing.JButton();
-        btnDeleteCity = new javax.swing.JButton();
         btnUpdateCity = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtCityName = new javax.swing.JTextField();
@@ -72,9 +71,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
 
         btnInsertCity.setText("Dodaj grad");
 
-        btnDeleteCity.setText("Obrisi grad");
-        btnDeleteCity.setEnabled(false);
-
         btnUpdateCity.setText("Azuriraj grad");
         btnUpdateCity.setEnabled(false);
 
@@ -97,7 +93,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnUpdateCity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDeleteCity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnInsertCity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(96, 96, 96))
         );
@@ -113,8 +108,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertCity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteCity)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdateCity))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -176,10 +169,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
         return btnInsertCity;
     }
 
-    public JButton getBtnDeleteCity() {
-        return btnDeleteCity;
-    }
-
     public JButton getBtnUpdateCity() {
         return btnUpdateCity;
     }
@@ -189,7 +178,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteCity;
     private javax.swing.JButton btnInsertCity;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnUpdateCity;
@@ -208,10 +196,6 @@ public class InsertCountryForm extends javax.swing.JDialog {
 
     public void insertCityAddActionListener(ActionListener actionListener) {
         btnInsertCity.addActionListener(actionListener);
-    }
-
-    public void deleteCityAddActionListener(ActionListener actionListener) {
-        btnDeleteCity.addActionListener(actionListener);
     }
 
     public void updateCityAddActionListener(ActionListener actionListener) {

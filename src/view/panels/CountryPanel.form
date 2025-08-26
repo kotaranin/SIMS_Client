@@ -29,7 +29,6 @@
                       <Component id="jScrollPane1" min="-2" pref="324" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnDeleteCountry" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnUpdateCountry" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnInsertCountry" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
@@ -55,8 +54,6 @@
                   <Group type="102" attributes="0">
                       <Component id="btnInsertCountry" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnDeleteCountry" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnUpdateCountry" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="108" max="-2" attributes="0"/>
@@ -113,12 +110,6 @@
     <Component class="javax.swing.JButton" name="btnUpdateCountry">
       <Properties>
         <Property name="text" type="java.lang.String" value="Azuriraj drzavu"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnDeleteCountry">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Obrisi drzavu"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

@@ -4,38 +4,12 @@
  */
 package coordinator;
 
-import controllers.form.ClientFormController;
-import controllers.form.FilePickerFormController;
-import controllers.panel.LogInPanelController;
+import controllers.form.*;
+import controllers.panel.*;
 import communication.Communication;
-import controllers.form.InsertCityController;
-import controllers.panel.CountryPanelController;
-import controllers.panel.ExamPeriodPanelController;
-import controllers.form.InsertCountryController;
-import controllers.form.InsertExamPeriodController;
-import controllers.form.InsertStudyLevelController;
-import controllers.form.InsertTeacherController;
-import controllers.panel.HelpPanelController;
-import controllers.panel.InternshipPanelController;
-import controllers.panel.StudentOfficerPanelController;
-import controllers.panel.StudentPanelController;
-import controllers.panel.StudyLevelPanelController;
-import controllers.panel.TeacherPanelController;
-import domain.City;
-import domain.Country;
-import domain.ExamPeriod;
-import domain.Report;
-import domain.StudentOfficer;
-import domain.StudyLevel;
-import domain.Teacher;
+import domain.*;
 import enums.Mode;
-import view.forms.ClientForm;
-import view.forms.FilePickerForm;
-import view.forms.InsertCityForm;
-import view.forms.InsertCountryForm;
-import view.forms.InsertExamPeriodForm;
-import view.forms.InsertStudyLevelForm;
-import view.forms.InsertTeacherForm;
+import view.forms.*;
 
 /**
  *
@@ -64,6 +38,10 @@ public class Coordinator {
     private StudentPanelController studentPanelController;
     private InsertCountryForm insertCountryForm;
     private InsertCityController insertCityController;
+    private InsertStudyProgramController insertStudyProgramController;
+    private InsertStudyLevelForm insertStudyLevelForm;
+    private InsertStudyProgramForm insertStudyProgramForm;
+    private InsertModuleController insertModuleController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -75,6 +53,14 @@ public class Coordinator {
             instance = new Coordinator();
         }
         return instance;
+    }
+
+    public InsertStudyLevelController getInsertStudyLevelController() {
+        return insertStudyLevelController;
+    }
+
+    public InsertStudyProgramController getInsertStudyProgramController() {
+        return insertStudyProgramController;
     }
 
     public void openClientForm() {
@@ -128,11 +114,15 @@ public class Coordinator {
 
     public void openStudyLevelPanel() throws Exception {
         studyLevelPanelController = new StudyLevelPanelController(clientFormController.getStudyLevelPanel());
-        studyLevelPanelController.fillStudyLevels(communication.getAllStudyLevels());
+        studyLevelPanelController.setAllStudyLevels(communication.getAllStudyLevels());
+        studyLevelPanelController.fillStudyLevels(studyLevelPanelController.getAllStudyLevels());
+        studyLevelPanelController.fillStudyPrograms(null);
+        studyLevelPanelController.fillModules(null);
     }
 
-    public void openInsertStudyLevelForm(StudyLevel studyLevel, Mode mode) {
-        insertStudyLevelController = new InsertStudyLevelController(new InsertStudyLevelForm(clientFormController.getClientForm(), true), studyLevel, mode);
+    public void openInsertStudyLevelForm(StudyLevel studyLevel, Mode mode) throws Exception {
+        this.insertStudyLevelForm = new InsertStudyLevelForm(clientFormController.getClientForm(), true);
+        insertStudyLevelController = new InsertStudyLevelController(insertStudyLevelForm, studyLevel, mode);
         insertStudyLevelController.openInsertStudyLevelForm();
     }
 
@@ -153,6 +143,17 @@ public class Coordinator {
     public void openInsertCityForm(City city, Mode mode) {
         insertCityController = new InsertCityController(new InsertCityForm(insertCountryForm, true), city, mode);
         insertCityController.openInsertCityForm();
+    }
+
+    public void openInsertStudyProgramForm(StudyProgram studyProgram, Mode mode) throws Exception {
+        this.insertStudyProgramForm = new InsertStudyProgramForm(insertStudyLevelForm, true);
+        insertStudyProgramController = new InsertStudyProgramController(insertStudyProgramForm, studyProgram, mode);
+        insertStudyProgramController.openInsertStudyProgramForm();
+    }
+
+    public void openInsertModuleForm(domain.Module module, Mode mode) {
+        insertModuleController = new InsertModuleController(new InsertModuleForm(insertStudyProgramForm, true), module, mode);
+        insertModuleController.openInsertModuleForm();
     }
 
 }

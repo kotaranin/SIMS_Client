@@ -49,7 +49,7 @@ public class InsertCityController {
             switch (mode) {
                 case INSERT -> {
                     City c = new City(null, name, null);
-                    ((CityTM) ((InsertCountryForm) insertCityForm.getParent()).getTblCity().getModel()).insertCity(c);
+                    ((CityTM) ((InsertCountryForm) insertCityForm.getParent()).getTblCity().getModel()).insert(c);
                     closeInsertCityForm();
                 }
                 case UPDATE -> {
