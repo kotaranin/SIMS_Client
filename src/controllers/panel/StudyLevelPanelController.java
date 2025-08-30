@@ -136,7 +136,7 @@ public class StudyLevelPanelController {
                 StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 1);
                 coordinator.openInsertStudyLevelForm(studyLevel, Mode.UPDATE);
                 fillStudyLevels(communication.getAllStudyLevels());
-                fillStudyPrograms(communication.getAllStudyPrograms(studyLevel));
+                fillStudyPrograms(communication.getStudyPrograms(studyLevel));
                 fillModules(null);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);

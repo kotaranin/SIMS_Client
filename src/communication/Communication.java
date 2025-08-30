@@ -156,21 +156,44 @@ public class Communication {
         return null;
     }
 
-    public List<Student> getAllStudents() {
-        return null;
+    public List<Student> getAllStudents() throws ClassNotFoundException, Exception {
+        return (List<Student>) sendRequest(new Request(Operation.GET_ALL_STUDENTS, null));
     }
 
-    public List<City> getAllCities(Country country) throws ClassNotFoundException, Exception {
-        return (List<City>) sendRequest(new Request(Operation.GET_ALL_CITIES, country));
+    public List<City> getCities(Country country) throws ClassNotFoundException, Exception {
+        return (List<City>) sendRequest(new Request(Operation.GET_CITIES, country));
     }
 
-    public List<StudyProgram> getAllStudyPrograms(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
-        return (List<StudyProgram>) sendRequest(new Request(Operation.GET_ALL_STUDY_PROGRAMS, studyLevel));
+    public List<StudyProgram> getStudyPrograms(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
+        return (List<StudyProgram>) sendRequest(new Request(Operation.GET_STUDY_PROGRAMS, studyLevel));
     }
 
-    public List<domain.Module> getAllModules(StudyProgram studyProgram) throws ClassNotFoundException, Exception {
-        return (List<domain.Module>) sendRequest(new Request(Operation.GET_ALL_MODULES, studyProgram));
+    public List<domain.Module> getModules(StudyProgram studyProgram) throws ClassNotFoundException, Exception {
+        return (List<domain.Module>) sendRequest(new Request(Operation.GET_MODULES, studyProgram));
     }
 
+    public List<City> getAllCities() throws ClassNotFoundException, Exception {
+        return (List<City>) sendRequest(new Request(Operation.GET_ALL_CITIES, null));
+    }
+
+    public List<StudyProgram> getAllStudyPrograms() throws ClassNotFoundException, Exception {
+        return (List<StudyProgram>) sendRequest(new Request(Operation.GET_ALL_STUDY_PROGRAMS, null));
+    }
+
+    public List<domain.Module> getAllModules() throws ClassNotFoundException, Exception {
+        return (List<domain.Module>) sendRequest(new Request(Operation.GET_ALL_MODULES, null));
+    }
+
+    public List<Student> searchStudents(Student student) throws ClassNotFoundException, Exception {
+        return (List<Student>) sendRequest(new Request(Operation.SEARCH_STUDENTS, student));
+    }
+
+    public void updateStudent(Student student) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_STUDENT, student));
+    }
+
+    public void insertStudent(Student student) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_STUDENT, student));
+    }
 
 }

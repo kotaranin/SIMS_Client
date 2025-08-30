@@ -47,7 +47,7 @@ public class InsertCountryController {
         if (mode == Mode.UPDATE) {
             insertCountryForm.setTitle("Azuriraj drzavu");
             insertCountryForm.getTxtCountryName().setText(country.getName());
-            fillCities(communication.getAllCities(country));
+            fillCities(communication.getCities(country));
         } else {
             insertCountryForm.setTitle("Unesi drzavu");
             fillCities(new LinkedList<>());

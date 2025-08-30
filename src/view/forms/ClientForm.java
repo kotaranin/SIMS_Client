@@ -124,7 +124,7 @@ public class ClientForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 381, Short.MAX_VALUE)
+                        .addGap(0, 653, Short.MAX_VALUE)
                         .addComponent(lblPlaceholder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblStudentOfficer))

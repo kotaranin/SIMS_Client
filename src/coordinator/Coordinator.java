@@ -42,6 +42,7 @@ public class Coordinator {
     private InsertStudyLevelForm insertStudyLevelForm;
     private InsertStudyProgramForm insertStudyProgramForm;
     private InsertModuleController insertModuleController;
+    private InsertStudentController insertStudentController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -133,7 +134,7 @@ public class Coordinator {
 
     public void openStudentPanel() throws Exception {
         studentPanelController = new StudentPanelController(clientFormController.getStudentPanel());
-        studentPanelController.fillStudents(communication.getAllStudents());
+        studentPanelController.preparePanel();
     }
 
     public void openHelpPanel() {
@@ -154,6 +155,11 @@ public class Coordinator {
     public void openInsertModuleForm(domain.Module module, Mode mode) {
         insertModuleController = new InsertModuleController(new InsertModuleForm(insertStudyProgramForm, true), module, mode);
         insertModuleController.openInsertModuleForm();
+    }
+
+    public void openInsertStudentForm(Student student, Mode mode) throws Exception {
+        insertStudentController = new InsertStudentController(new InsertStudentForm(clientFormController.getClientForm(), true), student, mode);
+        insertStudentController.openInsertStudentForm();
     }
 
 }

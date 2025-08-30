@@ -58,7 +58,7 @@ public class CountryPanelController {
                 try {
                     int row = countryPanel.getTblCountry().getSelectedRow();
                     Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 1);
-                    List<City> cities = communication.getAllCities(country);
+                    List<City> cities = communication.getCities(country);
                     fillCities(cities);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
@@ -105,7 +105,7 @@ public class CountryPanelController {
                 Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 1);
                 coordinator.openInsertCountryForm(country, Mode.UPDATE);
                 fillCountries(communication.getAllCountries());
-                fillCities(communication.getAllCities(country));
+                fillCities(communication.getCities(country));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
