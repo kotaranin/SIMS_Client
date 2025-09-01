@@ -124,7 +124,7 @@ public class ClientFormController {
         clientForm.getMenuAbout().setVisible(true);
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
-        clientForm.getLblStudentOfficer().setText(Coordinator.studentOfficer.toString());
+        clientForm.getLblStudentOfficer().setText(coordinator.getStudentOfficer().toString());
         cardLayout.show(clientForm.getMainPanel(), "internshipPanel");
     }
 

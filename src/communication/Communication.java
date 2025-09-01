@@ -148,8 +148,8 @@ public class Communication {
         return (List<StudyLevel>) sendRequest(new Request(Operation.SEARCH_STUDY_LEVEL, condition));
     }
 
-    public List<Internship> getAllInternships() {
-        return null;
+    public List<Internship> getAllInternships() throws ClassNotFoundException, Exception {
+        return (List<Internship>) sendRequest(new Request(Operation.GET_ALL_INTERNSHIPS, null));
     }
 
     public List<StudentOfficer> getAllStudentOfficers() {
@@ -194,6 +194,22 @@ public class Communication {
 
     public void insertStudent(Student student) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.INSERT_STUDENT, student));
+    }
+
+    public List<Company> getAllCompanies() throws ClassNotFoundException, Exception {
+        return (List<Company>) sendRequest(new Request(Operation.GET_ALL_COMPANIES, null));
+    }
+
+    public void deleteInternship(Internship internship) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_INTERNSHIP, internship));
+    }
+
+    public void insertInternship(Internship internship) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_INTERNSHIP, internship));
+    }
+
+    public void updateInternship(Internship internship) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_INTERNSHIP, internship));
     }
 
 }

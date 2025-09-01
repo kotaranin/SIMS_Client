@@ -20,10 +20,12 @@ public class LogInPanelController {
 
     private final LogInPanel logInPanel;
     private final Communication communication;
+    private final Coordinator coordinator;
 
     public LogInPanelController(LogInPanel logInPanel) {
         this.logInPanel = logInPanel;
         this.communication = Communication.getInstance();
+        this.coordinator = Coordinator.getInstance();
         addActionListeners();
     }
 
@@ -42,7 +44,7 @@ public class LogInPanelController {
                     studentOfficer.setEmail(email);
                     studentOfficer.setPassword(password);
                     studentOfficer = communication.logIn(studentOfficer);
-                    Coordinator.studentOfficer = studentOfficer;
+                    coordinator.setStudentOfficer(studentOfficer);
                     Coordinator.getInstance().openInternshipPanel();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);

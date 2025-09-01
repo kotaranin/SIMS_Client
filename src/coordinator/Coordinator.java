@@ -19,7 +19,7 @@ public class Coordinator {
 
     private static Coordinator instance;
     private final Communication communication;
-    public static StudentOfficer studentOfficer;
+    public StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
     private InternshipPanelController internshipPanelController;
@@ -43,6 +43,7 @@ public class Coordinator {
     private InsertStudyProgramForm insertStudyProgramForm;
     private InsertModuleController insertModuleController;
     private InsertStudentController insertStudentController;
+    private InsertInternshipController insertInternshipController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -54,6 +55,14 @@ public class Coordinator {
             instance = new Coordinator();
         }
         return instance;
+    }
+
+    public StudentOfficer getStudentOfficer() {
+        return studentOfficer;
+    }
+
+    public void setStudentOfficer(StudentOfficer studentOfficer) {
+        this.studentOfficer = studentOfficer;
     }
 
     public InsertStudyLevelController getInsertStudyLevelController() {
@@ -70,10 +79,10 @@ public class Coordinator {
         logInPanelController = new LogInPanelController(clientFormController.getLogInPanel());
     }
 
-    public void openInternshipPanel() {
+    public void openInternshipPanel() throws Exception {
         internshipPanelController = new InternshipPanelController(clientFormController.getInternshipPanel());
         clientFormController.openInternshipPanel();
-        internshipPanelController.fillInternships(communication.getAllInternships());
+        internshipPanelController.preparePanel();
     }
 
     public Report openFilePickerForm() throws Exception {
@@ -160,6 +169,11 @@ public class Coordinator {
     public void openInsertStudentForm(Student student, Mode mode) throws Exception {
         insertStudentController = new InsertStudentController(new InsertStudentForm(clientFormController.getClientForm(), true), student, mode);
         insertStudentController.openInsertStudentForm();
+    }
+
+    public void openinsertInternshipForm(Internship internship, Mode mode) throws Exception {
+        insertInternshipController = new InsertInternshipController(new InsertInternshipForm(clientFormController.getClientForm(), true), internship, mode);
+        insertInternshipController.openInsertInternshipForm();
     }
 
 }
