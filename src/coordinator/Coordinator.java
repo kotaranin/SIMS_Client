@@ -18,7 +18,7 @@ import view.forms.*;
 public class Coordinator {
 
     private static Coordinator instance;
-    private final Communication communication;
+    private Communication communication;
     public StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
@@ -34,7 +34,7 @@ public class Coordinator {
     private InsertStudyLevelController insertStudyLevelController;
     private HelpPanelController helpPanelController;
     private InternshipPanelController internshipPanelController1;
-    private StudentOfficerPanelController studentOfficerPanelController;
+    private RegistrationRequestPanelController registrationRequestPanelController;
     private StudentPanelController studentPanelController;
     private InsertCountryForm insertCountryForm;
     private InsertCityController insertCityController;
@@ -44,6 +44,7 @@ public class Coordinator {
     private InsertModuleController insertModuleController;
     private InsertStudentController insertStudentController;
     private InsertInternshipController insertInternshipController;
+    private RegistrationFormController registrationFormController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -136,9 +137,9 @@ public class Coordinator {
         insertStudyLevelController.openInsertStudyLevelForm();
     }
 
-    public void openStudentOfficerPanel() throws Exception {
-        studentOfficerPanelController = new StudentOfficerPanelController(clientFormController.getStudentOfficerPanel());
-        studentOfficerPanelController.fillStudentOfficers(communication.getAllStudentOfficers());
+    public void openRegistrationRequestPanel() throws Exception {
+        registrationRequestPanelController = new RegistrationRequestPanelController(clientFormController.getStudentOfficerPanel());
+        registrationRequestPanelController.preparePanel();
     }
 
     public void openStudentPanel() throws Exception {
@@ -174,6 +175,11 @@ public class Coordinator {
     public void openinsertInternshipForm(Internship internship, Mode mode) throws Exception {
         insertInternshipController = new InsertInternshipController(new InsertInternshipForm(clientFormController.getClientForm(), true), internship, mode);
         insertInternshipController.openInsertInternshipForm();
+    }
+
+    public void openInsertRegistrationForm() throws Exception {
+        registrationFormController = new RegistrationFormController(new RegistrationForm(clientFormController.getClientForm(), true));
+        registrationFormController.openRegistrationForm();
     }
 
 }

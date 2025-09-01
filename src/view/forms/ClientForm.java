@@ -7,6 +7,7 @@ package view.forms;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -44,8 +45,8 @@ public class ClientForm extends javax.swing.JFrame {
         itemExamPeriod = new javax.swing.JMenuItem();
         itemTeacher = new javax.swing.JMenuItem();
         itemStudyLevel = new javax.swing.JMenuItem();
-        itemStudentOfficer = new javax.swing.JMenuItem();
         itemStudent = new javax.swing.JMenuItem();
+        itemRegistrationRequest = new javax.swing.JMenuItem();
         itemCountry = new javax.swing.JMenuItem();
         menuAbout = new javax.swing.JMenu();
         itemHelp = new javax.swing.JMenuItem();
@@ -94,11 +95,11 @@ public class ClientForm extends javax.swing.JFrame {
         itemStudyLevel.setText("Nivoi studija, studijski programi, moduli");
         jMenu1.add(itemStudyLevel);
 
-        itemStudentOfficer.setText("Sluzbenici");
-        jMenu1.add(itemStudentOfficer);
-
         itemStudent.setText("Studenti");
         jMenu1.add(itemStudent);
+
+        itemRegistrationRequest.setText("Zahtevi za registraciju");
+        jMenu1.add(itemRegistrationRequest);
 
         menuAdministration.add(jMenu1);
 
@@ -146,9 +147,6 @@ public class ClientForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public JPanel getMainPanel() {
         return mainPanel;
     }
@@ -173,14 +171,20 @@ public class ClientForm extends javax.swing.JFrame {
         return lblPlaceholder;
     }
 
+    public JMenuItem getItemRegistrationRequest() {
+        return itemRegistrationRequest;
+    }
 
+    /**
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
     private javax.swing.JMenuItem itemHelp;
     private javax.swing.JMenuItem itemInternships;
+    private javax.swing.JMenuItem itemRegistrationRequest;
     private javax.swing.JMenuItem itemStudent;
-    private javax.swing.JMenuItem itemStudentOfficer;
     private javax.swing.JMenuItem itemStudyLevel;
     private javax.swing.JMenuItem itemTeacher;
     private javax.swing.JMenu jMenu1;
@@ -215,8 +219,8 @@ public class ClientForm extends javax.swing.JFrame {
         itemInternships.addActionListener(actionListener);
     }
 
-    public void showStudentOfficersAddActionListener(ActionListener actionListener) {
-        itemStudentOfficer.addActionListener(actionListener);
+    public void showRegistrationRequestsAddActionListener(ActionListener actionListener) {
+        itemRegistrationRequest.addActionListener(actionListener);
     }
 
     public void showStudentsAddActionListener(ActionListener actionListener) {

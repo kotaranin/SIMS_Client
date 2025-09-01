@@ -51,14 +51,14 @@
                     <Property name="text" type="java.lang.String" value="Nivoi studija, studijski programi, moduli"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="itemStudentOfficer">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Sluzbenici"/>
-                  </Properties>
-                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="itemStudent">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Studenti"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itemRegistrationRequest">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Zahtevi za registraciju"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>

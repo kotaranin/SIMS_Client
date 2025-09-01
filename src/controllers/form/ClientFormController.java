@@ -14,7 +14,7 @@ import view.panels.ExamPeriodPanel;
 import view.panels.HelpPanel;
 import view.panels.InternshipPanel;
 import view.panels.LogInPanel;
-import view.panels.StudentOfficerPanel;
+import view.panels.RegistrationRequestPanel;
 import view.panels.StudentPanel;
 import view.panels.StudyLevelPanel;
 import view.panels.TeacherPanel;
@@ -35,7 +35,7 @@ public class ClientFormController {
     private final TeacherPanel teacherPanel;
     private final StudyLevelPanel studyLevelPanel;
     private final HelpPanel helpPanel;
-    private final StudentOfficerPanel studentOfficerPanel;
+    private final RegistrationRequestPanel studentOfficerPanel;
     private final StudentPanel studentPanel;
     // svi paneli ovde
 
@@ -50,7 +50,7 @@ public class ClientFormController {
         this.teacherPanel = new TeacherPanel();
         this.studyLevelPanel = new StudyLevelPanel();
         this.helpPanel = new HelpPanel();
-        this.studentOfficerPanel = new StudentOfficerPanel();
+        this.studentOfficerPanel = new RegistrationRequestPanel();
         this.studentPanel = new StudentPanel();
         // svi paneli ovde
         addActionListeners();
@@ -92,7 +92,7 @@ public class ClientFormController {
         return studentPanel;
     }
 
-    public StudentOfficerPanel getStudentOfficerPanel() {
+    public RegistrationRequestPanel getStudentOfficerPanel() {
         return studentOfficerPanel;
     }
 
@@ -105,6 +105,7 @@ public class ClientFormController {
         clientForm.getMenuAbout().setVisible(false);
         clientForm.getLblPlaceholder().setVisible(false);
         clientForm.getLblStudentOfficer().setVisible(false);
+        clientForm.getItemRegistrationRequest().setVisible(false);
         clientForm.getMainPanel().setLayout(cardLayout);
         clientForm.getMainPanel().add(logInPanel.getLogInPanel(), "logInPanel");
         clientForm.getMainPanel().add(internshipPanel, "internshipPanel");
@@ -124,6 +125,8 @@ public class ClientFormController {
         clientForm.getMenuAbout().setVisible(true);
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
+        if (coordinator.getStudentOfficer().isAdmin())
+            clientForm.getItemRegistrationRequest().setVisible(true);
         clientForm.getLblStudentOfficer().setText(coordinator.getStudentOfficer().toString());
         cardLayout.show(clientForm.getMainPanel(), "internshipPanel");
     }
@@ -164,10 +167,10 @@ public class ClientFormController {
         }
     }
 
-    private void openStudentOfficerPanel() {
+    private void openRegistrationRequestPanel() {
         try {
             cardLayout.show(clientForm.getMainPanel(), "studentOfficerPanel");
-            coordinator.openStudentOfficerPanel();
+            coordinator.openRegistrationRequestPanel();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
@@ -203,8 +206,8 @@ public class ClientFormController {
         clientForm.showStudyLevelsAddActionListener((ActionEvent e) -> {
             openStudyLevelPanel();
         });
-        clientForm.showStudentOfficersAddActionListener((ActionEvent e) -> {
-            openStudentOfficerPanel();
+        clientForm.showRegistrationRequestsAddActionListener((ActionEvent e) -> {
+            openRegistrationRequestPanel();
         });
         clientForm.showStudentsAddActionListener((ActionEvent e) -> {
             openStudentPanel();

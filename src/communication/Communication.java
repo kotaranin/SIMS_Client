@@ -32,6 +32,7 @@ public class Communication {
             this.receiver = new Receiver(socket);
         } catch (IOException ex) {
             Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
         }
     }
 
@@ -152,8 +153,8 @@ public class Communication {
         return (List<Internship>) sendRequest(new Request(Operation.GET_ALL_INTERNSHIPS, null));
     }
 
-    public List<StudentOfficer> getAllStudentOfficers() {
-        return null;
+    public List<StudentOfficer> getAllStudentOfficers() throws ClassNotFoundException, Exception {
+        return (List<StudentOfficer>) sendRequest(new Request(Operation.GET_ALL_STUDENT_OFFICERS, null));
     }
 
     public List<Student> getAllStudents() throws ClassNotFoundException, Exception {
@@ -210,6 +211,22 @@ public class Communication {
 
     public void updateInternship(Internship internship) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.UPDATE_INTERNSHIP, internship));
+    }
+
+    public void insertRegistrationRequest(RegistrationRequest registrationRequest) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_REGISTRATION_REQUEST, registrationRequest));
+    }
+
+    public void deleteRegistrationRequest(RegistrationRequest registrationRequest) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.DELETE_REGISTRATION_REQUEST, registrationRequest));
+    }
+
+    public void insertStudentOfficer(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_STUDENT_OFFICER, studentOfficer));
+    }
+
+    public List<RegistrationRequest> getAllRegistrationRequests() throws ClassNotFoundException, Exception {
+        return (List<RegistrationRequest>) sendRequest(new Request(Operation.GET_ALL_REGISTRATION_REQUESTS, null));
     }
 
 }
