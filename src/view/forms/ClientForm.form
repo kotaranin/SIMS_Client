@@ -19,6 +19,11 @@
             <Property name="text" type="java.lang.String" value=" Strucna praksa"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemCompany">
+              <Properties>
+                <Property name="text" type="java.lang.String" value=" Kompanije"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemInternships">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pregled strucnih praksi"/>

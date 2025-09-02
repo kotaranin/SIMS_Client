@@ -229,4 +229,12 @@ public class Communication {
         return (List<RegistrationRequest>) sendRequest(new Request(Operation.GET_ALL_REGISTRATION_REQUESTS, null));
     }
 
+    public void insertCompany(Company company) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.INSERT_COMPANY, company));
+    }
+
+    public void updateCompany(Company company) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_COMPANY, company));
+    }
+
 }

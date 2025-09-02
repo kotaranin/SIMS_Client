@@ -39,6 +39,7 @@ public class ClientForm extends javax.swing.JFrame {
         lblStudentOfficer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuInternship = new javax.swing.JMenu();
+        itemCompany = new javax.swing.JMenuItem();
         itemInternships = new javax.swing.JMenuItem();
         menuAdministration = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -76,6 +77,9 @@ public class ClientForm extends javax.swing.JFrame {
         lblStudentOfficer.setText("ime i prezime");
 
         menuInternship.setText(" Strucna praksa");
+
+        itemCompany.setText(" Kompanije");
+        menuInternship.add(itemCompany);
 
         itemInternships.setText("Pregled strucnih praksi");
         menuInternship.add(itemInternships);
@@ -179,6 +183,7 @@ public class ClientForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemCompany;
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
     private javax.swing.JMenuItem itemHelp;
@@ -229,6 +234,10 @@ public class ClientForm extends javax.swing.JFrame {
 
     public void showHelpAddActionListener(ActionListener actionListener) {
         itemHelp.addActionListener(actionListener);
+    }
+
+    public void showCompaniesAddActionListener(ActionListener actionListener) {
+        itemCompany.addActionListener(actionListener);
     }
 
 }

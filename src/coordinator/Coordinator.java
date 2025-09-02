@@ -45,6 +45,8 @@ public class Coordinator {
     private InsertStudentController insertStudentController;
     private InsertInternshipController insertInternshipController;
     private RegistrationFormController registrationFormController;
+    private CompanyController companyController;
+    private InsertCompanyController insertCompanyController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -180,6 +182,16 @@ public class Coordinator {
     public void openInsertRegistrationForm() throws Exception {
         registrationFormController = new RegistrationFormController(new RegistrationForm(clientFormController.getClientForm(), true));
         registrationFormController.openRegistrationForm();
+    }
+
+    public void openCompanyPanel() throws Exception {
+        companyController = new CompanyController(clientFormController.getCompanyPanel());
+        companyController.preparePanel();
+    }
+
+    public void openInsertCompanyForm(Company company, Mode mode) throws Exception {
+        insertCompanyController = new InsertCompanyController(new InsertCompanyForm(clientFormController.getClientForm(), true), company, mode);
+        insertCompanyController.openInsertCompanyForm();
     }
 
 }
