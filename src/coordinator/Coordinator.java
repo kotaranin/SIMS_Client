@@ -45,8 +45,11 @@ public class Coordinator {
     private InsertStudentController insertStudentController;
     private InsertInternshipController insertInternshipController;
     private RegistrationFormController registrationFormController;
-    private CompanyController companyController;
+    private CompanyPanelController companyController;
     private InsertCompanyController insertCompanyController;
+    private ProfilePanelController profilePanelController;
+    private NewPasswordController newPasswordController;
+    private QuestionFormController questionFormController;
     // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
@@ -79,7 +82,12 @@ public class Coordinator {
     public void openClientForm() {
         clientFormController = new ClientFormController(new ClientForm());
         clientFormController.openClientForm();
+        openLogInPanel();
+    }
+    
+    public void openLogInPanel() {
         logInPanelController = new LogInPanelController(clientFormController.getLogInPanel());
+        logInPanelController.preparePanel();
     }
 
     public void openInternshipPanel() throws Exception {
@@ -185,13 +193,28 @@ public class Coordinator {
     }
 
     public void openCompanyPanel() throws Exception {
-        companyController = new CompanyController(clientFormController.getCompanyPanel());
+        companyController = new CompanyPanelController(clientFormController.getCompanyPanel());
         companyController.preparePanel();
     }
 
     public void openInsertCompanyForm(Company company, Mode mode) throws Exception {
         insertCompanyController = new InsertCompanyController(new InsertCompanyForm(clientFormController.getClientForm(), true), company, mode);
         insertCompanyController.openInsertCompanyForm();
+    }
+
+    public void openProfilePanel() {
+        profilePanelController = new ProfilePanelController(clientFormController.getProfilePanel());
+        profilePanelController.preparePanel();
+    }
+
+    public void openNewPasswordForm(Mode mode) {
+        newPasswordController = new NewPasswordController(new NewPasswordForm(clientFormController.getClientForm(), true), mode);
+        newPasswordController.openNewPasswordForm();
+    }
+
+    public void openQuestionForm() {
+        questionFormController = new QuestionFormController(new QuestionForm(clientFormController.getClientForm(), true));
+        questionFormController.openQuestionForm();
     }
 
 }

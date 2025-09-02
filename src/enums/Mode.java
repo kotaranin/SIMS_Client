@@ -9,5 +9,5 @@ package enums;
  * @author kotar
  */
 public enum Mode {
-    INSERT, UPDATE;
+    INSERT, UPDATE, FORGOT, CHANGE;
 }

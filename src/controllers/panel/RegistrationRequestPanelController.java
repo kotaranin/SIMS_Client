@@ -69,6 +69,8 @@ public class RegistrationRequestPanelController {
                 studentOfficer.setLastName(registrationRequest.getLastName());
                 studentOfficer.setEmail(registrationRequest.getEmail());
                 studentOfficer.setPassword(registrationRequest.getPassword());
+                studentOfficer.setQuestion(registrationRequest.getQuestion());
+                studentOfficer.setAnswer(registrationRequest.getAnswer());
                 if (registrationRequest.isAdmin()) {
                     int choice = JOptionPane.showConfirmDialog(registrationRequestPanel, "Da li dozvoljavate administratorske privilegije korisniku: " + registrationRequest, "Upozorenje", JOptionPane.YES_NO_OPTION);
                     studentOfficer.setAdmin(choice == JOptionPane.YES_OPTION);

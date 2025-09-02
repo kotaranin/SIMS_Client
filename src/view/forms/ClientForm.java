@@ -34,6 +34,15 @@ public class ClientForm extends javax.swing.JFrame {
 
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuBar4 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         mainPanel = new javax.swing.JPanel();
         lblPlaceholder = new javax.swing.JLabel();
         lblStudentOfficer = new javax.swing.JLabel();
@@ -51,10 +60,31 @@ public class ClientForm extends javax.swing.JFrame {
         itemCountry = new javax.swing.JMenuItem();
         menuAbout = new javax.swing.JMenu();
         itemHelp = new javax.swing.JMenuItem();
+        menuProfile = new javax.swing.JMenu();
+        itemMyProfile = new javax.swing.JMenuItem();
+        itemLogOut = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
         jMenuItem11.setText("jMenuItem11");
+
+        jMenu2.setText("File");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("File");
+        jMenuBar3.add(jMenu4);
+
+        jMenu5.setText("Edit");
+        jMenuBar3.add(jMenu5);
+
+        jMenu6.setText("File");
+        jMenuBar4.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar4.add(jMenu7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Evidencija studentskih praksi");
@@ -78,7 +108,7 @@ public class ClientForm extends javax.swing.JFrame {
 
         menuInternship.setText(" Strucna praksa");
 
-        itemCompany.setText(" Kompanije");
+        itemCompany.setText("Kompanije");
         menuInternship.add(itemCompany);
 
         itemInternships.setText("Pregled strucnih praksi");
@@ -118,6 +148,16 @@ public class ClientForm extends javax.swing.JFrame {
         menuAbout.add(itemHelp);
 
         jMenuBar1.add(menuAbout);
+
+        menuProfile.setText("Profil");
+
+        itemMyProfile.setText("Moj profil");
+        menuProfile.add(itemMyProfile);
+
+        itemLogOut.setText("Odjava");
+        menuProfile.add(itemLogOut);
+
+        jMenuBar1.add(menuProfile);
 
         setJMenuBar(jMenuBar1);
 
@@ -167,6 +207,10 @@ public class ClientForm extends javax.swing.JFrame {
         return menuAbout;
     }
 
+    public JMenu getMenuProfile() {
+        return menuProfile;
+    }
+
     public JLabel getLblStudentOfficer() {
         return lblStudentOfficer;
     }
@@ -179,21 +223,29 @@ public class ClientForm extends javax.swing.JFrame {
         return itemRegistrationRequest;
     }
 
-    /**
-     * @param args the command line arguments
-     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCompany;
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
     private javax.swing.JMenuItem itemHelp;
     private javax.swing.JMenuItem itemInternships;
+    private javax.swing.JMenuItem itemLogOut;
+    private javax.swing.JMenuItem itemMyProfile;
     private javax.swing.JMenuItem itemRegistrationRequest;
     private javax.swing.JMenuItem itemStudent;
     private javax.swing.JMenuItem itemStudyLevel;
     private javax.swing.JMenuItem itemTeacher;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JLabel lblPlaceholder;
@@ -202,6 +254,7 @@ public class ClientForm extends javax.swing.JFrame {
     private javax.swing.JMenu menuAbout;
     private javax.swing.JMenu menuAdministration;
     private javax.swing.JMenu menuInternship;
+    private javax.swing.JMenu menuProfile;
     // End of variables declaration//GEN-END:variables
 
     public void showCountriesAddActionListener(ActionListener actionListener) {
@@ -238,6 +291,10 @@ public class ClientForm extends javax.swing.JFrame {
 
     public void showCompaniesAddActionListener(ActionListener actionListener) {
         itemCompany.addActionListener(actionListener);
+    }
+
+    public void showProfileAddActionListener(ActionListener actionListener) {
+        itemMyProfile.addActionListener(actionListener);
     }
 
 }

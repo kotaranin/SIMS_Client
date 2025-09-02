@@ -8,20 +8,8 @@ import coordinator.Coordinator;
 import view.forms.ClientForm;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import view.panels.CompanyPanel;
-import view.panels.CountryPanel;
-import view.panels.ExamPeriodPanel;
-import view.panels.HelpPanel;
-import view.panels.InternshipPanel;
-import view.panels.LogInPanel;
-import view.panels.RegistrationRequestPanel;
-import view.panels.StudentPanel;
-import view.panels.StudyLevelPanel;
-import view.panels.TeacherPanel;
+import view.panels.*;
 
 /**
  *
@@ -42,6 +30,7 @@ public class ClientFormController {
     private final RegistrationRequestPanel studentOfficerPanel;
     private final StudentPanel studentPanel;
     private final CompanyPanel companyPanel;
+    private final ProfilePanel profilePanel;
     // svi paneli ovde
 
     public ClientFormController(ClientForm clientForm) {
@@ -58,6 +47,7 @@ public class ClientFormController {
         this.studentOfficerPanel = new RegistrationRequestPanel();
         this.studentPanel = new StudentPanel();
         this.companyPanel = new CompanyPanel();
+        this.profilePanel = new ProfilePanel();
         // svi paneli ovde
         addActionListeners();
     }
@@ -106,6 +96,10 @@ public class ClientFormController {
         return companyPanel;
     }
 
+    public ProfilePanel getProfilePanel() {
+        return profilePanel;
+    }
+
     // svi getteri panela ovde
     public void openClientForm() {
         clientForm.setVisible(true);
@@ -113,6 +107,7 @@ public class ClientFormController {
         clientForm.getMenuAdministration().setVisible(false);
         clientForm.getMenuInternship().setVisible(false);
         clientForm.getMenuAbout().setVisible(false);
+        clientForm.getMenuProfile().setVisible(false);
         clientForm.getLblPlaceholder().setVisible(false);
         clientForm.getLblStudentOfficer().setVisible(false);
         clientForm.getItemRegistrationRequest().setVisible(false);
@@ -127,6 +122,7 @@ public class ClientFormController {
         clientForm.getMainPanel().add(studentPanel, "studentPanel");
         clientForm.getMainPanel().add(studentOfficerPanel, "studentOfficerPanel");
         clientForm.getMainPanel().add(companyPanel, "companyPanel");
+        clientForm.getMainPanel().add(profilePanel, "profilePanel");
         // svi paneli ovde
     }
 
@@ -134,6 +130,7 @@ public class ClientFormController {
         clientForm.getMenuAdministration().setVisible(true);
         clientForm.getMenuInternship().setVisible(true);
         clientForm.getMenuAbout().setVisible(true);
+        clientForm.getMenuProfile().setVisible(true);
         clientForm.getLblPlaceholder().setVisible(true);
         clientForm.getLblStudentOfficer().setVisible(true);
         if (coordinator.getStudentOfficer().isAdmin()) {
@@ -201,7 +198,7 @@ public class ClientFormController {
         cardLayout.show(clientForm.getMainPanel(), "helpPanel");
         coordinator.openHelpPanel();
     }
-    
+
     private void openCompanyPanel() {
         try {
             cardLayout.show(clientForm.getMainPanel(), "companyPanel");
@@ -209,6 +206,11 @@ public class ClientFormController {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void openProfilePanel() {
+        cardLayout.show(clientForm.getMainPanel(), "profilePanel");
+        coordinator.openProfilePanel();
     }
 
     private void addActionListeners() {
@@ -239,7 +241,9 @@ public class ClientFormController {
         clientForm.showCompaniesAddActionListener((ActionEvent e) -> {
             openCompanyPanel();
         });
+        clientForm.showProfileAddActionListener((ActionEvent e) -> {
+            openProfilePanel();
+        });
         // za svaku stavku menija, ovde
     }
-
 }

@@ -21,13 +21,13 @@ import view.panels.CompanyPanel;
  *
  * @author kotar
  */
-public class CompanyController {
+public class CompanyPanelController {
 
     private final CompanyPanel companyPanel;
     private final Communication communication;
     private final Coordinator coordinator;
 
-    public CompanyController(CompanyPanel companyPanel) {
+    public CompanyPanelController(CompanyPanel companyPanel) {
         this.companyPanel = companyPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();

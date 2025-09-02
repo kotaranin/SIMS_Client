@@ -27,7 +27,7 @@ public class RegistrationFormController {
         this.communication = Communication.getInstance();
         addActionListeners();
     }
-    
+
     private void prepareForm() throws Exception {
         List<StudyLevel> studyLevels = communication.getAllStudyLevels();
         for (StudyLevel studyLevel : studyLevels) {
@@ -54,13 +54,14 @@ public class RegistrationFormController {
                 String email = registrationForm.getTxtEmail().getText();
                 boolean admin = registrationForm.getCbAdmin().isSelected();
                 String password = String.valueOf(registrationForm.getTxtPassword2().getPassword());
+                String question = registrationForm.getTxtQuestion().getText();
+                String answer = String.valueOf(registrationForm.getTxtAnswer().getPassword());
                 StudyLevel studyLevel = (StudyLevel) registrationForm.getComboStudyLevel().getSelectedItem();
-                RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, password, admin, studyLevel);
+                RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, password, question, answer, admin, studyLevel);
                 communication.insertRegistrationRequest(registrationRequest);
                 JOptionPane.showMessageDialog(registrationForm, "Sistem je zapamtio zahtev za registraciju.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 closeRegistrationForm();
             } catch (Exception ex) {
-                ex.printStackTrace();
                 JOptionPane.showMessageDialog(registrationForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
         });

@@ -237,4 +237,8 @@ public class Communication {
         sendRequest(new Request(Operation.UPDATE_COMPANY, company));
     }
 
+    public void updateStudentOfficer(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
+        sendRequest(new Request(Operation.UPDATE_STUDENT_OFFICER, studentOfficer));
+    }
+
 }
