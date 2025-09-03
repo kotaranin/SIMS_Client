@@ -75,7 +75,7 @@ public class LogInPanel extends javax.swing.JPanel {
 
         txtEmail.setText("uros.kotaranin@fon.bg.ac.rs");
 
-        txtPassword.setText("12345678");
+        txtPassword.setText("123456");
 
         btnLogIn.setText("Uloguj se");
 

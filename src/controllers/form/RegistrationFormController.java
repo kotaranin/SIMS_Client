@@ -9,7 +9,6 @@ import domain.RegistrationRequest;
 import domain.StudyLevel;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.UUID;
 import javax.swing.JOptionPane;
 import view.forms.RegistrationForm;
 
@@ -57,7 +56,7 @@ public class RegistrationFormController {
                 String question = registrationForm.getTxtQuestion().getText();
                 String answer = String.valueOf(registrationForm.getTxtAnswer().getPassword());
                 StudyLevel studyLevel = (StudyLevel) registrationForm.getComboStudyLevel().getSelectedItem();
-                RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, password, question, answer, admin, studyLevel);
+                RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, null, password, question, null, answer, admin, studyLevel);
                 communication.insertRegistrationRequest(registrationRequest);
                 JOptionPane.showMessageDialog(registrationForm, "Sistem je zapamtio zahtev za registraciju.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 closeRegistrationForm();

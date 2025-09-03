@@ -53,8 +53,8 @@ public class Communication {
         }
     }
 
-    public StudentOfficer logIn(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
-        return (StudentOfficer) sendRequest(new Request(Operation.LOG_IN, studentOfficer));
+    public StudentOfficer passwordLogIn(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
+        return (StudentOfficer) sendRequest(new Request(Operation.PASSWORD_LOG_IN, studentOfficer));
     }
 
     public List<Report> getAllReports() throws ClassNotFoundException, Exception {
@@ -239,6 +239,10 @@ public class Communication {
 
     public void updateStudentOfficer(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.UPDATE_STUDENT_OFFICER, studentOfficer));
+    }
+
+    public StudentOfficer questionLogIn(StudentOfficer studentOfficer) throws ClassNotFoundException, Exception {
+        return (StudentOfficer) sendRequest(new Request(Operation.QUESTION_LOG_IN, studentOfficer));
     }
 
 }

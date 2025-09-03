@@ -62,8 +62,8 @@ public class LogInPanelController {
                 String password = String.valueOf(logInPanel.getTxtPassword().getPassword());
                 StudentOfficer studentOfficer = new StudentOfficer();
                 studentOfficer.setEmail(email);
-                studentOfficer.setPassword(password);
-                studentOfficer = communication.logIn(studentOfficer);
+                studentOfficer.setHashedPassword(password);
+                studentOfficer = communication.passwordLogIn(studentOfficer);
                 coordinator.setStudentOfficer(studentOfficer);
                 coordinator.openInternshipPanel();
             } catch (Exception ex) {

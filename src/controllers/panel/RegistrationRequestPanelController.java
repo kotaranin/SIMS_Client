@@ -10,8 +10,6 @@ import domain.StudentOfficer;
 import domain.StudyLevel;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import table_models.RegistrationRequestTM;
 import table_models.StudentOfficerTM;
@@ -68,9 +66,11 @@ public class RegistrationRequestPanelController {
                 studentOfficer.setFirstName(registrationRequest.getFirstName());
                 studentOfficer.setLastName(registrationRequest.getLastName());
                 studentOfficer.setEmail(registrationRequest.getEmail());
-                studentOfficer.setPassword(registrationRequest.getPassword());
+                studentOfficer.setPasswordSalt(registrationRequest.getPasswordSalt());
+                studentOfficer.setHashedPassword(registrationRequest.getHashedPassword());
                 studentOfficer.setQuestion(registrationRequest.getQuestion());
-                studentOfficer.setAnswer(registrationRequest.getAnswer());
+                studentOfficer.setAnswerSalt(registrationRequest.getAnswerSalt());
+                studentOfficer.setHashedAnswer(registrationRequest.getHashedAnswer());
                 if (registrationRequest.isAdmin()) {
                     int choice = JOptionPane.showConfirmDialog(registrationRequestPanel, "Da li dozvoljavate administratorske privilegije korisniku: " + registrationRequest, "Upozorenje", JOptionPane.YES_NO_OPTION);
                     studentOfficer.setAdmin(choice == JOptionPane.YES_OPTION);

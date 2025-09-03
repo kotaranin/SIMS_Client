@@ -297,4 +297,8 @@ public class ClientForm extends javax.swing.JFrame {
         itemMyProfile.addActionListener(actionListener);
     }
 
+    public void logOutAddActionListener(ActionListener actionListener) {
+        itemLogOut.addActionListener(actionListener);
+    }
+
 }

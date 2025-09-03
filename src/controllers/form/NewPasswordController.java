@@ -23,13 +23,15 @@ public class NewPasswordController {
     private final NewPasswordForm newPasswordForm;
     private final Mode mode;
     private final Communication communication;
-    private final StudentOfficer studentOfficer;
+    private StudentOfficer studentOfficer;
+    private final Coordinator coordinator;
 
     public NewPasswordController(NewPasswordForm newPasswordForm, Mode mode) {
         this.newPasswordForm = newPasswordForm;
         this.mode = mode;
         this.communication = Communication.getInstance();
-        this.studentOfficer = Coordinator.getInstance().getStudentOfficer();
+        this.coordinator = Coordinator.getInstance();
+        this.studentOfficer = coordinator.getStudentOfficer();
         addActionListeners();
     }
 
@@ -62,14 +64,17 @@ public class NewPasswordController {
             // VALIDADIJA OBAVEZNA
             String oldPassword = String.valueOf(newPasswordForm.getTxtOldPassword().getPassword());
             String newPassword = String.valueOf(newPasswordForm.getTxtNewPassword2().getPassword());
+            StudentOfficer so = new StudentOfficer();
+            so.setEmail(studentOfficer.getEmail());
+            so.setHashedPassword(oldPassword);
             switch (mode) {
                 case CHANGE -> {
                     try {
-                        if (!studentOfficer.getPassword().equals(oldPassword)) {
-                            throw new Exception("Pogresno uneta lozinka!");
-                        }
-                        studentOfficer.setPassword(newPassword);
-                        communication.updateStudentOfficer(studentOfficer);
+                        so = communication.passwordLogIn(so);
+                        so.setPasswordSalt(null);
+                        so.setHashedPassword(newPassword);
+                        communication.updateStudentOfficer(so);
+                        studentOfficer = so;
                         JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio sluzbenika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                         closeNewPasswordForm();
                     } catch (Exception ex) {
@@ -79,11 +84,13 @@ public class NewPasswordController {
                 }
                 case FORGOT -> {
                     try {
-                        studentOfficer.setPassword(newPassword);
+                        studentOfficer.setPasswordSalt(null);
+                        studentOfficer.setHashedPassword(newPassword);
                         communication.updateStudentOfficer(studentOfficer);
                         JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio sluzbenika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                         closeNewPasswordForm();
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                         JOptionPane.showMessageDialog(newPasswordForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
                 }

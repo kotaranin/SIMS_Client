@@ -36,7 +36,7 @@ public class ProfilePanelController {
         profilePanel.getTxtStudyLevel().setText(studentOfficer.getStudyLevel().toString());
         profilePanel.getCbAdmin().setSelected(studentOfficer.isAdmin());
         profilePanel.getTxtEmail().setText(studentOfficer.getEmail());
-        profilePanel.getTxtPassword().setText(studentOfficer.getPassword());
+        profilePanel.getTxtPassword().setText(studentOfficer.getHashedPassword());
         profilePanel.getTxtPassword().getInputMap().put(KeyStroke.getKeyStroke("ctrl C"), "none");
         profilePanel.getTxtPassword().getInputMap().put(KeyStroke.getKeyStroke("ctrl X"), "none");
     }

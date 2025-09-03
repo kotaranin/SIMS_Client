@@ -29,12 +29,12 @@ public class QuestionFormController {
         this.coordinator = Coordinator.getInstance();
         addActionListeners();
     }
-    
+
     public void openQuestionForm() {
         questionForm.setLocationRelativeTo(questionForm.getParent());
         questionForm.setVisible(true);
     }
-    
+
     private void closeQuestionForm() {
         questionForm.dispose();
     }
@@ -61,12 +61,11 @@ public class QuestionFormController {
         questionForm.checkAddActionListener((ActionEvent e) -> {
             try {
                 String answer = String.valueOf(questionForm.getTxtAnswer().getPassword());
-                if (coordinator.getStudentOfficer().getAnswer().equals(answer)) {
-                    coordinator.openNewPasswordForm(Mode.FORGOT);
-                    closeQuestionForm();
-                } else {
-                    throw new Exception("Pogresan odgovor.");
-                }
+                coordinator.getStudentOfficer().setAnswerSalt(null);
+                coordinator.getStudentOfficer().setHashedAnswer(answer);
+                coordinator.setStudentOfficer(communication.questionLogIn(coordinator.getStudentOfficer()));
+                coordinator.openNewPasswordForm(Mode.FORGOT);
+                closeQuestionForm();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(questionForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }

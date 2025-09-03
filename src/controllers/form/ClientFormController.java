@@ -125,6 +125,11 @@ public class ClientFormController {
         clientForm.getMainPanel().add(profilePanel, "profilePanel");
         // svi paneli ovde
     }
+    
+    private void openLogInPanel() {
+        cardLayout.show(clientForm.getMainPanel(), "logInPanel");
+        coordinator.openLogInPanel();
+    }
 
     public void openInternshipPanel() {
         clientForm.getMenuAdministration().setVisible(true);
@@ -243,6 +248,9 @@ public class ClientFormController {
         });
         clientForm.showProfileAddActionListener((ActionEvent e) -> {
             openProfilePanel();
+        });
+        clientForm.logOutAddActionListener((ActionEvent e) -> {
+            openLogInPanel();
         });
         // za svaku stavku menija, ovde
     }
