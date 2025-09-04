@@ -28,11 +28,13 @@ public class InternshipPanelController {
     private final InternshipPanel internshipPanel;
     private final Communication communication;
     private final Coordinator coordinator;
+    private boolean initialized;
 
     public InternshipPanelController(InternshipPanel internshipPanel) {
         this.internshipPanel = internshipPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
@@ -41,26 +43,50 @@ public class InternshipPanelController {
         List<Company> companies = communication.getAllCompanies();
         List<Teacher> teachers = communication.getAllTeachers();
         List<ExamPeriod> examPeriods = communication.getAllExamPeriods();
+        internshipPanel.getComboStudent().removeAllItems();
+        internshipPanel.getComboCompany().removeAllItems();
+        internshipPanel.getComboGrade().removeAllItems();
+        internshipPanel.getComboTeacher().removeAllItems();
+        internshipPanel.getComboExamPeriod().removeAllItems();
+        internshipPanel.getComboStudent().addItem(new Student(null, null, "Svi", "studenti", null, null, null, null, null));
         for (Student student : students) {
             internshipPanel.getComboStudent().addItem(student);
         }
+        internshipPanel.getComboCompany().addItem(new Company(null, "Sve kompanije", null, null));
         for (Company company : companies) {
             internshipPanel.getComboCompany().addItem(company);
         }
         for (Grade value : Grade.values()) {
             internshipPanel.getComboGrade().addItem(value);
         }
+        internshipPanel.getComboTeacher().addItem(new Teacher(null, "Svi", "nastavnici"));
         for (Teacher teacher : teachers) {
             internshipPanel.getComboTeacher().addItem(teacher);
         }
+        internshipPanel.getComboExamPeriod().addItem(new ExamPeriod(null, "Svi ispitni rokovi", null, null));
         for (ExamPeriod examPeriod : examPeriods) {
             internshipPanel.getComboExamPeriod().addItem(examPeriod);
         }
+        initialized = true;
         fillInternships(communication.getAllInternships());
     }
 
     public void fillInternships(List<Internship> internships) {
         internshipPanel.getTblInternship().setModel(new InternshipTM(internships));
+    }
+
+    private void search() {
+        try {
+            Student student = (Student) internshipPanel.getComboStudent().getModel().getSelectedItem();
+            Company company = (Company) internshipPanel.getComboCompany().getModel().getSelectedItem();
+            Grade grade = (Grade) internshipPanel.getComboGrade().getModel().getSelectedItem();
+            Teacher teacher = (Teacher) internshipPanel.getComboTeacher().getModel().getSelectedItem();
+            ExamPeriod examPeriod = (ExamPeriod) internshipPanel.getComboExamPeriod().getModel().getSelectedItem();
+            Internship internship = new Internship(null, null, null, null, grade, teacher, examPeriod, null, null, company, student);
+            fillInternships(communication.searchInternships(internship));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void addActionListeners() {
@@ -69,6 +95,31 @@ public class InternshipPanelController {
                 boolean selected = internshipPanel.getTblInternship().getSelectedRow() != -1;
                 internshipPanel.getBtnDeleteInternship().setEnabled(selected);
                 internshipPanel.getBtnUpdateInternship().setEnabled(selected);
+            }
+        });
+        internshipPanel.getComboStudent().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
+            }
+        });
+        internshipPanel.getComboCompany().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
+            }
+        });
+        internshipPanel.getComboGrade().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
+            }
+        });
+        internshipPanel.getComboTeacher().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
+            }
+        });
+        internshipPanel.getComboExamPeriod().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
             }
         });
         internshipPanel.insertInternshipAddActionListener((ActionEvent e) -> {

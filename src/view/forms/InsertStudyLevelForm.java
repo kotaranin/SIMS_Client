@@ -40,12 +40,10 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
         txtStudyLevelName = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        txtStudyProgramName = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblStudyProgram = new javax.swing.JTable();
         btnInsertStudyProgram = new javax.swing.JButton();
         btnUpdateStudyProgram = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblModule = new javax.swing.JTable();
@@ -76,8 +74,6 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
 
         btnUpdateStudyProgram.setText("Azuriraj");
         btnUpdateStudyProgram.setEnabled(false);
-
-        jLabel3.setText("Pretrazi studijski program:");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Moduli", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
@@ -117,12 +113,7 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStudyProgramName))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnInsertStudyProgram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,17 +124,13 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtStudyProgramName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertStudyProgram)
-                        .addGap(92, 92, 92)
-                        .addComponent(btnUpdateStudyProgram))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnUpdateStudyProgram)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -193,10 +180,6 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
         return txtStudyLevelName;
     }
 
-    public JTextField getTxtStudyProgramName() {
-        return txtStudyProgramName;
-    }
-
     public JTable getTblStudyProgram() {
         return tblStudyProgram;
     }
@@ -219,7 +202,6 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnUpdateStudyProgram;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -227,7 +209,6 @@ public class InsertStudyLevelForm extends javax.swing.JDialog {
     private javax.swing.JTable tblModule;
     private javax.swing.JTable tblStudyProgram;
     private javax.swing.JTextField txtStudyLevelName;
-    private javax.swing.JTextField txtStudyProgramName;
     // End of variables declaration//GEN-END:variables
 
     public void saveAddActionListener(ActionListener actionListener) {

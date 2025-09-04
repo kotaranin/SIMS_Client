@@ -62,9 +62,8 @@ public class InsertInternshipController {
         for (Company company : companies) {
             insertInternshipForm.getComboCompany().addItem(company);
         }
-        for (Grade value : Grade.values()) {
-            insertInternshipForm.getComboGrade().addItem(value);
-        }
+        insertInternshipForm.getComboGrade().addItem(Grade.POLOZIO);
+        insertInternshipForm.getComboGrade().addItem(Grade.NIJE_POLOZIO);
         for (Teacher teacher : teachers) {
             insertInternshipForm.getComboTeacher().addItem(teacher);
         }

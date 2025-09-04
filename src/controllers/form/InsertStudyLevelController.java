@@ -115,25 +115,6 @@ public class InsertStudyLevelController {
                 JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
             }
         });
-        insertStudyLevelForm.getTxtStudyProgramName().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-
-            private void search() {
-
-            }
-        });
         insertStudyLevelForm.saveAddActionListener((ActionEvent e) -> {
             String name = insertStudyLevelForm.getTxtStudyLevelName().getText();
             List<StudyProgram> studyPrograms = ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getList();
@@ -156,6 +137,7 @@ public class InsertStudyLevelController {
                         JOptionPane.showMessageDialog(insertStudyLevelForm, "Sistem je zapamtio nivo studija.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertStudyLevelForm();
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                         JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
                 }

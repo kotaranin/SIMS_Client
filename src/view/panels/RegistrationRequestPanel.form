@@ -150,19 +150,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFirstName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtLastName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboStudyLevel">
       <Properties>

@@ -11,6 +11,8 @@ import domain.StudyLevel;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import table_models.RegistrationRequestTM;
 import table_models.StudentOfficerTM;
 import view.panels.RegistrationRequestPanel;
@@ -23,10 +25,12 @@ public class RegistrationRequestPanelController {
 
     private final RegistrationRequestPanel registrationRequestPanel;
     private final Communication communication;
+    private boolean initialized;
 
     public RegistrationRequestPanelController(RegistrationRequestPanel registrationRequestPanel) {
         this.registrationRequestPanel = registrationRequestPanel;
         this.communication = Communication.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
@@ -35,9 +39,11 @@ public class RegistrationRequestPanelController {
         List<RegistrationRequest> registrationRequests = communication.getAllRegistrationRequests();
         List<StudentOfficer> studentOfficers = communication.getAllStudentOfficers();
         registrationRequestPanel.getComboStudyLevel().removeAllItems();
+        registrationRequestPanel.getComboStudyLevel().addItem(new StudyLevel(null, "Svi nivoi studija", null));
         for (StudyLevel studyLevel : studyLevels) {
             registrationRequestPanel.getComboStudyLevel().addItem(studyLevel);
         }
+        initialized = true;
         fillRegistrationRequests(registrationRequests);
         fillStudentOfficers(studentOfficers);
     }
@@ -50,12 +56,75 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.getTblStudentOfficer().setModel(new StudentOfficerTM(studentOfficers));
     }
 
+    private void search() {
+        try {
+            String firstName = registrationRequestPanel.getTxtFirstName().getText();
+            String lastName = registrationRequestPanel.getTxtLastName().getText();
+            String email = registrationRequestPanel.getTxtEmail().getText();
+            StudyLevel studyLevel = (StudyLevel) registrationRequestPanel.getComboStudyLevel().getModel().getSelectedItem();
+            RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, null, null, null, null, null, false, studyLevel);
+            fillRegistrationRequests(communication.searchRegistrationRequests(registrationRequest));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void addActionListeners() {
         registrationRequestPanel.getTblRegistrationRequest().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = registrationRequestPanel.getTblRegistrationRequest().getSelectedRow() != -1;
                 registrationRequestPanel.getBtnAccept().setEnabled(selected);
                 registrationRequestPanel.getBtnReject().setEnabled(selected);
+            }
+        });
+        registrationRequestPanel.getTxtFirstName().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        registrationRequestPanel.getTxtLastName().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        registrationRequestPanel.getTxtEmail().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        registrationRequestPanel.getComboStudyLevel().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
             }
         });
         registrationRequestPanel.acceptAddActionListener((ActionEvent e) -> {

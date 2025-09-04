@@ -245,4 +245,16 @@ public class Communication {
         return (StudentOfficer) sendRequest(new Request(Operation.QUESTION_LOG_IN, studentOfficer));
     }
 
+    public List<Company> searchCompanies(Company company) throws ClassNotFoundException, Exception {
+        return (List<Company>) sendRequest(new Request(Operation.SEARCH_COMPANIES, company));
+    }
+
+    public List<Internship> searchInternships(Internship internship) throws ClassNotFoundException, Exception {
+        return (List<Internship>) sendRequest(new Request(Operation.SEARCH_INTERNSHIPS, internship));
+    }
+
+    public List<RegistrationRequest> searchRegistrationRequests(RegistrationRequest registrationRequest) throws ClassNotFoundException, Exception {
+        return (List<RegistrationRequest>) sendRequest(new Request(Operation.SEARCH_REGISTRATION_REQUESTS, registrationRequest));
+    }
+
 }

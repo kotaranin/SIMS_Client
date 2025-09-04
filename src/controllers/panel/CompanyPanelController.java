@@ -11,9 +11,9 @@ import domain.Company;
 import enums.Mode;
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import table_models.CompanyTM;
 import view.panels.CompanyPanel;
 
@@ -26,20 +26,25 @@ public class CompanyPanelController {
     private final CompanyPanel companyPanel;
     private final Communication communication;
     private final Coordinator coordinator;
+    private boolean initialized;
 
     public CompanyPanelController(CompanyPanel companyPanel) {
         this.companyPanel = companyPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
     public void preparePanel() throws Exception {
         List<City> cities = communication.getAllCities();
         List<Company> companies = communication.getAllCompanies();
+        companyPanel.getComboCity().removeAllItems();
+        companyPanel.getComboCity().addItem(new City(null, "Svi gradovi", null));
         for (City city : cities) {
             companyPanel.getComboCity().addItem(city);
         }
+        initialized = true;
         fillCompanies(companies);
     }
 
@@ -47,11 +52,58 @@ public class CompanyPanelController {
         companyPanel.getTblCompany().setModel(new CompanyTM(companies));
     }
 
+    private void search() {
+        try {
+            String name = companyPanel.getTxtName().getText();
+            String address = companyPanel.getTxtAddress().getText();
+            City city = (City) companyPanel.getComboCity().getModel().getSelectedItem();
+            Company company = new Company(null, name, address, city);
+            fillCompanies(communication.searchCompanies(company));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void addActionListeners() {
         companyPanel.getTblCompany().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = companyPanel.getTblCompany().getSelectedRow() != -1;
                 companyPanel.getBtnUpdateCompany().setEnabled(selected);
+            }
+        });
+        companyPanel.getTxtName().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        companyPanel.getTxtAddress().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        companyPanel.getComboCity().addActionListener((ActionEvent e) -> {
+            if (initialized) {
+                search();
             }
         });
         companyPanel.insertCompanyAddActionListener((ActionEvent e) -> {
@@ -72,7 +124,6 @@ public class CompanyPanelController {
                 JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greska", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        
     }
 
 }

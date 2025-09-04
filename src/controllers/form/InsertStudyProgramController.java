@@ -5,7 +5,6 @@
 package controllers.form;
 
 import coordinator.Coordinator;
-import domain.Module;
 import domain.StudyProgram;
 import enums.Mode;
 import java.awt.event.ActionEvent;
@@ -86,25 +85,6 @@ public class InsertStudyProgramController {
                 coordinator.openInsertModuleForm(module, Mode.UPDATE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-        insertStudyProgramForm.getTxtModuleName().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-
-            private void search() {
-                
             }
         });
         insertStudyProgramForm.saveAddActionListener((ActionEvent e) -> {

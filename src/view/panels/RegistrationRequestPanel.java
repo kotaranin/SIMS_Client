@@ -76,12 +76,6 @@ public class RegistrationRequestPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Nivo studija:");
 
-        txtFirstName.setText(" ");
-
-        txtLastName.setText(" ");
-
-        txtEmail.setText(" ");
-
         tblRegistrationRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
