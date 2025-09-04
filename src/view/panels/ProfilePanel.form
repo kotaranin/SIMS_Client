@@ -26,7 +26,6 @@
                               <Component id="jLabel1" max="32767" attributes="0"/>
                               <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel4" max="32767" attributes="0"/>
-                              <Component id="jLabel5" max="32767" attributes="0"/>
                               <Component id="jLabel6" max="32767" attributes="0"/>
                               <Component id="jLabel7" max="32767" attributes="0"/>
                           </Group>
@@ -39,7 +38,6 @@
                           <Component id="txtLastName" alignment="0" pref="197" max="32767" attributes="0"/>
                           <Component id="txtStudyLevel" pref="197" max="32767" attributes="0"/>
                           <Component id="cbAdmin" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -78,11 +76,6 @@
                   <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnUpdatePassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -111,11 +104,6 @@
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="E-mail:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lozinka:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -151,11 +139,6 @@
     <Component class="javax.swing.JCheckBox" name="cbAdmin">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="txtPassword">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdatePassword">

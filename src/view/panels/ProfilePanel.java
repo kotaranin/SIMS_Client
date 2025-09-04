@@ -42,10 +42,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         return txtEmail;
     }
 
-    public JPasswordField getTxtPassword() {
-        return txtPassword;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,7 +55,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
@@ -67,7 +62,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtLastName = new javax.swing.JTextField();
         txtStudyLevel = new javax.swing.JTextField();
         cbAdmin = new javax.swing.JCheckBox();
-        txtPassword = new javax.swing.JPasswordField();
         btnUpdatePassword = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -78,8 +72,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel3.setText("Prezime:");
 
         jLabel4.setText("E-mail:");
-
-        jLabel5.setText("Lozinka:");
 
         jLabel6.setText("Nivo studija:");
 
@@ -94,8 +86,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtStudyLevel.setEditable(false);
 
         cbAdmin.setEnabled(false);
-
-        txtPassword.setEditable(false);
 
         btnUpdatePassword.setText("Promena lozinke");
 
@@ -113,7 +103,6 @@ public class ProfilePanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -123,8 +112,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                             .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addComponent(txtStudyLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(cbAdmin)
-                            .addComponent(txtPassword))))
+                            .addComponent(cbAdmin))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,10 +141,6 @@ public class ProfilePanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUpdatePassword)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -170,13 +154,11 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
-    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtStudyLevel;
     // End of variables declaration//GEN-END:variables
 

@@ -15,7 +15,7 @@ public class StudentTM extends AbstractTM {
 
     public StudentTM(List list) {
         super(list);
-        this.columns = new String[]{"ID", "Ime", "Prezime", "Datum rodjenja", "Grad", "Broj indeksa", "Godina studija", "Studijski program", "Modul"};
+        this.columns = new String[]{"ID", "Ime i prezime", "Datum rodjenja", "Grad", "Broj indeksa", "Godina studija", "Studijski program", "Modul"};
     }
 
     @Override
@@ -32,24 +32,21 @@ public class StudentTM extends AbstractTM {
                 return student;
             }
             case 2 -> {
-                return student.getLastName();
-            }
-            case 3 -> {
                 return student.getDateOfBirth();
             }
-            case 4 -> {
+            case 3 -> {
                 return student.getCity();
             }
-            case 5 -> {
+            case 4 -> {
                 return student.getIndexNumber();
             }
-            case 6 -> {
+            case 5 -> {
                 return student.getYearOfStudy();
             }
-            case 7 -> {
+            case 6 -> {
                 return student.getStudyProgram();
             }
-            case 8 -> {
+            case 7 -> {
                 return student.getModule();
             }
             default ->

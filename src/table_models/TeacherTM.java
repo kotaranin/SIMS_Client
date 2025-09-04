@@ -15,7 +15,7 @@ public class TeacherTM extends AbstractTM {
 
     public TeacherTM(List<Teacher> list) {
         super(list);
-        super.columns = new String[]{"ID", "Ime", "Prezime"};
+        super.columns = new String[]{"ID", "Ime i prezime"};
     }
 
     @Override
@@ -30,9 +30,6 @@ public class TeacherTM extends AbstractTM {
             }
             case 1 -> {
                 return teacher;
-            }
-            case 2 -> {
-                return teacher.getLastName();
             }
             default ->
                 throw new AssertionError();

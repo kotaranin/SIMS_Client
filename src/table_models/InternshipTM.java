@@ -15,7 +15,7 @@ public class InternshipTM extends AbstractTM {
 
     public InternshipTM(List list) {
         super(list);
-        this.columns = new String[]{"ID", "Ime", "Prezime", "Broj indeksa", "Kompanija", "Pocetak", "Kraj", "Dnevnik", "Odbrana", "Ocena", "Nastavnik", "Ispitni rok", "Evidentirao"};
+        this.columns = new String[]{"ID", "Student", "Broj indeksa", "Kompanija", "Pocetak", "Kraj", "Dnevnik", "Odbrana", "Ocena", "Nastavnik", "Ispitni rok", "Evidentirao"};
     }
 
     @Override
@@ -32,36 +32,33 @@ public class InternshipTM extends AbstractTM {
                 return internship;
             }
             case 2 -> {
-                return internship.getStudent().getLastName();
-            }
-            case 3 -> {
                 return internship.getStudent().getIndexNumber();
             }
-            case 4 -> {
+            case 3 -> {
                 return internship.getCompany();
             }
-            case 5 -> {
+            case 4 -> {
                 return internship.getStartDate();
             }
-            case 6 -> {
+            case 5 -> {
                 return internship.getEndDate();
             }
-            case 7 -> {
+            case 6 -> {
                 return internship.getReport();
             }
-            case 8 -> {
+            case 7 -> {
                 return internship.getDefenseDate();
             }
-            case 9 -> {
+            case 8 -> {
                 return internship.getGrade();
             }
-            case 10 -> {
+            case 9-> {
                 return internship.getTeacher();
             }
-            case 11 -> {
+            case 10 -> {
                 return internship.getExamPeriod();
             }
-            case 12 -> {
+            case 11 -> {
                 return internship.getStudentOfficer();
             }
             default ->

@@ -15,7 +15,7 @@ public class StudentOfficerTM extends AbstractTM {
 
     public StudentOfficerTM(List list) {
         super(list);
-        this.columns = new String[]{"ID", "Ime", "Prezime", "E-mail", "Nivo studija", "Administrator"};
+        this.columns = new String[]{"ID", "Ime i prezime", "E-mail", "Nivo studija", "Administrator"};
     }
 
     @Override
@@ -32,15 +32,12 @@ public class StudentOfficerTM extends AbstractTM {
                 return studentOfficer;
             }
             case 2 -> {
-                return studentOfficer.getLastName();
-            }
-            case 3 -> {
                 return studentOfficer.getEmail();
             }
-            case 4 -> {
+            case 3 -> {
                 return studentOfficer.getStudyLevel();
             }
-            case 5 -> {
+            case 4 -> {
                 return (studentOfficer.isAdmin()) ? "DA" : "NE";
             }
             default ->
