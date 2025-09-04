@@ -13,8 +13,6 @@ import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import table_models.CityTM;
 import view.forms.InsertCountryForm;
 
@@ -76,25 +74,6 @@ public class InsertCountryController {
             City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
             coordinator.openInsertCityForm(city, Mode.UPDATE);
             ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
-        });
-        insertCountryForm.getTxtCityName().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-
-            private void search() {
-
-            }
         });
         insertCountryForm.saveAddActionListener((ActionEvent e) -> {
             String name = insertCountryForm.getTxtCountryName().getText();
