@@ -10,6 +10,7 @@ import domain.StudyLevel;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import validators.RegistrationRequestValidator;
 import view.forms.RegistrationForm;
 
 /**
@@ -47,21 +48,24 @@ public class RegistrationFormController {
     private void addActionListeners() {
         registrationForm.registerAddActionListener((ActionEvent e) -> {
             try {
-                //VALIDACIJA OBAVEZNA
                 String firstName = registrationForm.getTxtFirstName().getText();
                 String lastName = registrationForm.getTxtLastName().getText();
                 String email = registrationForm.getTxtEmail().getText();
-                boolean admin = registrationForm.getCbAdmin().isSelected();
-                String password = String.valueOf(registrationForm.getTxtPassword2().getPassword());
+                Boolean admin = registrationForm.getCbAdmin().isSelected();
+                if (!String.valueOf(registrationForm.getTxtPassword1().getPassword()).equals(String.valueOf(registrationForm.getTxtPassword2().getPassword()))) {
+                    throw new Exception("Uneta lozinka i njena potvrda moraju da se poklapaju.");
+                }
+                String password = String.valueOf(registrationForm.getTxtPassword1().getPassword());
                 String question = registrationForm.getTxtQuestion().getText();
                 String answer = String.valueOf(registrationForm.getTxtAnswer().getPassword());
                 StudyLevel studyLevel = (StudyLevel) registrationForm.getComboStudyLevel().getSelectedItem();
                 RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, null, password, question, null, answer, admin, studyLevel);
+                new RegistrationRequestValidator().checkElementaryContraints(registrationRequest);
                 communication.insertRegistrationRequest(registrationRequest);
-                JOptionPane.showMessageDialog(registrationForm, "Sistem je zapamtio zahtev za registraciju.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(registrationForm, "Sistem je zapamtio zahtev za registraciju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 closeRegistrationForm();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(registrationForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(registrationForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

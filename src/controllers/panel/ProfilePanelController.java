@@ -9,7 +9,6 @@ import coordinator.Coordinator;
 import domain.StudentOfficer;
 import enums.Mode;
 import java.awt.event.ActionEvent;
-import javax.swing.KeyStroke;
 import view.panels.ProfilePanel;
 
 /**
@@ -34,7 +33,7 @@ public class ProfilePanelController {
         profilePanel.getTxtFirstName().setText(studentOfficer.getFirstName());
         profilePanel.getTxtLastName().setText(studentOfficer.getLastName());
         profilePanel.getTxtStudyLevel().setText(studentOfficer.getStudyLevel().toString());
-        profilePanel.getCbAdmin().setSelected(studentOfficer.isAdmin());
+        profilePanel.getCbAdmin().setSelected(studentOfficer.getAdmin());
         profilePanel.getTxtEmail().setText(studentOfficer.getEmail());
     }
 

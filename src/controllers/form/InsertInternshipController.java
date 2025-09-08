@@ -5,7 +5,6 @@
 package controllers.form;
 
 import communication.Communication;
-import controllers.panel.ReportPanelController;
 import coordinator.Coordinator;
 import domain.Company;
 import domain.ExamPeriod;
@@ -15,7 +14,11 @@ import domain.Student;
 import domain.Teacher;
 import enums.Grade;
 import enums.Mode;
+import static enums.Mode.INSERT;
+import static enums.Mode.UPDATE;
+import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,10 +26,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validators.InternshipValidator;
 import view.forms.InsertInternshipForm;
 
 /**
@@ -41,6 +45,7 @@ public class InsertInternshipController {
     private final Internship internship;
     private final Mode mode;
     private Report report;
+    private final Font font;
 
     public InsertInternshipController(InsertInternshipForm insertInternshipForm, Internship internship, Mode mode) {
         this.insertInternshipForm = insertInternshipForm;
@@ -48,6 +53,7 @@ public class InsertInternshipController {
         this.coordinator = Coordinator.getInstance();
         this.internship = internship;
         this.mode = mode;
+        this.font = insertInternshipForm.getLblReport().getFont();
         addActionListeners();
     }
 
@@ -62,8 +68,8 @@ public class InsertInternshipController {
         for (Company company : companies) {
             insertInternshipForm.getComboCompany().addItem(company);
         }
-        insertInternshipForm.getComboGrade().addItem(Grade.POLOZIO);
-        insertInternshipForm.getComboGrade().addItem(Grade.NIJE_POLOZIO);
+        insertInternshipForm.getComboGrade().addItem(Grade.POLOŽIO);
+        insertInternshipForm.getComboGrade().addItem(Grade.NIJE_POLOŽIO);
         for (Teacher teacher : teachers) {
             insertInternshipForm.getComboTeacher().addItem(teacher);
         }
@@ -78,16 +84,16 @@ public class InsertInternshipController {
             this.report = internship.getReport();
             insertInternshipForm.getComboStudent().getModel().setSelectedItem(internship.getStudent());
             insertInternshipForm.getComboCompany().getModel().setSelectedItem(internship.getCompany());
-            insertInternshipForm.getTxtStartDate().setText(internship.getStartDate().toString());
-            insertInternshipForm.getTxtEndDate().setText(internship.getEndDate().toString());
+            insertInternshipForm.getTxtStartDate().setText(internship.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.")));
+            insertInternshipForm.getTxtEndDate().setText(internship.getEndDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.")));
             insertInternshipForm.getLblReport().setText(internship.getReport().toString());
-            insertInternshipForm.getTxtDefenseDate().setText(internship.getDefenseDate().toString());
+            insertInternshipForm.getTxtDefenseDate().setText(internship.getDefenseDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.")));
             insertInternshipForm.getComboGrade().getModel().setSelectedItem(internship.getGrade());
             insertInternshipForm.getComboTeacher().getModel().setSelectedItem(internship.getTeacher());
             insertInternshipForm.getComboExamPeriod().getModel().setSelectedItem(internship.getExamPeriod());
-            insertInternshipForm.setTitle("Azuriraj strucnu praksu");
+            insertInternshipForm.setTitle("Ažuriraj stručnu praksu");
         } else {
-            insertInternshipForm.setTitle("Kreiraj strucnu praksu");
+            insertInternshipForm.setTitle("Dodaj stručnu praksu");
         }
         insertInternshipForm.setLocationRelativeTo(insertInternshipForm.getParent());
         insertInternshipForm.setVisible(true);
@@ -101,7 +107,7 @@ public class InsertInternshipController {
         insertInternshipForm.openReportAddActionListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2 && report != null) {
+                if (report != null) {
                     try {
                         File file = File.createTempFile("doc_", "_" + report.getFileName());
                         file.deleteOnExit();
@@ -109,44 +115,61 @@ public class InsertInternshipController {
                         out.write(report.getFileContent());
                         Desktop.getDesktop().open(file);
                     } catch (IOException ex) {
-                        Logger.getLogger(ReportPanelController.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(insertInternshipForm, "Došlo je do greške pri učitavanju dnevnika prakse.", "Greška", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (report != null) {
+                    insertInternshipForm.getLblReport().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    insertInternshipForm.getLblReport().setFont(new Font("Segoe UI", Font.ITALIC, 12));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (report != null) {
+                    insertInternshipForm.getLblReport().setFont(font);
+                }
+            }
+
         });
         insertInternshipForm.attachReportAddActionListener((ActionEvent e) -> {
             try {
                 Report temp = coordinator.openFilePickerForm();
+                if (report == null) {
+                    report = temp;
+                }
                 report.setFileName(temp.getFileName());
                 report.setFileContent(temp.getFileContent());
                 insertInternshipForm.getLblReport().setText(report.getFileName());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(insertInternshipForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(insertInternshipForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         insertInternshipForm.saveAddActionListener((ActionEvent e) -> {
-            Student student = (Student) insertInternshipForm.getComboStudent().getSelectedItem();
-            Company company = (Company) insertInternshipForm.getComboCompany().getSelectedItem();
-            LocalDate startDate = LocalDate.parse(insertInternshipForm.getTxtStartDate().getText());
-            LocalDate endDate = LocalDate.parse(insertInternshipForm.getTxtEndDate().getText());
-            LocalDate defenseDate = LocalDate.parse(insertInternshipForm.getTxtDefenseDate().getText());
-            Grade grade = (Grade) insertInternshipForm.getComboGrade().getSelectedItem();
-            Teacher teacher = (Teacher) insertInternshipForm.getComboTeacher().getSelectedItem();
-            ExamPeriod examPeriod = (ExamPeriod) insertInternshipForm.getComboExamPeriod().getSelectedItem();
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+                Student student = (Student) insertInternshipForm.getComboStudent().getSelectedItem();
+                Company company = (Company) insertInternshipForm.getComboCompany().getSelectedItem();
+                LocalDate startDate = LocalDate.parse(insertInternshipForm.getTxtStartDate().getText(), formatter);
+                LocalDate endDate = LocalDate.parse(insertInternshipForm.getTxtEndDate().getText(), formatter);
+                LocalDate defenseDate = LocalDate.parse(insertInternshipForm.getTxtDefenseDate().getText(), formatter);
+                Grade grade = (Grade) insertInternshipForm.getComboGrade().getSelectedItem();
+                Teacher teacher = (Teacher) insertInternshipForm.getComboTeacher().getSelectedItem();
+                ExamPeriod examPeriod = (ExamPeriod) insertInternshipForm.getComboExamPeriod().getSelectedItem();
+                switch (mode) {
+                    case INSERT -> {
                         Internship i = new Internship(null, startDate, endDate, defenseDate, grade, teacher, examPeriod, report, coordinator.getStudentOfficer(), company, student);
-                        System.out.println("provera " + company.getIdCompany());
+                        new InternshipValidator().checkElementaryContraints(i);
                         communication.insertInternship(i);
-                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio strucnu praksu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio dnevnik prakse.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio stručnu praksu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertInternshipForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertInternshipForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         internship.setStudent(student);
                         internship.setCompany(company);
                         internship.setStartDate(startDate);
@@ -156,16 +179,19 @@ public class InsertInternshipController {
                         internship.setGrade(grade);
                         internship.setTeacher(teacher);
                         internship.setExamPeriod(examPeriod);
+                        new InternshipValidator().checkElementaryContraints(internship);
                         communication.updateInternship(internship);
-                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio strucnu praksu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio dnevnik prakse.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertInternshipForm, "Sistem je zapamtio stručnu praksu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertInternshipForm();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(insertInternshipForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(insertInternshipForm, "Datum mora biti u formatu DD.MM.GGGG.", "Greška", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertInternshipForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

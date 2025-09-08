@@ -4,7 +4,6 @@
  */
 package view.forms;
 
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
@@ -19,6 +18,8 @@ public class InsertExamPeriodForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertExamPeriodForm
+     * @param parent
+     * @param modal
      */
     public InsertExamPeriodForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -99,9 +100,6 @@ public class InsertExamPeriodForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public JTextField getTxtName() {
         return txtName;
     }
@@ -114,6 +112,7 @@ public class InsertExamPeriodForm extends javax.swing.JDialog {
         return txtEndDate;
     }
 
+    @Override
     public Frame getParent() {
         return parent;
     }

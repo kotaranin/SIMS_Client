@@ -14,10 +14,12 @@ import javax.swing.JTextField;
  */
 public class InsertModuleForm extends javax.swing.JDialog {
 
-    private Dialog parent;
+    private final Dialog parent;
 
     /**
      * Creates new form InsertModuleForm
+     * @param parent
+     * @param modal
      */
     public InsertModuleForm(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
@@ -75,6 +77,7 @@ public class InsertModuleForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Dialog getParent() {
         return parent;
     }

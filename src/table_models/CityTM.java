@@ -15,7 +15,7 @@ public class CityTM extends AbstractTM<City> {
 
     public CityTM(List<City> list) {
         super(list);
-        this.columns = new String[]{"ID", "Naziv"};
+        this.columns = new String[]{"Naziv grada"};
     }
 
     @Override
@@ -26,9 +26,6 @@ public class CityTM extends AbstractTM<City> {
         City city = list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return city.getIdCity();
-            }
-            case 1 -> {
                 return city;
             }
             default ->

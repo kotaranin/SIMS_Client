@@ -18,6 +18,8 @@ public class InsertTeacherForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertTeacherForm
+     * @param parent
+     * @param modal
      */
     public InsertTeacherForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -88,9 +90,6 @@ public class InsertTeacherForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public JTextField getTxtFirstName() {
         return txtFirstName;
     }
@@ -99,6 +98,7 @@ public class InsertTeacherForm extends javax.swing.JDialog {
         return txtLastName;
     }
 
+    @Override
     public Frame getParent() {
         return parent;
     }

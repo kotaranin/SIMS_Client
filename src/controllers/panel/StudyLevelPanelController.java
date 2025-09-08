@@ -73,10 +73,10 @@ public class StudyLevelPanelController {
             public void mouseClicked(MouseEvent e) {
                 try {
                     int row = studyLevelPanel.getTblStudyLevel().getSelectedRow();
-                    StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 1);
+                    StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 0);
                     fillStudyPrograms(studyLevel.getStudyPrograms());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -86,10 +86,10 @@ public class StudyLevelPanelController {
             public void mouseClicked(MouseEvent e) {
                 try {
                     int row = studyLevelPanel.getTblStudyProgram().getSelectedRow();
-                    StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) studyLevelPanel.getTblStudyProgram().getModel()).getValueAt(row, 1);
+                    StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) studyLevelPanel.getTblStudyProgram().getModel()).getValueAt(row, 0);
                     fillModules(studyProgram.getModules());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -111,11 +111,11 @@ public class StudyLevelPanelController {
 
             private void search() {
                 try {
-                    String name = studyLevelPanel.getTxtName().getText();
+                    String name = studyLevelPanel.getTxtName().getText().trim();
                     List<StudyLevel> filteredStudyLevels = (List<StudyLevel>) allStudyLevels.stream().filter(studyLevel -> studyLevel.getName().toLowerCase().contains(name)).toList();
                     fillStudyLevels(new LinkedList<>(filteredStudyLevels));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -127,19 +127,19 @@ public class StudyLevelPanelController {
                 fillStudyPrograms(null);
                 fillModules(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         studyLevelPanel.updateAddActionListener((ActionEvent e) -> {
             try {
                 int row = studyLevelPanel.getTblStudyLevel().getSelectedRow();
-                StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 1);
+                StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 0);
                 coordinator.openInsertStudyLevelForm(studyLevel, Mode.UPDATE);
                 fillStudyLevels(communication.getAllStudyLevels());
                 fillStudyPrograms(communication.getStudyPrograms(studyLevel));
                 fillModules(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

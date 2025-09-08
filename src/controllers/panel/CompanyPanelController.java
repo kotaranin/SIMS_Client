@@ -54,13 +54,13 @@ public class CompanyPanelController {
 
     private void search() {
         try {
-            String name = companyPanel.getTxtName().getText();
-            String address = companyPanel.getTxtAddress().getText();
+            String name = companyPanel.getTxtName().getText().trim();
+            String address = companyPanel.getTxtAddress().getText().trim();
             City city = (City) companyPanel.getComboCity().getModel().getSelectedItem();
             Company company = new Company(null, name, address, city);
             fillCompanies(communication.searchCompanies(company));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -111,17 +111,17 @@ public class CompanyPanelController {
                 coordinator.openInsertCompanyForm(null, Mode.INSERT);
                 fillCompanies(communication.getAllCompanies());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         companyPanel.updateCompanyAddActionListener((ActionEvent e) -> {
             try {
                 int row = companyPanel.getTblCompany().getSelectedRow();
-                Company company = (Company) ((CompanyTM) companyPanel.getTblCompany().getModel()).getValueAt(row, 1);
+                Company company = (Company) ((CompanyTM) companyPanel.getTblCompany().getModel()).getValueAt(row, 0);
                 coordinator.openInsertCompanyForm(company, Mode.UPDATE);
                 fillCompanies(communication.getAllCompanies());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     }

@@ -54,7 +54,7 @@ public class InternshipPanel extends javax.swing.JPanel {
         btnDeleteInternship = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Strucne prakse");
+        jLabel1.setText("Stručne prakse");
 
         jLabel2.setText("Student:");
 
@@ -81,10 +81,10 @@ public class InternshipPanel extends javax.swing.JPanel {
 
         btnInsertInternship.setText("Dodaj");
 
-        btnUpdateInternship.setText("Azuriraj");
+        btnUpdateInternship.setText("Ažuriraj");
         btnUpdateInternship.setEnabled(false);
 
-        btnDeleteInternship.setText("Obrisi");
+        btnDeleteInternship.setText("Obriši");
         btnDeleteInternship.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

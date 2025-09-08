@@ -120,7 +120,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Strucne prakse"/>
+        <Property name="text" type="java.lang.String" value="Stru&#x10d;ne prakse"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -226,13 +226,13 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdateInternship">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Azuriraj"/>
+        <Property name="text" type="java.lang.String" value="A&#x17e;uriraj"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnDeleteInternship">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Obrisi"/>
+        <Property name="text" type="java.lang.String" value="Obri&#x161;i"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

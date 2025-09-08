@@ -15,7 +15,7 @@ public class CompanyTM extends AbstractTM {
 
     public CompanyTM(List<Company> list) {
         super(list);
-        this.columns = new String[]{"ID", "Naziv", "Adresa", "Grad"};
+        this.columns = new String[]{"Naziv kompanije", "Adresa kompanije", "Grad"};
     }
 
     @Override
@@ -26,15 +26,12 @@ public class CompanyTM extends AbstractTM {
         Company company = (Company) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return company.getIdCompany();
-            }
-            case 1 -> {
                 return company;
             }
-            case 2 -> {
+            case 1 -> {
                 return company.getAddress();
             }
-            case 3 -> {
+            case 2 -> {
                 return company.getCity();
             }
             default ->

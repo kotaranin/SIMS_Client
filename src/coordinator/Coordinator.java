@@ -18,7 +18,7 @@ import view.forms.*;
 public class Coordinator {
 
     private static Coordinator instance;
-    private Communication communication;
+    private final Communication communication;
     public StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
@@ -32,8 +32,6 @@ public class Coordinator {
     private InsertTeacherController insertTeacherController;
     private StudyLevelPanelController studyLevelPanelController;
     private InsertStudyLevelController insertStudyLevelController;
-    private HelpPanelController helpPanelController;
-    private InternshipPanelController internshipPanelController1;
     private RegistrationRequestPanelController registrationRequestPanelController;
     private StudentPanelController studentPanelController;
     private InsertCountryForm insertCountryForm;
@@ -50,7 +48,6 @@ public class Coordinator {
     private ProfilePanelController profilePanelController;
     private NewPasswordController newPasswordController;
     private QuestionFormController questionFormController;
-    // svi kontroleri i insert forme za slozene SK ovde
 
     private Coordinator() {
         this.communication = Communication.getInstance();
@@ -84,7 +81,7 @@ public class Coordinator {
         clientFormController.openClientForm();
         openLogInPanel();
     }
-    
+
     public void openLogInPanel() {
         logInPanelController = new LogInPanelController(clientFormController.getLogInPanel());
         logInPanelController.preparePanel();
@@ -155,10 +152,6 @@ public class Coordinator {
     public void openStudentPanel() throws Exception {
         studentPanelController = new StudentPanelController(clientFormController.getStudentPanel());
         studentPanelController.preparePanel();
-    }
-
-    public void openHelpPanel() {
-        helpPanelController = new HelpPanelController(clientFormController.getHelpPanel());
     }
 
     public void openInsertCityForm(City city, Mode mode) {

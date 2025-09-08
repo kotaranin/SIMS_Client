@@ -8,10 +8,13 @@ import communication.Communication;
 import coordinator.Coordinator;
 import domain.StudentOfficer;
 import enums.Mode;
+import static enums.Mode.CHANGE;
+import static enums.Mode.FORGOT;
 import java.awt.event.ActionEvent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import validators.StudentOfficerValidator;
 import view.forms.NewPasswordForm;
 
 /**
@@ -61,41 +64,39 @@ public class NewPasswordController {
 
     private void addActionListeners() {
         newPasswordForm.updatePasswordAddActionListener((ActionEvent e) -> {
-            // VALIDADIJA OBAVEZNA
-            String oldPassword = String.valueOf(newPasswordForm.getTxtOldPassword().getPassword());
-            String newPassword = String.valueOf(newPasswordForm.getTxtNewPassword2().getPassword());
-            StudentOfficer so = new StudentOfficer();
-            so.setEmail(studentOfficer.getEmail());
-            so.setHashedPassword(oldPassword);
-            switch (mode) {
-                case CHANGE -> {
-                    try {
+            try {
+                String oldPassword = String.valueOf(newPasswordForm.getTxtOldPassword().getPassword());
+                if (!String.valueOf(newPasswordForm.getTxtNewPassword1().getPassword()).equals(String.valueOf(newPasswordForm.getTxtNewPassword2().getPassword()))) {
+                    throw new Exception("Uneta lozinka i njena potvrda moraju da se poklapaju.");
+                }
+                String newPassword = String.valueOf(newPasswordForm.getTxtNewPassword2().getPassword());
+                StudentOfficer so = new StudentOfficer();
+                so.setEmail(studentOfficer.getEmail());
+                so.setHashedPassword(oldPassword);
+                switch (mode) {
+                    case CHANGE -> {
                         so = communication.passwordLogIn(so);
                         so.setPasswordSalt(null);
                         so.setHashedPassword(newPassword);
+                        new StudentOfficerValidator().checkElementaryContraints(so);
                         communication.updateStudentOfficer(so);
                         studentOfficer = so;
-                        JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio sluzbenika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio službenika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeNewPasswordForm();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(newPasswordForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case FORGOT -> {
-                    try {
+                    case FORGOT -> {
                         studentOfficer.setPasswordSalt(null);
                         studentOfficer.setHashedPassword(newPassword);
+                        new StudentOfficerValidator().checkElementaryContraints(studentOfficer);
                         communication.updateStudentOfficer(studentOfficer);
-                        JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio sluzbenika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(newPasswordForm, "Sistem je zapamtio službenika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeNewPasswordForm();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(newPasswordForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (Exception exc) {
+                JOptionPane.showMessageDialog(newPasswordForm, exc.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

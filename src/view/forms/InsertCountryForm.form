@@ -61,7 +61,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Unesite naziv drzave:"/>
+        <Property name="text" type="java.lang.String" value="Unesite naziv dr&#x17e;ave:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCountryName">
@@ -101,11 +101,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="108" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="btnInsertCity" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnUpdateCity" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -143,7 +143,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnUpdateCity">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Azuriraj grad"/>
+            <Property name="text" type="java.lang.String" value="A&#x17e;uriraj grad"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>

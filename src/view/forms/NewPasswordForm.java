@@ -19,6 +19,8 @@ public class NewPasswordForm extends javax.swing.JDialog {
 
     /**
      * Creates new form NewPasswordForm
+     * @param parent
+     * @param modal
      */
     public NewPasswordForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -99,6 +101,7 @@ public class NewPasswordForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Frame getParent() {
         return parent;
     }

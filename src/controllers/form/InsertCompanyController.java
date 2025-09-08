@@ -8,12 +8,12 @@ import communication.Communication;
 import domain.City;
 import domain.Company;
 import enums.Mode;
+import static enums.Mode.INSERT;
+import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import validators.CompanyValidator;
 import view.forms.InsertCompanyForm;
 
 /**
@@ -48,9 +48,9 @@ public class InsertCompanyController {
             insertCompanyForm.getTxtName().setText(company.getName());
             insertCompanyForm.getTxtAdress().setText(company.getAddress());
             insertCompanyForm.getComboCity().getModel().setSelectedItem(company.getCity());
-            insertCompanyForm.setTitle("Azuriraj kompaniju");
+            insertCompanyForm.setTitle("Ažuriraj kompaniju");
         } else {
-            insertCompanyForm.setTitle("Kreiraj kompaniju");
+            insertCompanyForm.setTitle("Dodaj kompaniju");
         }
         insertCompanyForm.setLocationRelativeTo(insertCompanyForm.getParent());
         insertCompanyForm.setVisible(true);
@@ -61,77 +61,34 @@ public class InsertCompanyController {
     }
 
     private void addActionListeners() {
-        insertCompanyForm.getTxtName().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-        insertCompanyForm.getTxtAdress().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-        insertCompanyForm.getComboCity().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                search();
-            }
-        });
         insertCompanyForm.saveAddActionListener((ActionEvent e) -> {
-            String name = insertCompanyForm.getTxtName().getText();
-            String address = insertCompanyForm.getTxtAdress().getText();
-            City city = (City) insertCompanyForm.getComboCity().getSelectedItem();
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                String name = insertCompanyForm.getTxtName().getText();
+                String address = insertCompanyForm.getTxtAdress().getText();
+                City city = (City) insertCompanyForm.getComboCity().getSelectedItem();
+                switch (mode) {
+                    case INSERT -> {
                         Company c = new Company(null, name, address, city);
+                        new CompanyValidator().checkElementaryContraints(c);
                         communication.insertCompany(c);
-                        JOptionPane.showMessageDialog(insertCompanyForm, "Sistem je zapamtio kompaniju.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertCompanyForm, "Sistem je zapamtio kompaniju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCompanyForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertCompanyForm, ex.getMessage(), "Greska", JOptionPane.INFORMATION_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         company.setName(name);
                         company.setAddress(address);
                         company.setCity(city);
+                        new CompanyValidator().checkElementaryContraints(company);
                         communication.updateCompany(company);
-                        JOptionPane.showMessageDialog(insertCompanyForm, "Sistem je zapamtio kompaniju.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertCompanyForm, "Sistem je zapamtio kompaniju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCompanyForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertCompanyForm, ex.getMessage(), "Greska", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertCompanyForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
-    
-    private void search() {
-        
-    }
-
 }

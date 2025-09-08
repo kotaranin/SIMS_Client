@@ -88,7 +88,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnFind">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pronadji"/>
+        <Property name="text" type="java.lang.String" value="Prona&#x111;i"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

@@ -70,7 +70,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuInternship">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" Strucna praksa"/>
+            <Property name="text" type="java.lang.String" value=" Stru&#x10d;na praksa"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemCompany">
@@ -80,7 +80,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemInternships">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pregled strucnih praksi"/>
+                <Property name="text" type="java.lang.String" value="Pregled stru&#x10d;nih praksi"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -124,19 +124,7 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="itemCountry">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Drzave, gradovi"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menuAbout">
-          <Properties>
-            <Property name="text" type="java.lang.String" value=" O programu"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemHelp">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Pomoc"/>
+                <Property name="text" type="java.lang.String" value="Dr&#x17e;ave, gradovi"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -188,15 +176,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="0" pref="833" max="32767" attributes="0"/>
-                      <Component id="lblPlaceholder" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblStudentOfficer" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="mainPanel" alignment="0" max="32767" attributes="0"/>
-              </Group>
+              <Component id="mainPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -204,11 +184,6 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblPlaceholder" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblStudentOfficer" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="mainPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -222,26 +197,15 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="956" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="584" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="607" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblPlaceholder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Korisnik:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblStudentOfficer">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="11"/>
-        <Property name="text" type="java.lang.String" value="ime i prezime"/>
-      </Properties>
-    </Component>
   </SubComponents>
 </Form>

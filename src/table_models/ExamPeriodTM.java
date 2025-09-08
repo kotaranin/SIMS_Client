@@ -5,6 +5,7 @@
 package table_models;
 
 import domain.ExamPeriod;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class ExamPeriodTM extends AbstractTM {
 
     public ExamPeriodTM(List<ExamPeriod> list) {
         super(list);
-        super.columns = new String[]{"ID", "Naziv", "Datum pocetka", "Datum zavrsetka"};
+        super.columns = new String[]{"Naziv", "Datum početka", "Datum završetka"};
     }
 
     @Override
@@ -25,16 +26,13 @@ public class ExamPeriodTM extends AbstractTM {
         ExamPeriod examPeriod = (ExamPeriod) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return examPeriod.getIdExamPeriod();
-            }
-            case 1 -> {
                 return examPeriod;
             }
-            case 2 -> {
-                return examPeriod.getStartDate();
+            case 1 -> {
+                return examPeriod.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             }
-            case 3 -> {
-                return examPeriod.getEndDate();
+            case 2 -> {
+                return examPeriod.getEndDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             }
             default -> throw new AssertionError();
         }

@@ -11,9 +11,8 @@ import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import table_models.ModuleTM;
+import validators.StudyProgramValidator;
 import view.forms.InsertStudyProgramForm;
 
 /**
@@ -43,10 +42,10 @@ public class InsertStudyProgramController {
         if (mode == Mode.UPDATE) {
             insertStudyProgramForm.getTxtStudyProgramName().setText(studyProgram.getName());
             fillModules(studyProgram.getModules());
-            insertStudyProgramForm.setTitle("Azuriraj studijski program");
+            insertStudyProgramForm.setTitle("Ažuriraj studijski program");
         } else {
             fillModules(new LinkedList<>());
-            insertStudyProgramForm.setTitle("Kreiraj studijski program");
+            insertStudyProgramForm.setTitle("Dodaj studijski program");
         }
         insertStudyProgramForm.setLocationRelativeTo(insertStudyProgramForm.getParent());
         insertStudyProgramForm.setVisible(true);
@@ -56,11 +55,23 @@ public class InsertStudyProgramController {
         insertStudyProgramForm.dispose();
     }
 
-    public void insert(domain.Module module) {
+    public void insert(domain.Module module) throws Exception {
+        List<domain.Module> modules = ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getList();
+        for (domain.Module m : modules) {
+            if (m.getName().equalsIgnoreCase(module.getName())) {
+                throw new Exception("Nije moguće uneti dva modula pod istim imenom na jednom studijskom programu.");
+            }
+        }
         ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).insert(module);
     }
 
-    public void update(domain.Module module) {
+    public void update(domain.Module module) throws Exception {
+        List<domain.Module> modules = ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getList();
+        for (domain.Module m : modules) {
+            if (m != module && m.getName().equalsIgnoreCase(module.getName())) {
+                throw new Exception("Nije moguće uneti dva modula pod istim imenom na jednom studijskom programu.");
+            }
+        }
         ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).update(module);
     }
 
@@ -75,29 +86,36 @@ public class InsertStudyProgramController {
             try {
                 coordinator.openInsertModuleForm(null, Mode.INSERT);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         insertStudyProgramForm.updateModuleAddActionListener((ActionEvent e) -> {
             try {
                 int row = insertStudyProgramForm.getTblModule().getSelectedRow();
-                domain.Module module = (domain.Module) ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getValueAt(row, 1);
+                domain.Module module = (domain.Module) ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getValueAt(row, 0);
                 coordinator.openInsertModuleForm(module, Mode.UPDATE);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         insertStudyProgramForm.saveAddActionListener((ActionEvent e) -> {
-            StudyProgram sp = new StudyProgram();
-            sp.setName(insertStudyProgramForm.getTxtStudyProgramName().getText());
-            sp.setModules(((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getList());
-            if (mode == Mode.INSERT) {
-                coordinator.getInsertStudyLevelController().insert(sp);
-            } else {
-                sp.setIdStudyProgram(studyProgram.getIdStudyProgram());
-                coordinator.getInsertStudyLevelController().update(sp);
+            try {
+                String name = insertStudyProgramForm.getTxtStudyProgramName().getText();
+                List<domain.Module> modules = ((ModuleTM) insertStudyProgramForm.getTblModule().getModel()).getList();
+                if (mode == Mode.INSERT) {
+                    StudyProgram sp = new StudyProgram(null, name, null, modules);
+                    new StudyProgramValidator().checkElementaryContraints(sp);
+                    coordinator.getInsertStudyLevelController().insert(sp);
+                } else {
+                    studyProgram.setName(name);
+                    studyProgram.setModules(modules);
+                    new StudyProgramValidator().checkElementaryContraints(studyProgram);
+                    coordinator.getInsertStudyLevelController().update(studyProgram);
+                }
+                closeInsertStudyProgramForm();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertStudyProgramForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
-            closeInsertStudyProgramForm();
         });
     }
 

@@ -67,14 +67,14 @@ public class LogInPanelController {
                 coordinator.setStudentOfficer(studentOfficer);
                 coordinator.openInternshipPanel();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         logInPanel.registerAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertRegistrationForm();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

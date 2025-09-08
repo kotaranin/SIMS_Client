@@ -7,10 +7,11 @@ package controllers.form;
 import communication.Communication;
 import domain.Teacher;
 import enums.Mode;
+import static enums.Mode.INSERT;
+import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validators.TeacherValidator;
 import view.forms.InsertTeacherForm;
 
 /**
@@ -36,9 +37,9 @@ public class InsertTeacherController {
         if (mode == Mode.UPDATE) {
             insertTeacherForm.getTxtFirstName().setText(teacher.getFirstName());
             insertTeacherForm.getTxtLastName().setText(teacher.getLastName());
-            insertTeacherForm.setTitle("Azuriraj nastavnika");
+            insertTeacherForm.setTitle("Ažuriraj nastavnika");
         } else {
-            insertTeacherForm.setTitle("Unesi nastavnika");
+            insertTeacherForm.setTitle("Dodaj nastavnika");
         }
         insertTeacherForm.setLocationRelativeTo(insertTeacherForm.getParent());
         insertTeacherForm.setVisible(true);
@@ -50,32 +51,30 @@ public class InsertTeacherController {
 
     private void addActionListeners() {
         insertTeacherForm.saveAddActionListener((ActionEvent e) -> {
-            String firstName = insertTeacherForm.getTxtFirstName().getText();
-            String lastName = insertTeacherForm.getTxtLastName().getText();
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                String firstName = insertTeacherForm.getTxtFirstName().getText();
+                String lastName = insertTeacherForm.getTxtLastName().getText();
+                switch (mode) {
+                    case INSERT -> {
                         Teacher t = new Teacher(null, firstName, lastName);
+                        new TeacherValidator().checkElementaryContraints(t);
                         communication.insertTeacher(t);
-                        JOptionPane.showMessageDialog(insertTeacherForm, "Sistem je zapamtio nastavnika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertTeacherForm, "Sistem je zapamtio nastavnika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertTeacherForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertTeacherForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         teacher.setFirstName(firstName);
                         teacher.setLastName(lastName);
+                        new TeacherValidator().checkElementaryContraints(teacher);
                         communication.updateTeacher(teacher);
-                        JOptionPane.showMessageDialog(insertTeacherForm, "Sistem je zapamtio nastavnika.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertTeacherForm, "Sistem je zapamtio nastavnika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertTeacherForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertTeacherForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertTeacherForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

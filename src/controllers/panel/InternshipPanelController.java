@@ -85,7 +85,7 @@ public class InternshipPanelController {
             Internship internship = new Internship(null, null, null, null, grade, teacher, examPeriod, null, null, company, student);
             fillInternships(communication.searchInternships(internship));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -127,28 +127,28 @@ public class InternshipPanelController {
                 coordinator.openinsertInternshipForm(null, Mode.INSERT);
                 fillInternships(communication.getAllInternships());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         internshipPanel.updateInternshipAddActionListener((ActionEvent e) -> {
             try {
                 int row = internshipPanel.getTblInternship().getSelectedRow();
-                Internship internship = (Internship) ((InternshipTM) internshipPanel.getTblInternship().getModel()).getValueAt(row, 1);
+                Internship internship = (Internship) ((InternshipTM) internshipPanel.getTblInternship().getModel()).getValueAt(row, 0);
                 coordinator.openinsertInternshipForm(internship, Mode.UPDATE);
                 fillInternships(communication.getAllInternships());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         internshipPanel.deleteInternshipAddActionListener((ActionEvent e) -> {
             try {
                 int row = internshipPanel.getTblInternship().getSelectedRow();
-                Internship internship = (Internship) ((InternshipTM) internshipPanel.getTblInternship().getModel()).getValueAt(row, 1);
+                Internship internship = (Internship) ((InternshipTM) internshipPanel.getTblInternship().getModel()).getValueAt(row, 0);
                 communication.deleteInternship(internship);
-                JOptionPane.showMessageDialog(internshipPanel, "Sistem je obrisao strucnu praksu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(internshipPanel, "Sistem je obrisao stručnu praksu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 fillInternships(communication.getAllInternships());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(internshipPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

@@ -20,6 +20,8 @@ public class InsertCompanyForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertCompanyForm
+     * @param parent
+     * @param modal
      */
     public InsertCompanyForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -98,6 +100,7 @@ public class InsertCompanyForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Frame getParent() {
         return parent;
     }

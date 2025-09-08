@@ -15,7 +15,7 @@ public class StudyLevelTM extends AbstractTM {
 
     public StudyLevelTM(List<StudyLevel> list) {
         super(list);
-        super.columns = new String[] {"ID", "Naziv"};
+        super.columns = new String[] {"Naziv nivoa studija"};
     }
 
     @Override
@@ -24,12 +24,10 @@ public class StudyLevelTM extends AbstractTM {
             return null;
         StudyLevel studyLevel = (StudyLevel) list.get(rowIndex);
         switch (columnIndex) {
-            case 0:
-                return studyLevel.getIdStudyLevel();
-            case 1:
+            case 0 -> {
                 return studyLevel;
-            default:
-                throw new AssertionError();
+            }
+            default -> throw new AssertionError();
         }
     }
     

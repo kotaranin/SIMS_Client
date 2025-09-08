@@ -5,7 +5,6 @@
 package view.forms;
 
 import java.awt.event.ActionListener;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -44,8 +43,6 @@ public class ClientForm extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         mainPanel = new javax.swing.JPanel();
-        lblPlaceholder = new javax.swing.JLabel();
-        lblStudentOfficer = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuInternship = new javax.swing.JMenu();
         itemCompany = new javax.swing.JMenuItem();
@@ -58,8 +55,6 @@ public class ClientForm extends javax.swing.JFrame {
         itemStudent = new javax.swing.JMenuItem();
         itemRegistrationRequest = new javax.swing.JMenuItem();
         itemCountry = new javax.swing.JMenuItem();
-        menuAbout = new javax.swing.JMenu();
-        itemHelp = new javax.swing.JMenuItem();
         menuProfile = new javax.swing.JMenu();
         itemMyProfile = new javax.swing.JMenuItem();
         itemLogOut = new javax.swing.JMenuItem();
@@ -94,24 +89,19 @@ public class ClientForm extends javax.swing.JFrame {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 956, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 607, Short.MAX_VALUE)
         );
 
-        lblPlaceholder.setText("Korisnik:");
-
-        lblStudentOfficer.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblStudentOfficer.setText("ime i prezime");
-
-        menuInternship.setText(" Strucna praksa");
+        menuInternship.setText(" Stručna praksa");
 
         itemCompany.setText("Kompanije");
         menuInternship.add(itemCompany);
 
-        itemInternships.setText("Pregled strucnih praksi");
+        itemInternships.setText("Pregled stručnih praksi");
         menuInternship.add(itemInternships);
 
         jMenuBar1.add(menuInternship);
@@ -137,17 +127,10 @@ public class ClientForm extends javax.swing.JFrame {
 
         menuAdministration.add(jMenu1);
 
-        itemCountry.setText("Drzave, gradovi");
+        itemCountry.setText("Države, gradovi");
         menuAdministration.add(itemCountry);
 
         jMenuBar1.add(menuAdministration);
-
-        menuAbout.setText(" O programu");
-
-        itemHelp.setText("Pomoc");
-        menuAbout.add(itemHelp);
-
-        jMenuBar1.add(menuAbout);
 
         menuProfile.setText("Profil");
 
@@ -167,23 +150,13 @@ public class ClientForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 833, Short.MAX_VALUE)
-                        .addComponent(lblPlaceholder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStudentOfficer))
-                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPlaceholder)
-                    .addComponent(lblStudentOfficer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -203,20 +176,8 @@ public class ClientForm extends javax.swing.JFrame {
         return menuInternship;
     }
 
-    public JMenu getMenuAbout() {
-        return menuAbout;
-    }
-
     public JMenu getMenuProfile() {
         return menuProfile;
-    }
-
-    public JLabel getLblStudentOfficer() {
-        return lblStudentOfficer;
-    }
-
-    public JLabel getLblPlaceholder() {
-        return lblPlaceholder;
     }
 
     public JMenuItem getItemRegistrationRequest() {
@@ -227,7 +188,6 @@ public class ClientForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemCompany;
     private javax.swing.JMenuItem itemCountry;
     private javax.swing.JMenuItem itemExamPeriod;
-    private javax.swing.JMenuItem itemHelp;
     private javax.swing.JMenuItem itemInternships;
     private javax.swing.JMenuItem itemLogOut;
     private javax.swing.JMenuItem itemMyProfile;
@@ -248,10 +208,7 @@ public class ClientForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JLabel lblPlaceholder;
-    private javax.swing.JLabel lblStudentOfficer;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JMenu menuAbout;
     private javax.swing.JMenu menuAdministration;
     private javax.swing.JMenu menuInternship;
     private javax.swing.JMenu menuProfile;
@@ -283,10 +240,6 @@ public class ClientForm extends javax.swing.JFrame {
 
     public void showStudentsAddActionListener(ActionListener actionListener) {
         itemStudent.addActionListener(actionListener);
-    }
-
-    public void showHelpAddActionListener(ActionListener actionListener) {
-        itemHelp.addActionListener(actionListener);
     }
 
     public void showCompaniesAddActionListener(ActionListener actionListener) {

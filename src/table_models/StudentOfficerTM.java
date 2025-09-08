@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class StudentOfficerTM extends AbstractTM {
 
-    public StudentOfficerTM(List list) {
+    public StudentOfficerTM(List<StudentOfficer> list) {
         super(list);
-        this.columns = new String[]{"ID", "Ime i prezime", "E-mail", "Nivo studija", "Administrator"};
+        this.columns = new String[]{"Ime i prezime", "E-mail", "Nivo studija", "Administrator"};
     }
 
     @Override
@@ -26,19 +26,16 @@ public class StudentOfficerTM extends AbstractTM {
         StudentOfficer studentOfficer = (StudentOfficer) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return studentOfficer.getIdStudentOfficer();
-            }
-            case 1 -> {
                 return studentOfficer;
             }
-            case 2 -> {
+            case 1 -> {
                 return studentOfficer.getEmail();
             }
-            case 3 -> {
+            case 2 -> {
                 return studentOfficer.getStudyLevel();
             }
-            case 4 -> {
-                return (studentOfficer.isAdmin()) ? "DA" : "NE";
+            case 3 -> {
+                return (studentOfficer.getAdmin()) ? "DA" : "NE";
             }
             default ->
                 throw new AssertionError();

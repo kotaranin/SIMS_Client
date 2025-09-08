@@ -6,7 +6,6 @@ package view.panels;
 
 import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**

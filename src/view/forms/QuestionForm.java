@@ -20,6 +20,8 @@ public class QuestionForm extends javax.swing.JDialog {
 
     /**
      * Creates new form QuestionForm
+     * @param parent
+     * @param modal
      */
     public QuestionForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,7 +53,7 @@ public class QuestionForm extends javax.swing.JDialog {
 
         jLabel1.setText("Unesite e-mail:");
 
-        btnFind.setText("Pronadji");
+        btnFind.setText("Pronađi");
 
         jLabel2.setText("Unesite odgovor:");
 
@@ -128,6 +130,7 @@ public class QuestionForm extends javax.swing.JDialog {
         return btnOK;
     }
 
+    @Override
     public Frame getParent() {
         return parent;
     }

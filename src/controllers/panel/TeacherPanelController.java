@@ -41,7 +41,6 @@ public class TeacherPanelController {
         teacherPanel.getTblTeachers().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = teacherPanel.getTblTeachers().getSelectedRow() != -1;
-                teacherPanel.getBtnDelete().setEnabled(selected);
                 teacherPanel.getBtnUpdate().setEnabled(selected);
             }
         });
@@ -75,45 +74,35 @@ public class TeacherPanelController {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        teacherPanel.deleteAddActionListener((ActionEvent e) -> {
-            try {
-                int row = teacherPanel.getTblTeachers().getSelectedRow();
-                Teacher teacher = (Teacher) ((TeacherTM) teacherPanel.getTblTeachers().getModel()).getValueAt(row, 1);
-                communication.deleteTeacher(teacher);
-                JOptionPane.showMessageDialog(teacherPanel, "Sistem je obrisao nastavnika", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                fillTeachers(communication.getAllTeachers());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
-            }
-        });
         teacherPanel.insertAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertTeacherForm(null, Mode.INSERT);
                 fillTeachers(communication.getAllTeachers());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         teacherPanel.updateAddActionListener((ActionEvent e) -> {
             try {
                 int row = teacherPanel.getTblTeachers().getSelectedRow();
-                Teacher teacher = (Teacher) ((TeacherTM) teacherPanel.getTblTeachers().getModel()).getValueAt(row, 1);
+                Teacher teacher = (Teacher) ((TeacherTM) teacherPanel.getTblTeachers().getModel()).getValueAt(row, 0);
                 coordinator.openInsertTeacherForm(teacher, Mode.UPDATE);
                 fillTeachers(communication.getAllTeachers());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
 
     private void search() {
         try {
-            String firstName = teacherPanel.getTxtFirstName().getText();
-            String lastName = teacherPanel.getTxtLastName().getText();
-            List<Teacher> teachers = communication.searchTeachers(" WHERE LOWER(first_name) LIKE LOWER('%" + firstName + "%') AND LOWER(last_name) LIKE LOWER('%" + lastName + "%')");
+            String firstName = teacherPanel.getTxtFirstName().getText().trim();
+            String lastName = teacherPanel.getTxtLastName().getText().trim();
+            Teacher teacher = new Teacher(null, firstName, lastName);
+            List<Teacher> teachers = communication.searchTeachers(teacher);
             fillTeachers(teachers);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 ;

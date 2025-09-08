@@ -15,7 +15,7 @@ public class StudyProgramTM extends AbstractTM {
 
     public StudyProgramTM(List<StudyProgram> list) {
         super(list);
-        this.columns = new String[]{"ID", "Naziv"};
+        this.columns = new String[]{"Naziv studijskog programa"};
     }
 
     @Override
@@ -26,9 +26,6 @@ public class StudyProgramTM extends AbstractTM {
         StudyProgram studyProgram = (StudyProgram) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return studyProgram.getIdStudyProgram();
-            }
-            case 1 -> {
                 return studyProgram;
             }
             default ->

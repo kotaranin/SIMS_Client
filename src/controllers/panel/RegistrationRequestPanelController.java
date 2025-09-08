@@ -58,14 +58,14 @@ public class RegistrationRequestPanelController {
 
     private void search() {
         try {
-            String firstName = registrationRequestPanel.getTxtFirstName().getText();
-            String lastName = registrationRequestPanel.getTxtLastName().getText();
-            String email = registrationRequestPanel.getTxtEmail().getText();
+            String firstName = registrationRequestPanel.getTxtFirstName().getText().trim();
+            String lastName = registrationRequestPanel.getTxtLastName().getText().trim();
+            String email = registrationRequestPanel.getTxtEmail().getText().trim();
             StudyLevel studyLevel = (StudyLevel) registrationRequestPanel.getComboStudyLevel().getModel().getSelectedItem();
-            RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, null, null, null, null, null, false, studyLevel);
+            RegistrationRequest registrationRequest = new RegistrationRequest(null, firstName, lastName, email, null, null, null, null, null, null, studyLevel);
             fillRegistrationRequests(communication.searchRegistrationRequests(registrationRequest));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -140,19 +140,21 @@ public class RegistrationRequestPanelController {
                 studentOfficer.setQuestion(registrationRequest.getQuestion());
                 studentOfficer.setAnswerSalt(registrationRequest.getAnswerSalt());
                 studentOfficer.setHashedAnswer(registrationRequest.getHashedAnswer());
-                if (registrationRequest.isAdmin()) {
-                    int choice = JOptionPane.showConfirmDialog(registrationRequestPanel, "Da li dozvoljavate administratorske privilegije korisniku: " + registrationRequest, "Upozorenje", JOptionPane.YES_NO_OPTION);
+                if (registrationRequest.getAdmin()) {
+                    int choice = JOptionPane.showConfirmDialog(registrationRequestPanel, "Da li dozvoljavate administratorske privilegije korisniku: " + registrationRequest + "?", "Upozorenje", JOptionPane.YES_NO_OPTION);
                     studentOfficer.setAdmin(choice == JOptionPane.YES_OPTION);
                 } else {
                     studentOfficer.setAdmin(false);
                 }
                 studentOfficer.setStudyLevel(registrationRequest.getStudyLevel());
                 communication.deleteRegistrationRequest(registrationRequest);
+                JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je obrisao zahtev za registraciju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 communication.insertStudentOfficer(studentOfficer);
+                JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je zapamtio službenika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 fillRegistrationRequests(communication.getAllRegistrationRequests());
                 fillStudentOfficers(communication.getAllStudentOfficers());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         registrationRequestPanel.rejectAddActionListener((ActionEvent e) -> {
@@ -160,9 +162,10 @@ public class RegistrationRequestPanelController {
                 int row = registrationRequestPanel.getTblRegistrationRequest().getSelectedRow();
                 RegistrationRequest registrationRequest = (RegistrationRequest) ((RegistrationRequestTM) registrationRequestPanel.getTblRegistrationRequest().getModel()).getValueAt(row, 1);
                 communication.deleteRegistrationRequest(registrationRequest);
+                JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je obrisao zahtev za registraciju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 fillRegistrationRequests(communication.getAllRegistrationRequests());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

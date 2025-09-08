@@ -21,7 +21,7 @@ public class FilePickerFormController {
     }
 
     public Report getSelectedReport() throws IOException, Exception {
-        return filePickerForm.getSelectedReport(null);
+        return filePickerForm.getSelectedReport();
     }
     
 }

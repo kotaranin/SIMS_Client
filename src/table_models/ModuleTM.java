@@ -5,7 +5,6 @@
 package table_models;
 
 import java.util.List;
-import domain.Module;
 
 /**
  *
@@ -13,9 +12,9 @@ import domain.Module;
  */
 public class ModuleTM extends AbstractTM {
 
-    public ModuleTM(List list) {
+    public ModuleTM(List<domain.Module> list) {
         super(list);
-        this.columns = new String[]{"ID", "Naziv"};
+        this.columns = new String[]{"Naziv modula"};
     }
 
     @Override
@@ -23,13 +22,12 @@ public class ModuleTM extends AbstractTM {
         if (list == null) {
             return null;
         }
-        Module module = (Module) list.get(rowIndex);
+        domain.Module module = (domain.Module) list.get(rowIndex);
         switch (columnIndex) {
-            case 0:
-                return module.getIdModule();
-            case 1:
+            case 0 -> {
                 return module;
-            default:
+            }
+            default ->
                 throw new AssertionError();
         }
     }

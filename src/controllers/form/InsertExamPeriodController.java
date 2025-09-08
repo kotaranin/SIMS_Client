@@ -11,7 +11,10 @@ import static enums.Mode.INSERT;
 import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
+import validators.ExamPeriodValidator;
 import view.forms.InsertExamPeriodForm;
 
 /**
@@ -36,11 +39,11 @@ public class InsertExamPeriodController {
     public void openInsertExamPeriodForm() {
         if (mode == Mode.UPDATE) {
             insertExamPeriodForm.getTxtName().setText(examPeriod.getName());
-            insertExamPeriodForm.getTxtStartDate().setText(examPeriod.getStartDate().toString());
-            insertExamPeriodForm.getTxtEndDate().setText(examPeriod.getEndDate().toString());
-            insertExamPeriodForm.setTitle("Azuriraj ispitni rok");
+            insertExamPeriodForm.getTxtStartDate().setText(examPeriod.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.")));
+            insertExamPeriodForm.getTxtEndDate().setText(examPeriod.getEndDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.")));
+            insertExamPeriodForm.setTitle("Ažuriraj ispitni rok");
         } else {
-            insertExamPeriodForm.setTitle("Unesi ispitni rok");
+            insertExamPeriodForm.setTitle("Dodaj ispitni rok");
         }
         insertExamPeriodForm.setLocationRelativeTo(insertExamPeriodForm.getParent());
         insertExamPeriodForm.setVisible(true);
@@ -48,34 +51,35 @@ public class InsertExamPeriodController {
 
     private void addActionListeners() {
         insertExamPeriodForm.insertExamPeriodAddActionListener((ActionEvent e) -> {
-            String name = insertExamPeriodForm.getTxtName().getText();
-            LocalDate startdDate = LocalDate.parse(insertExamPeriodForm.getTxtStartDate().getText());
-            LocalDate endDate = LocalDate.parse(insertExamPeriodForm.getTxtEndDate().getText());
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+                String name = insertExamPeriodForm.getTxtName().getText();
+                LocalDate startdDate = LocalDate.parse(insertExamPeriodForm.getTxtStartDate().getText(), formatter);
+                LocalDate endDate = LocalDate.parse(insertExamPeriodForm.getTxtEndDate().getText(), formatter);
+                switch (mode) {
+                    case INSERT -> {
                         ExamPeriod ep = new ExamPeriod(null, name, startdDate, endDate);
+                        new ExamPeriodValidator().checkElementaryContraints(ep);
                         communication.insertExamPeriod(ep);
-                        JOptionPane.showMessageDialog(insertExamPeriodForm, "Sistem je zapamtio ispitni rok", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertExamPeriodForm, "Sistem je zapamtio ispitni rok.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertExamPeriodForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertExamPeriodForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         examPeriod.setName(name);
                         examPeriod.setStartDate(startdDate);
                         examPeriod.setEndDate(endDate);
+                        new ExamPeriodValidator().checkElementaryContraints(examPeriod);
                         communication.updateExamPeriod(examPeriod);
-                        JOptionPane.showMessageDialog(insertExamPeriodForm, "Sistem je zapamtio ispitni rok", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertExamPeriodForm, "Sistem je zapamtio ispitni rok.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertExamPeriodForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertExamPeriodForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(insertExamPeriodForm, "Datum mora biti u formatu DD.MM.GGGG.", "Greška", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertExamPeriodForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

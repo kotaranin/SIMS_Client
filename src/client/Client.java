@@ -11,6 +11,7 @@ import coordinator.Coordinator;
  * @author kotar
  */
 public class Client {
+
     public static void main(String[] args) {
         Coordinator.getInstance().openClientForm();
     }

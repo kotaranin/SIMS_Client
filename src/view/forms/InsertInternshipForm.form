@@ -137,12 +137,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Datum pocetka:"/>
+        <Property name="text" type="java.lang.String" value="Datum po&#x10d;etka:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Datum zavrsetka:"/>
+        <Property name="text" type="java.lang.String" value="Datum zavr&#x161;etka:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -228,12 +228,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblReport">
       <Properties>
-        <Property name="text" type="java.lang.String" value="[Dostaviti datoteku]"/>
+        <Property name="text" type="java.lang.String" value="[Prilo&#x17e;iti datoteku]"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAttach">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Prilozi"/>
+        <Property name="text" type="java.lang.String" value="Prilo&#x17e;i"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -57,11 +57,11 @@ public class CountryPanelController {
             public void mouseClicked(MouseEvent e) {
                 try {
                     int row = countryPanel.getTblCountry().getSelectedRow();
-                    Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 1);
+                    Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 0);
                     List<City> cities = communication.getCities(country);
                     fillCities(cities);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -83,10 +83,11 @@ public class CountryPanelController {
 
             private void search() {
                 try {
-                    String name = countryPanel.getTxtCountryName().getText();
-                    fillCountries(communication.searchCountries(" WHERE LOWER(name) LIKE LOWER('%" + name + "%')"));
+                    String name = countryPanel.getTxtCountryName().getText().trim();
+                    Country country = new Country(null, name, null);
+                    fillCountries(communication.searchCountries(country));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -96,18 +97,18 @@ public class CountryPanelController {
                 fillCountries(communication.getAllCountries());
                 fillCities(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         countryPanel.updateCountryAddActionListener((ActionEvent e) -> {
             try {
                 int row = countryPanel.getTblCountry().getSelectedRow();
-                Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 1);
+                Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 0);
                 coordinator.openInsertCountryForm(country, Mode.UPDATE);
                 fillCountries(communication.getAllCountries());
                 fillCities(communication.getCities(country));
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

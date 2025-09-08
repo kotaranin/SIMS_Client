@@ -5,6 +5,7 @@
 package table_models;
 
 import domain.Student;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class StudentTM extends AbstractTM {
 
-    public StudentTM(List list) {
+    public StudentTM(List<Student> list) {
         super(list);
-        this.columns = new String[]{"ID", "Ime i prezime", "Datum rodjenja", "Grad", "Broj indeksa", "Godina studija", "Studijski program", "Modul"};
+        this.columns = new String[]{"Ime i prezime", "Datum rođenja", "Grad", "Broj indeksa", "Godina studija", "Studijski program", "Modul"};
     }
 
     @Override
@@ -26,27 +27,24 @@ public class StudentTM extends AbstractTM {
         Student student = (Student) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return student.getIdStudent();
-            }
-            case 1 -> {
                 return student;
             }
-            case 2 -> {
-                return student.getDateOfBirth();
+            case 1 -> {
+                return student.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             }
-            case 3 -> {
+            case 2 -> {
                 return student.getCity();
             }
-            case 4 -> {
+            case 3 -> {
                 return student.getIndexNumber();
             }
-            case 5 -> {
+            case 4 -> {
                 return student.getYearOfStudy();
             }
-            case 6 -> {
+            case 5 -> {
                 return student.getStudyProgram();
             }
-            case 7 -> {
+            case 6 -> {
                 return student.getModule();
             }
             default ->

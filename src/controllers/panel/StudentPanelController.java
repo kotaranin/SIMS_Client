@@ -11,9 +11,12 @@ import domain.Student;
 import domain.StudyProgram;
 import enums.Mode;
 import java.awt.event.ActionEvent;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import table_models.StudentTM;
@@ -28,39 +31,80 @@ public class StudentPanelController {
     private final StudentPanel studentPanel;
     private final Communication communication;
     private final Coordinator coordinator;
-    private boolean isInitializing;
+    private boolean initialized;
 
     public StudentPanelController(StudentPanel studentPanel) {
         this.studentPanel = studentPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
-        this.isInitializing = true;
+        this.initialized = false;
         addActionListeners();
     }
 
     public void preparePanel() throws Exception {
         List<City> cities = communication.getAllCities();
         List<StudyProgram> studyPrograms = communication.getAllStudyPrograms();
-        List<domain.Module> modules = communication.getAllModules();
         List<Student> students = communication.getAllStudents();
+        List<Object> values = new ArrayList<>();
+        studentPanel.getComboCity().removeAllItems();
+        studentPanel.getComboCity().addItem(new City(null, "Svi gradovi", null));
         for (City city : cities) {
             studentPanel.getComboCity().addItem(city);
         }
+        studentPanel.getComboStudyProgram().removeAllItems();
+        studentPanel.getComboStudyProgram().addItem(new StudyProgram(null, "Svi studijski programi", null, null));
         for (StudyProgram studyProgram : studyPrograms) {
             studentPanel.getComboStudyProgram().addItem(studyProgram);
         }
-        for (domain.Module module : modules) {
-            studentPanel.getComboModule().addItem(module);
-        }
         fillStudents(students);
-        isInitializing = false;
+        values.add("Sve godine");
+        for (int i = 1; i <= 100; i++) {
+            values.add(i);
+        }
+        studentPanel.getSpinnerYearOfStudy().setModel(new SpinnerListModel(values));
+        ((JSpinner.DefaultEditor) studentPanel.getSpinnerYearOfStudy().getEditor()).getTextField().setEditable(false);
+        initialized = true;
     }
 
     public void fillStudents(List<Student> students) {
         studentPanel.getTblStudent().setModel(new StudentTM(students));
     }
 
+    private void search() {
+        try {
+            String firstName = studentPanel.getTxtFirstName().getText().trim();
+            String lastName = studentPanel.getTxtLastName().getText().trim();
+            City city = (City) studentPanel.getComboCity().getSelectedItem();
+            String indexNumber = studentPanel.getTxtIndexNumber().getText().trim();
+            Object yearObject = studentPanel.getSpinnerYearOfStudy().getValue();
+            Integer yearOfStudy = (yearObject instanceof Integer) ? (Integer) yearObject : null;
+            StudyProgram studyProgram = (StudyProgram) studentPanel.getComboStudyProgram().getSelectedItem();
+            domain.Module module = (domain.Module) studentPanel.getComboModule().getSelectedItem();
+            Student student = new Student(null, indexNumber, firstName, lastName, null, yearOfStudy, city, studyProgram, module);
+            fillStudents(communication.searchStudents(student));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void addActionListeners() {
+        studentPanel.getComboStudyProgram().addActionListener((ActionEvent e) -> {
+            try {
+                StudyProgram studyProgram = (StudyProgram) studentPanel.getComboStudyProgram().getModel().getSelectedItem();
+                if (studyProgram != null && studyProgram.getIdStudyProgram() != null) {
+                    List<domain.Module> modules = communication.getModules(studyProgram);
+                    studentPanel.getComboModule().removeAllItems();
+                    studentPanel.getComboModule().addItem(new domain.Module(null, "Svi moduli", null));
+                    for (domain.Module module : modules) {
+                        studentPanel.getComboModule().addItem(module);
+                    }
+                } else {
+                    studentPanel.getComboModule().removeAllItems();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         studentPanel.getTblStudent().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = studentPanel.getTblStudent().getSelectedRow() != -1;
@@ -72,17 +116,17 @@ public class StudentPanelController {
                 coordinator.openInsertStudentForm(null, Mode.INSERT);
                 fillStudents(communication.getAllStudents());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         studentPanel.updateStudentAddActionListener((ActionEvent e) -> {
             try {
                 int row = studentPanel.getTblStudent().getSelectedRow();
-                Student student = (Student) ((StudentTM) studentPanel.getTblStudent().getModel()).getValueAt(row, 1);
+                Student student = (Student) ((StudentTM) studentPanel.getTblStudent().getModel()).getValueAt(row, 0);
                 coordinator.openInsertStudentForm(student, Mode.UPDATE);
                 fillStudents(communication.getAllStudents());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         studentPanel.getTxtFirstName().getDocument().addDocumentListener(new DocumentListener() {
@@ -115,23 +159,8 @@ public class StudentPanelController {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        studentPanel.getTxtDateOfBirth().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
         studentPanel.getComboCity().addActionListener((ActionEvent e) -> {
-            if (!isInitializing) {
+            if (initialized) {
                 search();
             }
         });
@@ -150,51 +179,18 @@ public class StudentPanelController {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        studentPanel.getTxtYearOfStudy().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
+        studentPanel.getSpinnerYearOfStudy().addChangeListener((ChangeEvent e) -> {
+            search();
         });
         studentPanel.getComboStudyProgram().addActionListener((ActionEvent e) -> {
-            if (!isInitializing) {
+            if (initialized) {
                 search();
             }
         });
         studentPanel.getComboModule().addActionListener((ActionEvent e) -> {
-            if (!isInitializing) {
+            if (initialized) {
                 search();
             }
         });
     }
-
-    public void search() {
-        try {
-            String firstName = studentPanel.getTxtFirstName().getText();
-            String lastName = studentPanel.getTxtLastName().getText();
-            String dOB = studentPanel.getTxtDateOfBirth().getText();
-            LocalDate dateOfBirth = (dOB != null && !dOB.isEmpty()) ? LocalDate.parse(dOB) : null;
-            City city = (City) studentPanel.getComboCity().getSelectedItem();
-            String indexNumber = studentPanel.getTxtIndexNumber().getText();
-            String yearText = studentPanel.getTxtYearOfStudy().getText().trim();
-            Integer yearOfStudy = (yearText != null && !yearText.isEmpty()) ? Integer.valueOf(yearText) : null;
-            StudyProgram studyProgram = (StudyProgram) studentPanel.getComboStudyProgram().getSelectedItem();
-            domain.Module module = (domain.Module) studentPanel.getComboModule().getSelectedItem();
-            Student student = new Student(null, indexNumber, firstName, lastName, dateOfBirth, yearOfStudy, city, studyProgram, module);
-            fillStudents(communication.searchStudents(student));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
 }

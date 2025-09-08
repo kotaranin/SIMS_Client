@@ -9,6 +9,8 @@ import coordinator.Coordinator;
 import domain.City;
 import domain.Country;
 import enums.Mode;
+import static enums.Mode.INSERT;
+import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,11 +45,11 @@ public class InsertCountryController {
 
     public void openInsertCountryForm() throws Exception {
         if (mode == Mode.UPDATE) {
-            insertCountryForm.setTitle("Azuriraj drzavu");
+            insertCountryForm.setTitle("Ažuriraj državu");
             insertCountryForm.getTxtCountryName().setText(country.getName());
             fillCities(communication.getCities(country));
         } else {
-            insertCountryForm.setTitle("Unesi drzavu");
+            insertCountryForm.setTitle("Dodaj državu");
             fillCities(new LinkedList<>());
         }
         insertCountryForm.setLocationRelativeTo(insertCountryForm.getParent());
@@ -71,37 +73,33 @@ public class InsertCountryController {
         });
         insertCountryForm.updateCityAddActionListener((ActionEvent e) -> {
             int row = insertCountryForm.getTblCity().getSelectedRow();
-            City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 1);
+            City city = (City) ((CityTM) insertCountryForm.getTblCity().getModel()).getValueAt(row, 0);
             coordinator.openInsertCityForm(city, Mode.UPDATE);
             ((CityTM) insertCountryForm.getTblCity().getModel()).fireTableDataChanged();
         });
         insertCountryForm.saveAddActionListener((ActionEvent e) -> {
-            String name = insertCountryForm.getTxtCountryName().getText();
-            List<City> cities = ((CityTM) insertCountryForm.getTblCity().getModel()).getList();
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                String name = insertCountryForm.getTxtCountryName().getText();
+                List<City> cities = ((CityTM) insertCountryForm.getTblCity().getModel()).getList();
+                switch (mode) {
+                    case INSERT -> {
                         Country c = new Country(null, name, cities);
                         communication.insertCountry(c);
-                        JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio drzavu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio državu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCountryForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertCountryForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         country.setName(name);
                         country.setCities(cities);
                         communication.updateCountry(country);
-                        JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio drzavu.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertCountryForm, "Sistem je zapamtio državu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertCountryForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertCountryForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertCountryForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

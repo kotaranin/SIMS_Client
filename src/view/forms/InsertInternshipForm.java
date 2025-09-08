@@ -26,6 +26,8 @@ public class InsertInternshipForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertInternshipForm
+     * @param parent
+     * @param modal
      */
     public InsertInternshipForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -72,9 +74,9 @@ public class InsertInternshipForm extends javax.swing.JDialog {
 
         jLabel3.setText("Dnevnik prakse:");
 
-        jLabel4.setText("Datum pocetka:");
+        jLabel4.setText("Datum početka:");
 
-        jLabel5.setText("Datum zavrsetka:");
+        jLabel5.setText("Datum završetka:");
 
         jLabel6.setText("Datum odbrane:");
 
@@ -86,9 +88,9 @@ public class InsertInternshipForm extends javax.swing.JDialog {
 
         btnOK.setText("OK");
 
-        lblReport.setText("[Dostaviti datoteku]");
+        lblReport.setText("[Priložiti datoteku]");
 
-        btnAttach.setText("Prilozi");
+        btnAttach.setText("Priloži");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,6 +176,7 @@ public class InsertInternshipForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Frame getParent() {
         return parent;
     }

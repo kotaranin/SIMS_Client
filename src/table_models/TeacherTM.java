@@ -15,7 +15,7 @@ public class TeacherTM extends AbstractTM {
 
     public TeacherTM(List<Teacher> list) {
         super(list);
-        super.columns = new String[]{"ID", "Ime i prezime"};
+        super.columns = new String[]{"Ime i prezime nastavnika"};
     }
 
     @Override
@@ -26,9 +26,6 @@ public class TeacherTM extends AbstractTM {
         Teacher teacher = (Teacher) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return teacher.getIdTeacher();
-            }
-            case 1 -> {
                 return teacher;
             }
             default ->

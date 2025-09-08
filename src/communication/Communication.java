@@ -89,16 +89,12 @@ public class Communication {
         sendRequest(new Request(Operation.UPDATE_COUNTRY, country));
     }
 
-    public List<Country> searchCountries(String condition) throws ClassNotFoundException, Exception {
-        return (List<Country>) sendRequest(new Request(Operation.SEARCH_COUNTRIES, condition));
+    public List<Country> searchCountries(Country country) throws ClassNotFoundException, Exception {
+        return (List<Country>) sendRequest(new Request(Operation.SEARCH_COUNTRIES, country));
     }
 
     public List<ExamPeriod> getAllExamPeriods() throws ClassNotFoundException, Exception {
         return (List<ExamPeriod>) sendRequest(new Request(Operation.GET_ALL_EXAM_PERIODS, null));
-    }
-
-    public void deleteExamPeriod(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
-        sendRequest(new Request(Operation.DELETE_EXAM_PERIOD, examPeriod));
     }
 
     public void insertExamPeriod(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
@@ -109,16 +105,12 @@ public class Communication {
         sendRequest(new Request(Operation.UPDATE_EXAM_PERIOD, examPeriod));
     }
 
-    public List<ExamPeriod> searchExamPeriods(String condition) throws ClassNotFoundException, Exception {
-        return (List<ExamPeriod>) sendRequest(new Request(Operation.SEARCH_EXAM_PERIODS, condition));
+    public List<ExamPeriod> searchExamPeriods(ExamPeriod examPeriod) throws ClassNotFoundException, Exception {
+        return (List<ExamPeriod>) sendRequest(new Request(Operation.SEARCH_EXAM_PERIODS, examPeriod));
     }
 
     public List<Teacher> getAllTeachers() throws ClassNotFoundException, Exception {
         return (List<Teacher>) sendRequest(new Request(Operation.GET_ALL_TEACHERS, null));
-    }
-
-    public void deleteTeacher(Teacher teacher) throws ClassNotFoundException, Exception {
-        sendRequest(new Request(Operation.DELETE_TEACHER, teacher));
     }
 
     public void insertTeacher(Teacher teacher) throws ClassNotFoundException, Exception {
@@ -129,8 +121,8 @@ public class Communication {
         sendRequest(new Request(Operation.UPDATE_TEACHER, teacher));
     }
 
-    public List<Teacher> searchTeachers(String condition) throws ClassNotFoundException, Exception {
-        return (List<Teacher>) sendRequest(new Request(Operation.SEARCH_TEACHERS, condition));
+    public List<Teacher> searchTeachers(Teacher teacher) throws ClassNotFoundException, Exception {
+        return (List<Teacher>) sendRequest(new Request(Operation.SEARCH_TEACHERS, teacher));
     }
 
     public List<StudyLevel> getAllStudyLevels() throws ClassNotFoundException, Exception {
@@ -143,10 +135,6 @@ public class Communication {
 
     public void updateStudyLevel(StudyLevel studyLevel) throws ClassNotFoundException, Exception {
         sendRequest(new Request(Operation.UPDATE_STUDY_LEVEL, studyLevel));
-    }
-
-    public List<StudyLevel> searchStudyLevels(String condition) throws ClassNotFoundException, Exception {
-        return (List<StudyLevel>) sendRequest(new Request(Operation.SEARCH_STUDY_LEVEL, condition));
     }
 
     public List<Internship> getAllInternships() throws ClassNotFoundException, Exception {

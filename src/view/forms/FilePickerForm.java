@@ -4,7 +4,6 @@
  */
 package view.forms;
 
-import view.panels.ReportPanel;
 import domain.Report;
 import java.io.File;
 import java.io.IOException;
@@ -18,12 +17,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FilePickerForm {
 
-    public Report getSelectedReport(ReportPanel reportsPanel) throws IOException, Exception {
+    public Report getSelectedReport() throws IOException, Exception {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Izaberite datoteku:");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Dozvoljeni tipovi su .doc, .docx ili .pdf", "doc", "docx", "pdf"));
         fileChooser.setAcceptAllFileFilterUsed(false);
-        int result = fileChooser.showOpenDialog(reportsPanel);
+        int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String fileName = file.getName();

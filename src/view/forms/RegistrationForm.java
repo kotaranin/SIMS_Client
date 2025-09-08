@@ -18,10 +18,12 @@ import javax.swing.JTextField;
  */
 public class RegistrationForm extends javax.swing.JDialog {
 
-    private Frame parent;
+    private final Frame parent;
 
     /**
      * Creates new form RegisterForm
+     * @param parent
+     * @param modal
      */
     public RegistrationForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,6 +31,7 @@ public class RegistrationForm extends javax.swing.JDialog {
         this.parent = parent;
     }
 
+    @Override
     public Frame getParent() {
         return parent;
     }

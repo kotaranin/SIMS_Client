@@ -5,6 +5,7 @@
 package table_models;
 
 import domain.Internship;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class InternshipTM extends AbstractTM {
 
-    public InternshipTM(List list) {
+    public InternshipTM(List<Internship> list) {
         super(list);
-        this.columns = new String[]{"ID", "Student", "Broj indeksa", "Kompanija", "Pocetak", "Kraj", "Dnevnik", "Odbrana", "Ocena", "Nastavnik", "Ispitni rok", "Evidentirao"};
+        this.columns = new String[]{"Student", "Broj indeksa", "Kompanija", "Početak", "Kraj", "Dnevnik", "Odbrana", "Ocena", "Nastavnik", "Ispitni rok", "Evidentirao"};
     }
 
     @Override
@@ -26,39 +27,36 @@ public class InternshipTM extends AbstractTM {
         Internship internship = (Internship) list.get(rowIndex);
         switch (columnIndex) {
             case 0 -> {
-                return internship.getIdInternship();
-            }
-            case 1 -> {
                 return internship;
             }
-            case 2 -> {
+            case 1 -> {
                 return internship.getStudent().getIndexNumber();
             }
-            case 3 -> {
+            case 2 -> {
                 return internship.getCompany();
             }
+            case 3 -> {
+                return internship.getStartDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
+            }
             case 4 -> {
-                return internship.getStartDate();
+                return internship.getEndDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             }
             case 5 -> {
-                return internship.getEndDate();
-            }
-            case 6 -> {
                 return internship.getReport();
             }
-            case 7 -> {
-                return internship.getDefenseDate();
+            case 6 -> {
+                return internship.getDefenseDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
             }
-            case 8 -> {
+            case 7 -> {
                 return internship.getGrade();
             }
-            case 9-> {
+            case 8 -> {
                 return internship.getTeacher();
             }
-            case 10 -> {
+            case 9 -> {
                 return internship.getExamPeriod();
             }
-            case 11 -> {
+            case 10 -> {
                 return internship.getStudentOfficer();
             }
             default ->

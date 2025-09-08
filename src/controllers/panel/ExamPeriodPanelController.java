@@ -41,7 +41,6 @@ public class ExamPeriodPanelController {
         examPeriodsPanel.getTblExamPeriods().getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 boolean selected = examPeriodsPanel.getTblExamPeriods().getSelectedRow() != -1;
-                examPeriodsPanel.getBtnDelete().setEnabled(selected);
                 examPeriodsPanel.getBtnUpdate().setEnabled(selected);
             }
         });
@@ -60,76 +59,34 @@ public class ExamPeriodPanelController {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        examPeriodsPanel.getTxtStartDate().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-        examPeriodsPanel.getTxtEndDate().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                search();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
-        examPeriodsPanel.deleteAddActionListener((ActionEvent e) -> {
-            try {
-                int row = examPeriodsPanel.getTblExamPeriods().getSelectedRow();
-                ExamPeriod examPeriod = (ExamPeriod) ((ExamPeriodTM) examPeriodsPanel.getTblExamPeriods().getModel()).getValueAt(row, 1);
-                communication.deleteExamPeriod(examPeriod);
-                JOptionPane.showMessageDialog(examPeriodsPanel, "Sistem je obrisao ispitni rok.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                fillExamPeriods(communication.getAllExamPeriods());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
-            }
-        });
         examPeriodsPanel.insertAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertExamPeriodForm(null, Mode.INSERT);
                 fillExamPeriods(communication.getAllExamPeriods());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         examPeriodsPanel.updateAddActionListener((ActionEvent e) -> {
             try {
                 int row = examPeriodsPanel.getTblExamPeriods().getSelectedRow();
-                ExamPeriod examPeriod = (ExamPeriod) ((ExamPeriodTM) examPeriodsPanel.getTblExamPeriods().getModel()).getValueAt(row, 1);
+                ExamPeriod examPeriod = (ExamPeriod) ((ExamPeriodTM) examPeriodsPanel.getTblExamPeriods().getModel()).getValueAt(row, 0);
                 coordinator.openInsertExamPeriodForm(examPeriod, Mode.UPDATE);
                 fillExamPeriods(communication.getAllExamPeriods());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
 
     private void search() {
         try {
-            String name = examPeriodsPanel.getTxtName().getText();
-            String startDate = examPeriodsPanel.getTxtStartDate().getText();
-            String endDate = examPeriodsPanel.getTxtEndDate().getText();
-            List<ExamPeriod> examPeriods = communication.searchExamPeriods(" WHERE LOWER(exam_period.name) LIKE LOWER('%" + name + "%') AND exam_period.start_date LIKE '%" + startDate + "%' AND exam_period.end_date LIKE '%" + endDate + "%'");
+            String name = examPeriodsPanel.getTxtName().getText().trim();
+            ExamPeriod examPeriod = new ExamPeriod(null, name, null, null);
+            List<ExamPeriod> examPeriods = communication.searchExamPeriods(examPeriod);
             fillExamPeriods(examPeriods);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }
 

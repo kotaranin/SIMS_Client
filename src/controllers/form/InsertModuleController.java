@@ -8,6 +8,8 @@ import coordinator.Coordinator;
 import domain.Module;
 import enums.Mode;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+import validators.ModuleValidator;
 import view.forms.InsertModuleForm;
 
 /**
@@ -15,12 +17,12 @@ import view.forms.InsertModuleForm;
  * @author kotar
  */
 public class InsertModuleController {
-    
+
     private final InsertModuleForm insertModuleForm;
     private final domain.Module module;
     private final Mode mode;
     private final Coordinator coordinator;
-    
+
     public InsertModuleController(InsertModuleForm insertModuleForm, Module module, Mode mode) {
         this.insertModuleForm = insertModuleForm;
         this.module = module;
@@ -28,34 +30,40 @@ public class InsertModuleController {
         this.coordinator = Coordinator.getInstance();
         addActionListeners();
     }
-    
+
     public void openInsertModuleForm() {
         if (mode == Mode.UPDATE) {
             insertModuleForm.getTxtModuleName().setText(module.getName());
-            insertModuleForm.setTitle("Azuriraj modul");
+            insertModuleForm.setTitle("Ažuriraj modul");
         } else {
-            insertModuleForm.setTitle("Kreiraj modul");
+            insertModuleForm.setTitle("Dodaj modul");
         }
         insertModuleForm.setLocationRelativeTo(insertModuleForm.getParent());
         insertModuleForm.setVisible(true);
     }
-    
+
     private void closeInsertModuleForm() {
         insertModuleForm.dispose();
     }
-    
+
     private void addActionListeners() {
         insertModuleForm.saveAddActionListener((ActionEvent e) -> {
-            domain.Module m = new Module();
-            m.setName(insertModuleForm.getTxtModuleName().getText());
-            if (mode == Mode.INSERT) {
-                coordinator.getInsertStudyProgramController().insert(m);
-            } else {
-                m.setIdModule(module.getIdModule());
-                coordinator.getInsertStudyProgramController().update(m);
+            try {
+                String name = insertModuleForm.getTxtModuleName().getText();
+                if (mode == Mode.INSERT) {
+                    domain.Module m = new Module(null, name, null);
+                    new ModuleValidator().checkElementaryContraints(m);
+                    coordinator.getInsertStudyProgramController().insert(m);
+                } else {
+                    module.setName(name);
+                    new ModuleValidator().checkElementaryContraints(module);
+                    coordinator.getInsertStudyProgramController().update(module);
+                }
+                closeInsertModuleForm();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertModuleForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
-            closeInsertModuleForm();
         });
     }
-    
+
 }

@@ -5,7 +5,6 @@
 package view.panels;
 
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -69,7 +68,7 @@ public class LogInPanel extends javax.swing.JPanel {
 
         rightPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setText("Koriscnicko ime:");
+        jLabel2.setText("E-mail adresa:");
 
         jLabel3.setText("Lozinka:");
 

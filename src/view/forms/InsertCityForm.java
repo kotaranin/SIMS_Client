@@ -14,10 +14,12 @@ import javax.swing.JTextField;
  */
 public class InsertCityForm extends javax.swing.JDialog {
 
-    private Dialog parent;
+    private final Dialog parent;
 
     /**
      * Creates new form InsertCityForm
+     * @param parent
+     * @param modal
      */
     public InsertCityForm(Dialog parent, boolean modal) {
         super(parent, modal);
@@ -75,6 +77,7 @@ public class InsertCityForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Dialog getParent() {
         return parent;
     }

@@ -15,7 +15,7 @@ public class CountryTM extends AbstractTM {
 
     public CountryTM(List<Country> list) {
         super(list);
-        super.columns = new String[]{"ID", "Drzava"};
+        super.columns = new String[]{"Naziv države"};
     }
 
     @Override
@@ -25,11 +25,10 @@ public class CountryTM extends AbstractTM {
         }
         Country country = (Country) list.get(rowIndex);
         switch (columnIndex) {
-            case 0:
-                return country.getIdCountry();
-            case 1:
+            case 0 -> {
                 return country;
-            default:
+            }
+            default ->
                 throw new AssertionError();
         }
     }

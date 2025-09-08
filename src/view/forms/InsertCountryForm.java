@@ -20,6 +20,8 @@ public class InsertCountryForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertCountryForm
+     * @param parent
+     * @param modal
      */
     public InsertCountryForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -48,7 +50,7 @@ public class InsertCountryForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setText("Unesite naziv drzave:");
+        jLabel1.setText("Unesite naziv države:");
 
         btnOK.setText("OK");
 
@@ -69,7 +71,7 @@ public class InsertCountryForm extends javax.swing.JDialog {
 
         btnInsertCity.setText("Dodaj grad");
 
-        btnUpdateCity.setText("Azuriraj grad");
+        btnUpdateCity.setText("Ažuriraj grad");
         btnUpdateCity.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -89,11 +91,11 @@ public class InsertCountryForm extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertCity)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdateCity)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -131,13 +133,11 @@ public class InsertCountryForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public JTextField getTxtCountryName() {
         return txtCountryName;
     }
 
+    @Override
     public Frame getParent() {
         return parent;
     }

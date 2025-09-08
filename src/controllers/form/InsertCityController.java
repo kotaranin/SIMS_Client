@@ -30,10 +30,10 @@ public class InsertCityController {
 
     public void openInsertCityForm() {
         if (mode == Mode.UPDATE) {
-            insertCityForm.setTitle("Azuriraj grad");
+            insertCityForm.setTitle("Ažuriraj grad");
             insertCityForm.getTxtCityName().setText(city.getName());
         } else {
-            insertCityForm.setTitle("Unesi grad");
+            insertCityForm.setTitle("Dodaj grad");
         }
         insertCityForm.setLocationRelativeTo(insertCityForm.getParent());
         insertCityForm.setVisible(true);

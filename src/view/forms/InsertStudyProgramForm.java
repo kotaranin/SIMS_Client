@@ -20,6 +20,8 @@ public class InsertStudyProgramForm extends javax.swing.JDialog {
 
     /**
      * Creates new form InsertStudyProgramForm
+     * @param parent
+     * @param modal
      */
     public InsertStudyProgramForm(Dialog parent, boolean modal) {
         super(parent, modal);
@@ -66,7 +68,7 @@ public class InsertStudyProgramForm extends javax.swing.JDialog {
 
         btnInsertModule.setText("Dodaj");
 
-        btnUpdateModule.setText("Azuriraj");
+        btnUpdateModule.setText("Ažuriraj");
         btnUpdateModule.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -88,8 +90,9 @@ public class InsertStudyProgramForm extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnInsertModule)
-                        .addGap(92, 92, 92)
-                        .addComponent(btnUpdateModule))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateModule)
+                        .addGap(86, 86, 86))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
@@ -130,6 +133,7 @@ public class InsertStudyProgramForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public Dialog getParent() {
         return parent;
     }

@@ -53,9 +53,9 @@ public class QuestionFormController {
                         return;
                     }
                 }
-                throw new Exception("Sistem ne moze da nadje sluzbenika.");
+                throw new Exception("Sistem ne može da nađe službenika.");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(questionForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(questionForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         questionForm.checkAddActionListener((ActionEvent e) -> {
@@ -67,7 +67,7 @@ public class QuestionFormController {
                 coordinator.openNewPasswordForm(Mode.FORGOT);
                 closeQuestionForm();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(questionForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(questionForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

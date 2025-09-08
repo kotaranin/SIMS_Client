@@ -9,16 +9,17 @@ import coordinator.Coordinator;
 import domain.StudyLevel;
 import domain.StudyProgram;
 import enums.Mode;
+import static enums.Mode.INSERT;
+import static enums.Mode.UPDATE;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import table_models.ModuleTM;
 import table_models.StudyProgramTM;
+import validators.StudyLevelValidator;
 import view.forms.InsertStudyLevelForm;
 
 /**
@@ -55,11 +56,11 @@ public class InsertStudyLevelController {
             insertStudyLevelForm.getTxtStudyLevelName().setText(studyLevel.getName());
             fillStudyPrograms(studyLevel.getStudyPrograms());
             fillModules(new LinkedList<>());
-            insertStudyLevelForm.setTitle("Azuriraj nivo studija");
+            insertStudyLevelForm.setTitle("Ažuriraj nivo studija");
         } else {
             fillStudyPrograms(new LinkedList<>());
             fillModules(new LinkedList<>());
-            insertStudyLevelForm.setTitle("Kreiraj nivo studija");
+            insertStudyLevelForm.setTitle("Dodaj nivo studija");
         }
         insertStudyLevelForm.setLocationRelativeTo(insertStudyLevelForm.getParent());
         insertStudyLevelForm.setVisible(true);
@@ -69,11 +70,23 @@ public class InsertStudyLevelController {
         insertStudyLevelForm.dispose();
     }
 
-    public void insert(StudyProgram studyProgram) {
+    public void insert(StudyProgram studyProgram) throws Exception {
+        List<StudyProgram> studyPrograms = ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getList();
+        for (StudyProgram sp : studyPrograms) {
+            if (sp.getName().equalsIgnoreCase(studyProgram.getName())) {
+                throw new Exception("Nije moguće uneti dva studijska programa pod istim imenom na jednom nivou studija.");
+            }
+        }
         ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).insert(studyProgram);
     }
 
-    public void update(StudyProgram studyProgram) {
+    public void update(StudyProgram studyProgram) throws Exception {
+        List<StudyProgram> studyPrograms = ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getList();
+        for (StudyProgram sp : studyPrograms) {
+            if (sp != studyProgram && sp.getName().equalsIgnoreCase(studyProgram.getName())) {
+                throw new Exception("Nije moguće uneti dva studijska programa pod istim imenom na jednom nivou studija.");
+            }
+        }
         ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).update(studyProgram);
     }
 
@@ -89,10 +102,10 @@ public class InsertStudyLevelController {
             public void mouseClicked(MouseEvent e) {
                 try {
                     int row = insertStudyLevelForm.getTblStudyProgram().getSelectedRow();
-                    StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getValueAt(row, 1);
+                    StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getValueAt(row, 0);
                     fillModules(studyProgram.getModules());
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -102,47 +115,44 @@ public class InsertStudyLevelController {
                 coordinator.openInsertStudyProgramForm(null, Mode.INSERT);
                 fillModules(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         insertStudyLevelForm.updateStudyProgramAddActionListener((ActionEvent e) -> {
             try {
                 int row = insertStudyLevelForm.getTblStudyProgram().getSelectedRow();
-                StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getValueAt(row, 1);
+                StudyProgram studyProgram = (StudyProgram) ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getValueAt(row, 0);
                 coordinator.openInsertStudyProgramForm(studyProgram, Mode.UPDATE);
                 fillModules(null);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         insertStudyLevelForm.saveAddActionListener((ActionEvent e) -> {
-            String name = insertStudyLevelForm.getTxtStudyLevelName().getText();
-            List<StudyProgram> studyPrograms = ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getList();
-            switch (mode) {
-                case INSERT -> {
-                    try {
+            try {
+                String name = insertStudyLevelForm.getTxtStudyLevelName().getText();
+                List<StudyProgram> studyPrograms = ((StudyProgramTM) insertStudyLevelForm.getTblStudyProgram().getModel()).getList();
+                switch (mode) {
+                    case INSERT -> {
                         StudyLevel sl = new StudyLevel(null, name, studyPrograms);
+                        new StudyLevelValidator().checkElementaryContraints(sl);
                         communication.insertStudyLevel(sl);
-                        JOptionPane.showMessageDialog(insertStudyLevelForm, "Sistem je zapamtio nivo studija.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertStudyLevelForm, "Sistem je zapamtio nivo studija.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertStudyLevelForm();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                case UPDATE -> {
-                    try {
+                    case UPDATE -> {
                         studyLevel.setName(name);
                         studyLevel.setStudyPrograms(studyPrograms);
+                        new StudyLevelValidator().checkElementaryContraints(studyLevel);
                         communication.updateStudyLevel(studyLevel);
-                        JOptionPane.showMessageDialog(insertStudyLevelForm, "Sistem je zapamtio nivo studija.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(insertStudyLevelForm, "Sistem je zapamtio nivo studija.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         closeInsertStudyLevelForm();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
                     }
+                    default ->
+                        throw new AssertionError();
                 }
-                default ->
-                    throw new AssertionError();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(insertStudyLevelForm, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
