@@ -18,12 +18,11 @@ import view.panels.ProfilePanel;
 public class ProfilePanelController {
 
     private final ProfilePanel profilePanel;
-    private final Communication communication;
     private final Coordinator coordinator;
 
     public ProfilePanelController(ProfilePanel profilePanel) {
         this.profilePanel = profilePanel;
-        this.communication = Communication.getInstance();
+        Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
         addActionListeners();
     }

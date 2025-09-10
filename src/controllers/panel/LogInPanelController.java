@@ -35,6 +35,8 @@ public class LogInPanelController {
     }
 
     public void preparePanel() {
+        logInPanel.getTxtEmail().setText(null);
+        logInPanel.getTxtPassword().setText(null);
         logInPanel.getLblForgot().setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
@@ -65,6 +67,7 @@ public class LogInPanelController {
                 studentOfficer.setHashedPassword(password);
                 studentOfficer = communication.passwordLogIn(studentOfficer);
                 coordinator.setStudentOfficer(studentOfficer);
+                JOptionPane.showMessageDialog(logInPanel, "Uspešna prijava na sistem.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 coordinator.openInternshipPanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(logInPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);

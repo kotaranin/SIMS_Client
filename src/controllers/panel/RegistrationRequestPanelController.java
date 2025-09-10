@@ -35,17 +35,21 @@ public class RegistrationRequestPanelController {
     }
 
     public void preparePanel() throws Exception {
+        initialized = false;
         List<StudyLevel> studyLevels = communication.getAllStudyLevels();
         List<RegistrationRequest> registrationRequests = communication.getAllRegistrationRequests();
         List<StudentOfficer> studentOfficers = communication.getAllStudentOfficers();
+        registrationRequestPanel.getTxtFirstName().setText(null);
+        registrationRequestPanel.getTxtLastName().setText(null);
+        registrationRequestPanel.getTxtEmail().setText(null);
         registrationRequestPanel.getComboStudyLevel().removeAllItems();
         registrationRequestPanel.getComboStudyLevel().addItem(new StudyLevel(null, "Svi nivoi studija", null));
         for (StudyLevel studyLevel : studyLevels) {
             registrationRequestPanel.getComboStudyLevel().addItem(studyLevel);
         }
-        initialized = true;
         fillRegistrationRequests(registrationRequests);
         fillStudentOfficers(studentOfficers);
+        initialized = true;
     }
 
     private void fillRegistrationRequests(List<RegistrationRequest> registrationRequests) {
@@ -80,12 +84,16 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.getTxtFirstName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -95,12 +103,16 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.getTxtLastName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -110,12 +122,16 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.getTxtEmail().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -130,7 +146,7 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.acceptAddActionListener((ActionEvent e) -> {
             try {
                 int row = registrationRequestPanel.getTblRegistrationRequest().getSelectedRow();
-                RegistrationRequest registrationRequest = (RegistrationRequest) ((RegistrationRequestTM) registrationRequestPanel.getTblRegistrationRequest().getModel()).getValueAt(row, 1);
+                RegistrationRequest registrationRequest = (RegistrationRequest) ((RegistrationRequestTM) registrationRequestPanel.getTblRegistrationRequest().getModel()).getValueAt(row, 0);
                 StudentOfficer studentOfficer = new StudentOfficer();
                 studentOfficer.setFirstName(registrationRequest.getFirstName());
                 studentOfficer.setLastName(registrationRequest.getLastName());
@@ -151,8 +167,7 @@ public class RegistrationRequestPanelController {
                 JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je obrisao zahtev za registraciju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 communication.insertStudentOfficer(studentOfficer);
                 JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je zapamtio službenika.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-                fillRegistrationRequests(communication.getAllRegistrationRequests());
-                fillStudentOfficers(communication.getAllStudentOfficers());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -160,10 +175,10 @@ public class RegistrationRequestPanelController {
         registrationRequestPanel.rejectAddActionListener((ActionEvent e) -> {
             try {
                 int row = registrationRequestPanel.getTblRegistrationRequest().getSelectedRow();
-                RegistrationRequest registrationRequest = (RegistrationRequest) ((RegistrationRequestTM) registrationRequestPanel.getTblRegistrationRequest().getModel()).getValueAt(row, 1);
+                RegistrationRequest registrationRequest = (RegistrationRequest) ((RegistrationRequestTM) registrationRequestPanel.getTblRegistrationRequest().getModel()).getValueAt(row, 0);
                 communication.deleteRegistrationRequest(registrationRequest);
                 JOptionPane.showMessageDialog(registrationRequestPanel, "Sistem je obrisao zahtev za registraciju.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-                fillRegistrationRequests(communication.getAllRegistrationRequests());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(registrationRequestPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }

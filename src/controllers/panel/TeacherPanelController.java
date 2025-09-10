@@ -25,15 +25,25 @@ public class TeacherPanelController {
     private final TeacherPanel teacherPanel;
     private final Communication communication;
     private final Coordinator coordinator;
+    private boolean initialized;
 
     public TeacherPanelController(TeacherPanel teacherPanel) {
         this.teacherPanel = teacherPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
-    public void fillTeachers(List<Teacher> teachers) {
+    public void preparePanel() throws Exception {
+        initialized = false;
+        teacherPanel.getTxtFirstName().setText(null);
+        teacherPanel.getTxtLastName().setText(null);
+        fillTeachers(communication.getAllTeachers());
+        initialized = true;
+    }
+
+    private void fillTeachers(List<Teacher> teachers) {
         teacherPanel.getTblTeachers().setModel(new TeacherTM(teachers));
     }
 
@@ -47,12 +57,16 @@ public class TeacherPanelController {
         teacherPanel.getTxtFirstName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -62,12 +76,16 @@ public class TeacherPanelController {
         teacherPanel.getTxtLastName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -77,7 +95,7 @@ public class TeacherPanelController {
         teacherPanel.insertAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertTeacherForm(null, Mode.INSERT);
-                fillTeachers(communication.getAllTeachers());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -87,7 +105,7 @@ public class TeacherPanelController {
                 int row = teacherPanel.getTblTeachers().getSelectedRow();
                 Teacher teacher = (Teacher) ((TeacherTM) teacherPanel.getTblTeachers().getModel()).getValueAt(row, 0);
                 coordinator.openInsertTeacherForm(teacher, Mode.UPDATE);
-                fillTeachers(communication.getAllTeachers());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(teacherPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }

@@ -18,7 +18,6 @@ import view.forms.*;
 public class Coordinator {
 
     private static Coordinator instance;
-    private final Communication communication;
     public StudentOfficer studentOfficer;
     private ClientFormController clientFormController;
     private LogInPanelController logInPanelController;
@@ -50,7 +49,7 @@ public class Coordinator {
     private QuestionFormController questionFormController;
 
     private Coordinator() {
-        this.communication = Communication.getInstance();
+        Communication.getInstance();
     }
 
     public static Coordinator getInstance() {
@@ -100,8 +99,7 @@ public class Coordinator {
 
     public void openCountryPanel() throws Exception {
         countryPanelController = new CountryPanelController(clientFormController.getCountryPanel());
-        countryPanelController.fillCountries(communication.getAllCountries());
-        countryPanelController.fillCities(null);
+        countryPanelController.preparePanel();
     }
 
     public void openInsertCountryForm(Country country, Mode mode) throws Exception {
@@ -112,7 +110,7 @@ public class Coordinator {
 
     public void openExamPeriodPanel() throws Exception {
         examPeriodController = new ExamPeriodPanelController(clientFormController.getExamPeriodPanel());
-        examPeriodController.fillExamPeriods(communication.getAllExamPeriods());
+        examPeriodController.preparePanel();
     }
 
     public void openInsertExamPeriodForm(ExamPeriod examPeriod, Mode mode) throws Exception {
@@ -122,7 +120,7 @@ public class Coordinator {
 
     public void openTeacherPanel() throws Exception {
         teacherPanelController = new TeacherPanelController(clientFormController.getTeacherPanel());
-        teacherPanelController.fillTeachers(communication.getAllTeachers());
+        teacherPanelController.preparePanel();
     }
 
     public void openInsertTeacherForm(Teacher teacher, Mode mode) {
@@ -132,10 +130,7 @@ public class Coordinator {
 
     public void openStudyLevelPanel() throws Exception {
         studyLevelPanelController = new StudyLevelPanelController(clientFormController.getStudyLevelPanel());
-        studyLevelPanelController.setAllStudyLevels(communication.getAllStudyLevels());
-        studyLevelPanelController.fillStudyLevels(studyLevelPanelController.getAllStudyLevels());
-        studyLevelPanelController.fillStudyPrograms(null);
-        studyLevelPanelController.fillModules(null);
+        studyLevelPanelController.preparePanel();
     }
 
     public void openInsertStudyLevelForm(StudyLevel studyLevel, Mode mode) throws Exception {

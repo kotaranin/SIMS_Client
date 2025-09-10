@@ -42,10 +42,14 @@ public class StudentPanelController {
     }
 
     public void preparePanel() throws Exception {
+        initialized = false;
         List<City> cities = communication.getAllCities();
         List<StudyProgram> studyPrograms = communication.getAllStudyPrograms();
         List<Student> students = communication.getAllStudents();
         List<Object> values = new ArrayList<>();
+        studentPanel.getTxtFirstName().setText(null);
+        studentPanel.getTxtLastName().setText(null);
+        studentPanel.getTxtIndexNumber().setText(null);
         studentPanel.getComboCity().removeAllItems();
         studentPanel.getComboCity().addItem(new City(null, "Svi gradovi", null));
         for (City city : cities) {
@@ -92,7 +96,7 @@ public class StudentPanelController {
             try {
                 StudyProgram studyProgram = (StudyProgram) studentPanel.getComboStudyProgram().getModel().getSelectedItem();
                 if (studyProgram != null && studyProgram.getIdStudyProgram() != null) {
-                    List<domain.Module> modules = communication.getModules(studyProgram);
+                    List<domain.Module> modules = studyProgram.getModules();
                     studentPanel.getComboModule().removeAllItems();
                     studentPanel.getComboModule().addItem(new domain.Module(null, "Svi moduli", null));
                     for (domain.Module module : modules) {
@@ -114,7 +118,7 @@ public class StudentPanelController {
         studentPanel.insertStudentAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertStudentForm(null, Mode.INSERT);
-                fillStudents(communication.getAllStudents());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -124,7 +128,7 @@ public class StudentPanelController {
                 int row = studentPanel.getTblStudent().getSelectedRow();
                 Student student = (Student) ((StudentTM) studentPanel.getTblStudent().getModel()).getValueAt(row, 0);
                 coordinator.openInsertStudentForm(student, Mode.UPDATE);
-                fillStudents(communication.getAllStudents());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(studentPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -132,12 +136,16 @@ public class StudentPanelController {
         studentPanel.getTxtFirstName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -147,12 +155,16 @@ public class StudentPanelController {
         studentPanel.getTxtLastName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -167,12 +179,16 @@ public class StudentPanelController {
         studentPanel.getTxtIndexNumber().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -180,7 +196,9 @@ public class StudentPanelController {
             }
         });
         studentPanel.getSpinnerYearOfStudy().addChangeListener((ChangeEvent e) -> {
-            search();
+            if (initialized) {
+                search();
+            }
         });
         studentPanel.getComboStudyProgram().addActionListener((ActionEvent e) -> {
             if (initialized) {

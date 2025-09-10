@@ -121,9 +121,7 @@ public class ClientFormController {
         clientForm.getMenuAdministration().setVisible(true);
         clientForm.getMenuInternship().setVisible(true);
         clientForm.getMenuProfile().setVisible(true);
-        if (coordinator.getStudentOfficer().getAdmin()) {
-            clientForm.getItemRegistrationRequest().setVisible(true);
-        }
+        clientForm.getItemRegistrationRequest().setVisible(coordinator.getStudentOfficer().getAdmin());
         cardLayout.show(clientForm.getMainPanel(), "internshipPanel");
     }
 

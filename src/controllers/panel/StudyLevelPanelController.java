@@ -13,7 +13,6 @@ import enums.Mode;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -32,32 +31,34 @@ public class StudyLevelPanelController {
     private final StudyLevelPanel studyLevelPanel;
     private final Communication communication;
     private final Coordinator coordinator;
-    private List<StudyLevel> allStudyLevels;
+    private boolean initialized;
 
     public StudyLevelPanelController(StudyLevelPanel studyLevelPanel) {
         this.studyLevelPanel = studyLevelPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
-    public List<StudyLevel> getAllStudyLevels() {
-        return allStudyLevels;
+    public void preparePanel() throws Exception {
+        initialized = false;
+        studyLevelPanel.getTxtName().setText(null);
+        fillStudyLevels(communication.getAllStudyLevels());
+        fillStudyPrograms(null);
+        fillModules(null);
+        initialized = true;
     }
 
-    public void setAllStudyLevels(List<StudyLevel> allStudyLevels) {
-        this.allStudyLevels = allStudyLevels;
-    }
-
-    public void fillStudyLevels(List<StudyLevel> studyLevels) {
+    private void fillStudyLevels(List<StudyLevel> studyLevels) {
         studyLevelPanel.getTblStudyLevel().setModel(new StudyLevelTM(studyLevels));
     }
 
-    public void fillStudyPrograms(List<StudyProgram> studyPrograms) {
+    private void fillStudyPrograms(List<StudyProgram> studyPrograms) {
         studyLevelPanel.getTblStudyProgram().setModel(new StudyProgramTM(studyPrograms));
     }
 
-    public void fillModules(List<Module> modules) {
+    private void fillModules(List<Module> modules) {
         studyLevelPanel.getTblModule().setModel(new ModuleTM(modules));
     }
 
@@ -97,12 +98,16 @@ public class StudyLevelPanelController {
         studyLevelPanel.getTxtName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -112,8 +117,10 @@ public class StudyLevelPanelController {
             private void search() {
                 try {
                     String name = studyLevelPanel.getTxtName().getText().trim();
-                    List<StudyLevel> filteredStudyLevels = (List<StudyLevel>) allStudyLevels.stream().filter(studyLevel -> studyLevel.getName().toLowerCase().contains(name)).toList();
-                    fillStudyLevels(new LinkedList<>(filteredStudyLevels));
+                    StudyLevel studyLevel = new StudyLevel(null, name, null);
+                    fillStudyLevels(communication.searchStudyLevel(studyLevel));
+                    fillStudyPrograms(null);
+                    fillModules(null);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
@@ -123,6 +130,7 @@ public class StudyLevelPanelController {
         studyLevelPanel.insertAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertStudyLevelForm(null, Mode.INSERT);
+                preparePanel();
                 fillStudyLevels(communication.getAllStudyLevels());
                 fillStudyPrograms(null);
                 fillModules(null);
@@ -135,9 +143,7 @@ public class StudyLevelPanelController {
                 int row = studyLevelPanel.getTblStudyLevel().getSelectedRow();
                 StudyLevel studyLevel = (StudyLevel) ((StudyLevelTM) studyLevelPanel.getTblStudyLevel().getModel()).getValueAt(row, 0);
                 coordinator.openInsertStudyLevelForm(studyLevel, Mode.UPDATE);
-                fillStudyLevels(communication.getAllStudyLevels());
-                fillStudyPrograms(communication.getStudyPrograms(studyLevel));
-                fillModules(null);
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(studyLevelPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }

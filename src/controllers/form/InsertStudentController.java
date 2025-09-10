@@ -90,7 +90,7 @@ public class InsertStudentController {
         if (showModules) {
             insertStudentForm.getLblModule().setVisible(true);
             insertStudentForm.getComboModule().setVisible(true);
-            List<domain.Module> modules = communication.getModules(studyProgram);
+            List<domain.Module> modules = studyProgram.getModules();
             insertStudentForm.getComboModule().removeAllItems();
             for (domain.Module module : modules) {
                 insertStudentForm.getComboModule().addItem(module);

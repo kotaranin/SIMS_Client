@@ -47,7 +47,7 @@ public class InsertCountryController {
         if (mode == Mode.UPDATE) {
             insertCountryForm.setTitle("Ažuriraj državu");
             insertCountryForm.getTxtCountryName().setText(country.getName());
-            fillCities(communication.getCities(country));
+            fillCities(country.getCities());
         } else {
             insertCountryForm.setTitle("Dodaj državu");
             fillCities(new LinkedList<>());

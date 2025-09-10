@@ -29,19 +29,29 @@ public class CountryPanelController {
     private final CountryPanel countryPanel;
     private final Communication communication;
     private final Coordinator coordinator;
+    private boolean initialized;
 
     public CountryPanelController(CountryPanel countriesPanel) {
         this.countryPanel = countriesPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
-    public void fillCountries(List<Country> countries) {
+    public void preparePanel() throws Exception {
+        initialized = false;
+        countryPanel.getTxtCountryName().setText(null);
+        fillCountries(communication.getAllCountries());
+        fillCities(null);
+        initialized = true;
+    }
+
+    private void fillCountries(List<Country> countries) {
         countryPanel.getTblCountry().setModel(new CountryTM(countries));
     }
 
-    public void fillCities(List<City> cities) {
+    private void fillCities(List<City> cities) {
         countryPanel.getTblCity().setModel(new CityTM(cities));
     }
 
@@ -58,8 +68,7 @@ public class CountryPanelController {
                 try {
                     int row = countryPanel.getTblCountry().getSelectedRow();
                     Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 0);
-                    List<City> cities = communication.getCities(country);
-                    fillCities(cities);
+                    fillCities(country.getCities());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
@@ -69,12 +78,16 @@ public class CountryPanelController {
         countryPanel.getTxtCountryName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -86,6 +99,7 @@ public class CountryPanelController {
                     String name = countryPanel.getTxtCountryName().getText().trim();
                     Country country = new Country(null, name, null);
                     fillCountries(communication.searchCountries(country));
+                    fillCities(null);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
                 }
@@ -94,8 +108,7 @@ public class CountryPanelController {
         countryPanel.insertCountryAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertCountryForm(null, Mode.INSERT);
-                fillCountries(communication.getAllCountries());
-                fillCities(null);
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -105,8 +118,7 @@ public class CountryPanelController {
                 int row = countryPanel.getTblCountry().getSelectedRow();
                 Country country = (Country) ((CountryTM) countryPanel.getTblCountry().getModel()).getValueAt(row, 0);
                 coordinator.openInsertCountryForm(country, Mode.UPDATE);
-                fillCountries(communication.getAllCountries());
-                fillCities(communication.getCities(country));
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(countryPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }

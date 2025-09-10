@@ -72,10 +72,6 @@ public class LogInPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Lozinka:");
 
-        txtEmail.setText("uros.kotaranin@fon.bg.ac.rs");
-
-        txtPassword.setText("123456");
-
         btnLogIn.setText("Uloguj se");
 
         btnRegister.setText("Registruj se");

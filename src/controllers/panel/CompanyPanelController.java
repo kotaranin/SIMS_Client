@@ -37,15 +37,18 @@ public class CompanyPanelController {
     }
 
     public void preparePanel() throws Exception {
+        initialized = false;
         List<City> cities = communication.getAllCities();
         List<Company> companies = communication.getAllCompanies();
+        companyPanel.getTxtName().setText(null);
+        companyPanel.getTxtAddress().setText(null);
         companyPanel.getComboCity().removeAllItems();
         companyPanel.getComboCity().addItem(new City(null, "Svi gradovi", null));
         for (City city : cities) {
             companyPanel.getComboCity().addItem(city);
         }
-        initialized = true;
         fillCompanies(companies);
+        initialized = true;
     }
 
     private void fillCompanies(List<Company> companies) {
@@ -74,12 +77,16 @@ public class CompanyPanelController {
         companyPanel.getTxtName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -89,12 +96,16 @@ public class CompanyPanelController {
         companyPanel.getTxtAddress().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -109,9 +120,9 @@ public class CompanyPanelController {
         companyPanel.insertCompanyAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertCompanyForm(null, Mode.INSERT);
-                fillCompanies(communication.getAllCompanies());
+                preparePanel();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
         companyPanel.updateCompanyAddActionListener((ActionEvent e) -> {
@@ -119,9 +130,10 @@ public class CompanyPanelController {
                 int row = companyPanel.getTblCompany().getSelectedRow();
                 Company company = (Company) ((CompanyTM) companyPanel.getTblCompany().getModel()).getValueAt(row, 0);
                 coordinator.openInsertCompanyForm(company, Mode.UPDATE);
-                fillCompanies(communication.getAllCompanies());
+                preparePanel();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.INFORMATION_MESSAGE);
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(companyPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         });
     }

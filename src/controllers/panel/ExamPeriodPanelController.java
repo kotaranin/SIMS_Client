@@ -25,15 +25,24 @@ public class ExamPeriodPanelController {
     private final ExamPeriodPanel examPeriodsPanel;
     private final Communication communication;
     private final Coordinator coordinator;
+    private boolean initialized;
 
     public ExamPeriodPanelController(ExamPeriodPanel examPeriodsPanel) {
         this.examPeriodsPanel = examPeriodsPanel;
         this.communication = Communication.getInstance();
         this.coordinator = Coordinator.getInstance();
+        this.initialized = false;
         addActionListeners();
     }
 
-    public void fillExamPeriods(List<ExamPeriod> examPeriods) {
+    public void preparePanel() throws Exception {
+        initialized = false;
+        examPeriodsPanel.getTxtName().setText(null);
+        fillExamPeriods(communication.getAllExamPeriods());
+        initialized = true;
+    }
+
+    private void fillExamPeriods(List<ExamPeriod> examPeriods) {
         examPeriodsPanel.getTblExamPeriods().setModel(new ExamPeriodTM(examPeriods));
     }
 
@@ -47,12 +56,16 @@ public class ExamPeriodPanelController {
         examPeriodsPanel.getTxtName().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                search();
+                if (initialized) {
+                    search();
+                }
             }
 
             @Override
@@ -62,7 +75,7 @@ public class ExamPeriodPanelController {
         examPeriodsPanel.insertAddActionListener((ActionEvent e) -> {
             try {
                 coordinator.openInsertExamPeriodForm(null, Mode.INSERT);
-                fillExamPeriods(communication.getAllExamPeriods());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
@@ -72,7 +85,7 @@ public class ExamPeriodPanelController {
                 int row = examPeriodsPanel.getTblExamPeriods().getSelectedRow();
                 ExamPeriod examPeriod = (ExamPeriod) ((ExamPeriodTM) examPeriodsPanel.getTblExamPeriods().getModel()).getValueAt(row, 0);
                 coordinator.openInsertExamPeriodForm(examPeriod, Mode.UPDATE);
-                fillExamPeriods(communication.getAllExamPeriods());
+                preparePanel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(examPeriodsPanel, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
